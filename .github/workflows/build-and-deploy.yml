@@ -49,7 +49,7 @@ jobs:
     if: github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/v')
     permissions:
       contents: read
-      id-token: write   # SLSA / OIDC
+      id-token: write
 
     steps:
       - uses: actions/download-artifact@v4
@@ -57,8 +57,31 @@ jobs:
           name: site
           path: public/
 
+      - name: Install Wrangler
+        run: npm install -g wrangler
+
       - name: Deploy to Cloudflare R2
-        uses: cloudflare/wrangler-action@v3
-        with:
-          apiToken: ${{ secrets.CF_API_TOKEN }}
-          command: r2 object put cispec-site --recursive --dir public/
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+        run: |
+          # Sync public/ to R2 bucket — upload all files, delete removed ones
+          find public/ -type f | while read f; do
+            key="${f#public/}"
+            # Set correct content-type per extension
+            case "${f##*.}" in
+              html) ct="text/html; charset=utf-8" ;;
+              css)  ct="text/css" ;;
+              js)   ct="application/javascript" ;;
+              xml)  ct="application/xml" ;;
+              json) ct="application/json" ;;
+              svg)  ct="image/svg+xml" ;;
+              png)  ct="image/png" ;;
+              ico)  ct="image/x-icon" ;;
+              txt)  ct="text/plain" ;;
+              *)    ct="application/octet-stream" ;;
+            esac
+            wrangler r2 object put "cispec-site/${key}" \
+              --file "${f}" \
+              --content-type "${ct}" \
+              --cache-control "public, max-age=3600"
+          done
