@@ -1,0 +1,52 @@
+baseURL = "https://cispec.org/"
+languageCode = "en-GB"
+title = "cispec — Change Item Attribution Standard"
+theme = ""
+
+[params]
+  description   = "The org.cispec namespace: a public Change Item attribution standard for software supply chains."
+  organisation  = "Da Planet Security"
+  pen           = "42387"
+  duns          = "039-271-257"
+  specVersion   = "1.0"
+  licenceSPDX   = "BSD-2-Clause"
+  repoCanonical = "https://github.com/denzuko/cispec"
+  predecessor   = "net.matrix"
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+  [markup.highlight]
+    style      = "monokai"
+    noClasses  = false
+
+[outputs]
+  home    = ["HTML", "RSS"]
+  section = ["HTML"]
+  page    = ["HTML"]
+
+[taxonomies]
+  tag = "tags"
+
+[menu]
+  [[menu.main]]
+    name       = "Spec"
+    url        = "/"
+    weight     = 10
+  [[menu.main]]
+    name       = "Labels"
+    url        = "/spec/"
+    weight     = 20
+  [[menu.main]]
+    name       = "Gates"
+    url        = "/gates/"
+    weight     = 30
+  [[menu.main]]
+    name       = "ASN / OID"
+    url        = "/asn/"
+    weight     = 40
+  [[menu.main]]
+    name       = "Tools"
+    url        = "/tools/"
+    weight     = 50

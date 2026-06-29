@@ -1,0 +1,64 @@
+# SPDX-License-Identifier: BSD-2-Clause
+# cispec site — build and deploy to Cloudflare R2
+# Triggered on push to main and on release tags.
+
+name: build-and-deploy
+
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+  pull_request:
+    branches: [main]
+
+env:
+  CISPEC_ORGANIZATION: daplanet
+  CISPEC_ORGUNIT:      dps
+  CISPEC_APPLICATION:  cispec-site
+  CISPEC_VERSION:      ${{ github.ref_name }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # full history for Hugo .GitInfo
+
+      - name: Install Hugo
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: "latest"
+          extended: true
+
+      - name: Build site
+        run: hugo --minify --baseURL "https://cispec.org/"
+
+      - name: Upload artefact
+        uses: actions/upload-artifact@v4
+        with:
+          name: site
+          path: public/
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/v')
+    permissions:
+      contents: read
+      id-token: write   # SLSA / OIDC
+
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: site
+          path: public/
+
+      - name: Deploy to Cloudflare R2
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CF_API_TOKEN }}
+          command: r2 object put cispec-site --recursive --dir public/
