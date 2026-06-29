@@ -18,8 +18,12 @@ Hugo static site. Build with:
 hugo --minify --baseURL "https://cispec.org/"
 ```
 
-No server-side processing. Output goes to `public/`. Deployed to
-Cloudflare R2 via `cloudflare/wrangler-action`.
+No server-side processing. Output goes to `public/`.
+
+Deployed via **Cloudflare Pages** — connected directly to `denzuko/cispec`
+on GitHub. Push to `main` triggers a CF Pages build and deploy automatically.
+No secrets or deploy steps required in CI. The `.github/workflows/build-check.yml`
+workflow exists only to verify Hugo builds cleanly on PRs.
 
 ## Content rules
 
