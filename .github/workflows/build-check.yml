@@ -1,0 +1,38 @@
+# SPDX-License-Identifier: BSD-2-Clause
+# cispec site — CI only; deployment is handled by Cloudflare Pages
+# (connected directly to denzuko/cispec on GitHub)
+#
+# This workflow runs on PRs to verify Hugo builds cleanly.
+# CF Pages handles build + deploy on push to main automatically.
+
+name: build-check
+
+on:
+  pull_request:
+    branches: [main]
+
+env:
+  CISPEC_ORGANIZATION: daplanet
+  CISPEC_ORGUNIT:      dps
+  CISPEC_APPLICATION:  cispec-site
+  CISPEC_VERSION:      ${{ github.ref_name }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install Hugo
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: "latest"
+          extended: true
+
+      - name: Build site
+        run: hugo --minify --baseURL "https://cispec.org/"
