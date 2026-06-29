@@ -1,7 +1,10 @@
 baseURL = "https://cispec.org/"
 languageCode = "en-GB"
-title = "cispec — Change Item Attribution Standard"
-theme = ""
+title = "cispec"
+theme = "hugo-book"
+
+enableGitInfo = true
+disableKinds  = ["taxonomy", "term"]
 
 [params]
   description   = "The org.cispec namespace: a public Change Item attribution standard for software supply chains."
@@ -13,40 +16,21 @@ theme = ""
   repoCanonical = "https://github.com/denzuko/cispec"
   predecessor   = "net.matrix"
 
+  # hugo-book
+  BookRepo     = "https://github.com/denzuko/cispec"
+  BookEditPath = "edit/main/content"
+  BookSection  = "*"
+  BookToC      = true
+  BookSearch   = true
+  BookTheme    = "auto"
+
 [markup]
   [markup.goldmark]
     [markup.goldmark.renderer]
       unsafe = true
   [markup.highlight]
-    style      = "monokai"
-    noClasses  = false
-
-[outputs]
-  home    = ["HTML", "RSS"]
-  section = ["HTML"]
-  page    = ["HTML"]
-
-[taxonomies]
-  tag = "tags"
-
-[menu]
-  [[menu.main]]
-    name       = "Spec"
-    url        = "/"
-    weight     = 10
-  [[menu.main]]
-    name       = "Labels"
-    url        = "/spec/"
-    weight     = 20
-  [[menu.main]]
-    name       = "Gates"
-    url        = "/gates/"
-    weight     = 30
-  [[menu.main]]
-    name       = "ASN / OID"
-    url        = "/asn/"
-    weight     = 40
-  [[menu.main]]
-    name       = "Tools"
-    url        = "/tools/"
-    weight     = 50
+    style     = "monokai"
+    noClasses = false
+  [markup.tableOfContents]
+    startLevel = 1
+    endLevel   = 4
