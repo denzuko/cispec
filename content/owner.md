@@ -3,7 +3,7 @@ title: "owner"
 term: "owner"
 core: true
 requiredFor: ["any CI"]
-related: ["organization", "orgunit", "oid", "customer", "costcenter", "custody-chain", "purdue-level"]
+related: ["organization", "orgunit", "oid", "customer", "costcenter", "custody-chain"]
 docOid: "1.3.6.1.4.1.42387.2.1.2"
 docGuid: "54cfcb4f-03f8-548e-80e7-75aea99c3580"
 date: 2026-06-30

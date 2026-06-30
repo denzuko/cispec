@@ -206,12 +206,18 @@ identifier:
 | [hash-at-collection](/hash-at-collection/) | `1.3.6.1.4.1.42387.2.5.1` | `85cbd708-dcd0-5e36-8070-95f46ce00006` |
 | [application](/application/) | `1.3.6.1.4.1.42387.2.6.1.1` | `3d021461-8d8b-5428-959a-eef4e7a3cd4d` |
 | [role](/role/) | `1.3.6.1.4.1.42387.2.6.1.2` | `5bedd70b-5466-578d-a7b9-0e25d5017287` |
-| [purdue-level](/purdue-level/) | `1.3.6.1.4.1.42387.2.6.3.1` | `17f9418a-4289-5dfe-9736-aad5b769b48b` |
 
-Reserved arcs with no term minted yet: `.2.6.2` (hardware), `.2.6.4`
-(network), `.2.6.5` (evidence), `.2.6.6` (access), `.2.6.7` (facility),
-`.2.6.8` (contract), `.2.6.9` (crypto). New terms in these categories
-take the next unused position within their reserved arc.
+`purdue-level` was minted, then retired and folded into
+[`environment`](/environment/) as a qualified value
+(`environment=purdue-level:<n>`) — it failed the redundancy test
+against an existing core key. Its document OID
+(`1.3.6.1.4.1.42387.2.6.3.1`) is retired, not reassigned.
+
+Reserved arcs with no term minted yet: `.2.6.2` (hardware), `.2.6.3`
+(retired — formerly purdue-level), `.2.6.4` (network), `.2.6.5`
+(evidence), `.2.6.6` (access), `.2.6.7` (facility), `.2.6.8`
+(contract), `.2.6.9` (crypto). New terms in unreserved categories take
+the next unused position within their reserved arc.
 
 ## Versioning
 
