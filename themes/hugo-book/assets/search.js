@@ -1,6 +1,6 @@
-import Fuse from '{{ "fuse.min.mjs" | relURL }}'
+'use strict';
 
-{{ $searchDataFile := printf "%s.search-data.json" .Language.Name }}
+{{ $searchDataFile := printf "%s.search-data.json" .Language.Lang }}
 {{ $searchData := resources.Get "search-data.json" | resources.ExecuteAsTemplate $searchDataFile . | resources.Minify | resources.Fingerprint }}
 {{ $searchConfig := i18n "bookSearchConfig" | default "{}" }}
 
@@ -34,15 +34,13 @@ import Fuse from '{{ "fuse.min.mjs" | relURL }}'
   input.addEventListener('focus', init);
   input.addEventListener('keyup', search);
 
-  document.addEventListener('keydown', focusOnKeyDown);
+  document.addEventListener('keypress', focusSearchFieldOnKeyPress);
 
   /**
-   * @param {KeyboardEvent} event
+   * @param {Event} event
    */
-  function focusOnKeyDown(event) {
-    if (event.key === 'k' && (event.metaKey || event.ctrlKey)) {
-      event.preventDefault();
-      input.focus();
+  function focusSearchFieldOnKeyPress(event) {
+    if (event.target.value !== undefined) {
       return;
     }
 
@@ -50,14 +48,22 @@ import Fuse from '{{ "fuse.min.mjs" | relURL }}'
       return;
     }
 
-    if (event.target.value !== undefined) {
+    const characterPressed = String.fromCharCode(event.charCode);
+    if (!isHotkey(characterPressed)) {
       return;
     }
 
-    if (event.key === '/') {
-      event.preventDefault();
-      input.focus();
-    }
+    input.focus();
+    event.preventDefault();
+  }
+
+  /**
+   * @param {String} character
+   * @returns {Boolean} 
+   */
+  function isHotkey(character) {
+    const dataHotkeys = input.getAttribute('data-hotkeys') || '';
+    return dataHotkeys.indexOf(character) >= 0;
   }
 
   function init() {

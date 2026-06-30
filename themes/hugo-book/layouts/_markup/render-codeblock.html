@@ -3,8 +3,8 @@
   {{- if $href -}}
     {{- $href = partial "docs/links/portable-link" (dict "Page" $.PageInner "Destination" $href) -}}
   {{- end -}}
-<code class="book-codeblock-filename">
+<div class="book-codeblock-filename">
   <a {{ with $href }}href="{{ . }}"{{ end }}>{{ . }}</a>
-</code>
+</div>
 {{- end -}}
 {{- (transform.HighlightCodeBlock . .Options).Wrapped -}}

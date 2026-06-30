@@ -2,11 +2,11 @@
 {{ $translations := dict }}
 {{ if (eq $bookTranslatedOnly false ) }}
   {{ range .Site.Home.Translations }}
-    {{ $translations = merge $translations (dict .Language.Name .) }}
+    {{ $translations = merge $translations (dict .Language.Lang .) }}
   {{ end }}
 {{ end }}
 {{ range .Translations }}
-  {{ $translations = merge $translations (dict .Language.Name .) }}
+  {{ $translations = merge $translations (dict .Language.Lang .) }}
 {{ end }}
 
 <ul class="book-languages">
@@ -15,16 +15,16 @@
     <label for="languages" class="flex">
       <a role="button">
         <img src="{{ partial "docs/icon" "translate" }}" class="book-icon" alt="{{ partial "docs/text/i18n" "Languages" }}" />
-        {{ $.Site.Language.Label }}
+        {{ $.Site.Language.LanguageName }}
       </a>
       <img src="{{ partial "docs/icon" "chevron-right" }}" class="book-icon" alt="{{ partial "docs/text/i18n" "Expand" }}" />
     </label>
 
     <ul>
-      {{ range hugo.Sites }}{{ with index $translations .Language.Name }}
+      {{ range .Site.Languages }}{{ with index $translations .Lang }}
       <li>
         <a href="{{ cond hugo.IsMultihost .Permalink .RelPermalink }}" class="flex flex-auto">
-          {{ .Language.Label }}
+          {{ .Language.LanguageName }}
         </a>
       </li>
       {{ end }}{{ end }}

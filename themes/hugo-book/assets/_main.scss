@@ -71,10 +71,6 @@ nav ul {
   }
 }
 
-nav > ul {
-  margin-bottom: $padding-16;
-}
-
 ul.pagination {
   display: flex;
   justify-content: center;
@@ -340,6 +336,8 @@ body[dir="rtl"] .book-menu {
 }
 
 .book-languages {
+  margin-bottom: $padding-16;
+
   span {
     padding: 0;
   }
@@ -425,12 +423,9 @@ body[dir="rtl"] .book-menu {
 
 // Extra space for big screens
 @media screen and (min-width: $container-max-width) {
-  main {
-    gap: $padding-16;
-    padding: $padding-16;
-  }
-  .book-menu .book-menu-content, // move fixed menus down
+  .book-page,
+  .book-menu .book-menu-content,
   .book-toc .book-toc-content {
-    top: $padding-16;
+    padding: $padding-16 * 2 $padding-16;
   }
 }

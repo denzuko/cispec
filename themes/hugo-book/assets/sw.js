@@ -1,10 +1,8 @@
 const cacheName = self.location.pathname
 const pages = [
 {{ if eq .Site.Params.BookServiceWorker "precache" }}
-  {{ range hugo.Sites -}}
-    {{ range .Pages -}}
-    "{{ .RelPermalink }}",
-    {{ end -}}
+  {{ range .Site.AllPages -}}
+  "{{ .RelPermalink }}",
   {{ end -}}
   {{ range $permalink, $ok := site.Store.Get "book-sw-precache" -}}
   "{{ $permalink }}",

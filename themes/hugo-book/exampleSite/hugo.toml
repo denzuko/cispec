@@ -14,17 +14,6 @@ copyright = '[© CC BY 4.0](https://creativecommons.org/licenses/by/4.0/legalcod
 disablePathToLower = true
 enableGitInfo = true
 
-[outputFormats]
-[outputFormats.txt]
-  mediaType = 'text/plain'
-  baseName = 'source'
-  isPlainText = true
-
-[outputs]
-  home = ['html', 'txt', 'rss']
-  page = ['html', 'txt']
-  section = ['html', 'txt']
-
 # Needed for mermaid/katex shortcodes
 [markup]
 [markup.goldmark.renderer]
@@ -42,42 +31,58 @@ enableGitInfo = true
 # And https://gohugo.io/content-management/multilingual/#translation-by-content-directory
 [languages]
 [languages.en]
-  label = 'English'
+  languageName = 'English'
   contentDir = 'content.en'
   weight = 1
 
 [languages.zh]
-  label = 'Chinese'
+  languageName = 'Chinese'
   contentDir = 'content.zh'
   weight = 2
 
 [languages.he]
-  label = 'Hebrew'
+  languageName = 'Hebrew'
   contentDir = 'content.he'
-  direction = 'rtl'
+  languageDirection = 'rtl'
   weight = 3
 
 [menu]
 [[menu.home]]
   name = 'Documentation'
-  pageRef = '/docs/getting-started/introduction'
-  weight = 2
+  pageRef = '/docs/example/'
+  weight = 1
+
+[[menu.home]]
+  pageRef = '/docs/example/'
+  weight = 10
+  parent = 'Documentation'
+
+[[menu.home]]
+  name = 'Shortcodes'
+  pageRef = '/docs/shortcodes/buttons/'
+  weight = 20
+  parent = 'Documentation'
 
 [[menu.home]]
   name = 'Showcases'
   pageRef = '/showcases/'
-  weight = 3
+  weight = 2
 
 [[menu.home]]
   name = 'Github'
   url = 'https://github.com/alex-shpak/hugo-book/'
-  weight = 4
+  weight = 3
 
 # [[menu.before]]
 [[menu.after]]
   name = 'Github'
   url = 'https://github.com/alex-shpak/hugo-book/'
   weight = 10
+
+[[menu.after]]
+  name = 'Hugo Themes'
+  url = 'https://themes.gohugo.io/themes/hugo-book/'
+  weight = 20
 
 [params]
   # (Optional, default light) Sets color theme: light, dark or auto.
