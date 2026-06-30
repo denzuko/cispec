@@ -25,7 +25,7 @@ A structured value referencing the custody record (a hash chain, a log
 reference, or a pointer to the organisation's own evidence-management
 system). This specification does not mandate a specific encoding.
 
-```
+```sh
 org.cispec.custody-chain=sha256:9f86d0...:case-2026-0142
 ```
 

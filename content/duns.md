@@ -16,7 +16,7 @@ organisation, expressed in OID notation.
 `iso.org.duns.<9-digit-number>` — hyphens stripped from the source DUNS
 number.
 
-```
+```sh
 org.cispec.duns=iso.org.duns.039271257
 ```
 

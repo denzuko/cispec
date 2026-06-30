@@ -17,7 +17,7 @@ every Change Item type, and not part of the universal core.
 
 A short, stable application or service name.
 
-```
+```sh
 org.cispec.application=odoo-mcp-server
 ```
 

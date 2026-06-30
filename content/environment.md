@@ -15,7 +15,7 @@ environment of a Change Item.
 
 A lower-case slug: alphanumeric characters and hyphens only.
 
-```
+```sh
 org.cispec.environment=production
 ```
 

@@ -17,7 +17,7 @@ services or assets to external customers.
 A customer identifier in whatever scheme the owning organisation uses
 for billing or contract reference.
 
-```
+```sh
 org.cispec.customer=PVT-01
 ```
 

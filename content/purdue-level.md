@@ -17,7 +17,7 @@ zone-and-conduit terminology.
 
 An integer 0–5.
 
-```
+```sh
 org.cispec.purdue-level=1
 ```
 

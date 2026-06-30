@@ -19,7 +19,7 @@ change the key.
 A semantic version 2.0 string. Pre-release and build-metadata suffixes
 are permitted.
 
-```
+```sh
 org.cispec.version=1.3.0
 org.cispec.version=2.0.0-rc.1
 ```

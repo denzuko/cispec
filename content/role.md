@@ -15,7 +15,7 @@ performs within its deployment context.
 
 A lower-case slug: alphanumeric characters and hyphens only.
 
-```
+```sh
 org.cispec.role=mcp-server
 ```
 

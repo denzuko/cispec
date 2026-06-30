@@ -37,6 +37,9 @@ jobs:
       - name: Build site
         run: hugo --minify --baseURL "https://cispec.org/"
 
+      - name: Index with Pagefind
+        run: npx --yes pagefind --site public --output-path public/pagefind
+
       - name: Upload build artefact
         uses: actions/upload-artifact@v4
         with:

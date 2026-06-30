@@ -20,7 +20,7 @@ An identity-contact value: an email address, a key fingerprint, or a
 fingerprint-qualified address, optionally prefixed with a role
 qualifier separated by a colon.
 
-```
+```sh
 org.cispec.owner=denzuko@dapla.net
 org.cispec.owner=FC13F74B@cispec.org
 org.cispec.owner=shift-supervisor:j.martinez@example.org

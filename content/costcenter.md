@@ -17,7 +17,7 @@ chargeback across CapEx/OpEx categories.
 A cost centre identifier in whatever scheme the owning organisation
 uses internally.
 
-```
+```sh
 org.cispec.costcenter=INT-01
 ```
 

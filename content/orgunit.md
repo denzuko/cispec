@@ -17,7 +17,7 @@ organisation.
 A lower-case slug: alphanumeric characters and hyphens only, no leading
 or trailing hyphen.
 
-```
+```sh
 org.cispec.orgunit=dps
 ```
 

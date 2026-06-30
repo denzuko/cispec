@@ -16,7 +16,7 @@ label set was authored and validated against.
 A semantic version 2.0 string matching a published specification
 version.
 
-```
+```sh
 org.cispec.specversion=1.0
 ```
 

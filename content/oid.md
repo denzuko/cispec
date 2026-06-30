@@ -18,7 +18,7 @@ Enterprise Number **42387**.
 A dot-notation OID string rooted at `iso.org.dod.internet.42387`
 (dotted-decimal equivalent: `1.3.6.1.4.1.42387`).
 
-```
+```sh
 org.cispec.oid=iso.org.dod.internet.42387
 ```
 
