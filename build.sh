@@ -16,3 +16,6 @@ chmod +x /tmp/hugo
 
 /tmp/hugo version
 /tmp/hugo --minify --baseURL "https://cispec.org/"
+
+echo "Deploying to Cloudflare Pages..."
+npx wrangler pages deploy public --project-name=cispec
