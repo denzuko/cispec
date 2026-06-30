@@ -36,3 +36,25 @@ org.cispec.custody-chain=sha256:9f86d0...:case-2026-0142
 `org.cispec.custody-chain` is REQUIRED for evidence Change Items
 intended for external verification — audit, regulatory, or
 court-admissible use.
+
+## Attestation
+
+`custody-chain` is inherently attestation-bearing — unlike most core
+and extended keys, where the question is *whether* attestation
+applies, here it is the entire point of the term. The value is
+expected to be independently verifiable: a hash chain or log reference
+that an auditor, regulator, or court can check without trusting the
+asserting organisation's own infrastructure, consistent with the
+auditability and repeatability principles in ISO/IEC 27037:2012. A
+`custody-chain` value that only resolves or verifies inside the
+collecting organisation's private systems does not meet this bar — see
+the [resolution requirement](/#minting-new-terms) on the root page,
+which applies with particular force here given evidentiary stakes.
+
+## Resolution and relation
+
+Every Change Item sharing the same `custody-chain` case reference
+forms an edge in the namespace's knowledge graph — "every item of
+evidence under case `2026-0142`" is a real, expected query, answered
+by the organisation's own evidence-management system, not by this
+specification.

@@ -30,3 +30,21 @@ Common values include `production`, `staging`, `development`, and
 `org.cispec.environment` is RECOMMENDED for any Change Item where
 environment context affects criticality, change windows, or
 change-freeze policy.
+
+## Attestation
+
+`environment` is not independently attestable. It is a self-asserted
+operational context with no external registry to verify against. For
+software Change Items, environment claims can be cross-checked against
+deployment infrastructure (is this artefact actually running where it
+claims to be) but that check is an implementation concern for the
+organisation's own deployment tooling, not something this
+specification or a cimatrix gate verifies directly.
+
+## Resolution and relation
+
+Every Change Item sharing the same `environment` value forms an edge
+in the namespace's knowledge graph — "everything currently in
+`production`" is a real, expected query, central to change-freeze
+and incident-response tooling, answered by whatever CMDB or deployment
+platform the organisation runs.

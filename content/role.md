@@ -25,3 +25,15 @@ org.cispec.role=mcp-server
 
 `org.cispec.role` is RECOMMENDED for software Change Items. It is not a
 universal core key.
+
+## Attestation
+
+`role` is not independently attestable. It is a self-asserted
+functional classification with no external registry to verify against.
+
+## Resolution and relation
+
+Every Change Item sharing the same `role` value forms an edge in the
+namespace's knowledge graph — "every `mcp-server`-role Change Item"
+is a real, expected query, typically used for capacity planning or
+incident triage by whatever CMDB the organisation runs.

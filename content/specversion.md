@@ -27,3 +27,20 @@ org.cispec.specversion=1.0
 `org.cispec.specversion` is RECOMMENDED on every Change Item. It allows
 a validator encountering an older label set to apply the correct
 historical conformance rules rather than the current ones.
+
+## Attestation
+
+`specversion` is not independently attestable. It is a self-asserted
+claim about which version of this specification a label set targets;
+this specification provides no mechanism to verify the claim beyond
+checking that the value corresponds to a real, published spec version.
+A validator MAY treat an unrecognised `specversion` value as a
+conformance warning.
+
+## Resolution and relation
+
+`specversion` does not form a meaningful reverse-lookup edge the way
+[`owner`](/owner/) or [`organization`](/organization/) do — querying
+"every Change Item authored against spec v1.0" is possible but
+typically only useful during a MAJOR version migration, to find label
+sets that still need updating.

@@ -34,3 +34,22 @@ org.cispec.purdue-level=1
 ## Conformance
 
 `org.cispec.purdue-level` is REQUIRED for ICS Change Items.
+
+## Attestation
+
+`purdue-level` is not independently attestable by this specification.
+It is a classification asserted by whoever performs the asset
+inventory and network segmentation work; ISA/IEC 62443 describes the
+methodology for assigning a level but does not provide a registry to
+verify a specific asset's claimed level against. Verification, where
+it matters, is a network-segmentation audit — an implementation
+concern for the organisation's OT security programme, not something
+this specification or a cimatrix gate checks directly.
+
+## Resolution and relation
+
+Every Change Item sharing the same `purdue-level` value forms an edge
+in the namespace's knowledge graph — "every Level 1 device" is a real,
+expected query, central to ICS network segmentation and zone-and-
+conduit security planning, answered by whatever OT asset inventory the
+organisation runs.

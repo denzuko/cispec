@@ -37,3 +37,27 @@ semver does not naturally apply.
 
 `org.cispec.version` is REQUIRED for Declared conformance on any
 Change Item, regardless of type.
+
+## Attestation
+
+`version` is not independently attestable by itself — a version string
+is a self-asserted claim with nothing to verify against on its own.
+For software Change Items it becomes attestable in combination with a
+SLSA provenance chain or a `cosign`-signed artefact: the build pipeline
+that produced version `1.3.0` can be cryptographically tied to that
+specific version string, making the *combination* of `version` plus a
+provenance attestation independently verifiable, even though `version`
+alone is not. This is the cimatrix `verify-slsa` use case — checking
+that a claimed version matches a signed, attested build.
+
+For non-software Change Items (a document revision, a policy
+amendment), `version` typically has no equivalent attestation path
+and remains a self-asserted value.
+
+## Resolution and relation
+
+Every Change Item sharing the same `version` value within the same
+`organization`/`application` pair forms an edge in the namespace's
+knowledge graph — "every deployment currently running `1.3.0`" is a
+real, expected query, answered by whatever deployment-tracking or CMDB
+system the organisation runs.

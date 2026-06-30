@@ -12,7 +12,9 @@ draft: false
 
 `org.cispec.customer` identifies the customer a Change Item is
 delivered for or attributed to, where the owning organisation delivers
-services or assets to external customers.
+services or assets to external customers. It pairs with
+[`org.cispec.costcenter`](/costcenter/) for organisations practising
+cost accounting and chargeback against specific customer engagements.
 
 ## Value format
 
@@ -27,3 +29,21 @@ org.cispec.customer=PVT-01
 
 `org.cispec.customer` is OPTIONAL. It applies where cost attribution or
 chargeback to an external customer is meaningful for the Change Item.
+
+## Attestation
+
+`customer` is not independently attestable by this specification. The
+identifier is internal to the owning organisation's own billing or
+contract-reference scheme and has no external registry to verify
+against — unlike [`org.cispec.duns`](/duns/), which references a
+publicly verifiable registry. Where contractual attestation of a
+customer relationship matters (a signed services agreement, a
+statement of work), that attestation belongs in the organisation's own
+contract-management system, referenced but not replaced by this label.
+
+## Resolution and relation
+
+Every Change Item sharing the same `customer` value forms an edge in
+the namespace's knowledge graph — "everything delivered for `PVT-01`"
+is a real, expected query, resolved by whatever billing or CRM system
+the organisation runs, not by this specification.

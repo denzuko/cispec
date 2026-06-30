@@ -26,3 +26,21 @@ org.cispec.hash-at-collection=sha256:9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0
 
 `org.cispec.hash-at-collection` is REQUIRED for evidence Change Items
 intended for external verification.
+
+## Attestation
+
+`hash-at-collection` is the most directly attestable term in the
+namespace: a cryptographic hash is, by construction, independently
+verifiable by anyone with access to the original artefact — no trust
+in the asserting organisation is required at all. This is the
+strongest form of attestation any term in this specification provides,
+and the model other attestation-bearing terms (`custody-chain`,
+provenance-backed `version` claims) approximate but do not fully
+reach, since they typically still depend on trusting a signing
+authority or collecting party at some point in the chain.
+
+## Resolution and relation
+
+`hash-at-collection` does not form a meaningful reverse-lookup edge —
+each value is specific to one artefact at one point in time, not a
+shared attribute multiple Change Items would have in common.

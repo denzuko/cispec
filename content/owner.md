@@ -18,27 +18,70 @@ as a separate term.
 
 ## Value format
 
-An identity-contact value: an email address, a key fingerprint, or a
-fingerprint-qualified address, optionally prefixed with a role
-qualifier separated by a colon.
+An identity-contact value, in one of two forms:
+
+A bare identity — an email address or directory identifier:
 
 ```sh
 org.cispec.owner=denzuko@dapla.net
-org.cispec.owner=FC13F74B@cispec.org
 org.cispec.owner=shift-supervisor:j.martinez@example.org
 ```
 
-A bare identity value (no role qualifier) is read as the general
-accountable owner. A role-qualified value narrows that accountability
-to a specific function or context, and a single Change Item MAY carry
-more than one `org.cispec.owner` label if more than one role applies
-(for example, a technical owner and a business owner with distinct
-identities).
+A GPG key ID attesting to a domain — `<key-id>@<domain>`, where the key
+identified vouches for the named domain, not for an email mailbox at
+that domain:
+
+```sh
+org.cispec.owner=FC13F74B@cispec.org
+```
+
+A single GPG key MAY attest to more than one domain — historically a
+single identity at Da Planet Security has attested to multiple
+domains (`matrix.net`, `computekindustries.com`, `dapla.net`) using
+one key. The `@domain` suffix in this form names which domain the
+attestation applies to in this specific label, not which domains the
+key is capable of attesting to in general.
+
+A role-qualified value (a colon-separated prefix on either form)
+narrows accountability to a specific function or context. A single
+Change Item MAY carry more than one `org.cispec.owner` label if more
+than one role applies (for example, a technical owner and a business
+owner with distinct identities).
 
 ## Conformance
 
 `org.cispec.owner` is REQUIRED for Declared conformance on any Change
 Item, regardless of type.
+
+## Attestation
+
+`owner` supports two attestation tiers, and which tier applies depends
+entirely on the value's own form:
+
+A bare email or directory identifier is **not independently
+attestable** — it is a self-asserted claim, the same as
+[`organization`](/organization/) or [`orgunit`](/orgunit/).
+
+A GPG-key-ID form (`<key-id>@<domain>`) **is independently
+attestable**, in the historical pattern this namespace's identity
+layer was originally built on: an organisation-managed Certificate
+Authority, participating in the CA/Browser Forum, backed by a
+directory service, issuing certificates whose CN matches the attested
+domain — paired with a GPG key as a second, independently checkable
+signature layer. Both the certificate chain and the GPG key fingerprint
+are verifiable by any party against public infrastructure (a
+CT log, a CA's own OCSP/CRL endpoint, a keyserver or WKD lookup for the
+fingerprint) without trusting the asserting organisation's own
+systems — the same publicly-rooted trust model as
+[`duns`](/duns/) and [`oid`](/oid/), applied to identity rather than
+to a registry number.
+
+This specification does not mandate the GPG/CA tier; a bare identity
+remains conformant for Declared status. Verified or Attested
+conformance for a Change Item where ownership integrity matters
+SHOULD prefer the GPG-key-ID form, and cimatrix gates checking
+ownership attestation SHOULD verify the certificate chain and key
+fingerprint independently rather than accepting the string as written.
 
 ## Resolution and relation
 
