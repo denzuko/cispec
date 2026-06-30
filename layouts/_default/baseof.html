@@ -140,7 +140,67 @@
     }
     footer.site a { color: var(--muted); }
 
-    /* Status block — same mechanism as W3C's TR page corner status:
+    /* ----------------------------------------------------------------
+       Spec status strip — full-height fixed left border.
+       Signals the spec's current position in the adoption lifecycle.
+
+       Status and version are independent facts:
+         version tracks content changes to the spec text.
+         status tracks where the spec sits in real-world adoption.
+       A spec at 3.2.1 can still be Draft. A spec at 0.9.4 can be Adopted.
+
+         Draft   — terms not guaranteed stable; do not cite in deliverables.
+                   amber #ffab00
+         Stable  — reference implementation exists (cimatrix); terms
+                   frozen for this version; safe to build against and cite.
+                   neon green #39ff14
+         Adopted — two independent productions implementations confirmed
+                   outside the spec author's own tooling.
+                   pale green #d1fae5
+
+       Gate conditions based on implementation evidence, not version
+       numbers — same principle as RFC 6410.
+       Current status set in hugo.toml params.specStatus.
+       Colours from the Da Planet design system.
+       ---------------------------------------------------------------- */
+    .spec-status-strip {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 6px;
+      height: 100vh;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .spec-status-label {
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+      font-family: var(--mono);
+      font-size: 0.55rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      color: #0a0a0a;
+      user-select: none;
+      pointer-events: none;
+    }
+    /* draft — amber: 0.x.y, terms may change */
+    body[data-status="draft"] .spec-status-strip {
+      background: #ffab00;
+    }
+    /* stable — neon green: N.0.0 published, terms frozen, safe to cite */
+    body[data-status="stable"] .spec-status-strip {
+      background: #39ff14;
+    }
+    /* adopted — pale green: independently implemented in production */
+    body[data-status="adopted"] .spec-status-strip {
+      background: #d1fae5;
+    }
+    /* Offset body so the strip doesn't overlap the left margin */
+    body {
+      padding-left: calc(1.25rem + 6px);
+    }
        position: sticky, pure CSS, no JavaScript. Holds page identity
        metadata (term, conformance, spec version, document OID) and
        stays in view while scrolling the term's content. Not a TOC —
@@ -207,7 +267,14 @@
     }
   </style>
 </head>
-<body>
+<body data-status="{{ .Site.Params.specStatus | default "draft" }}">
+  <!-- Spec status strip — full-height fixed left border, same mechanism
+       as W3C TR pages. Colour driven by data-status on <body>.
+       draft=grey, candidate=blue, stable=green.
+       One-line change in hugo.toml params.specStatus to advance. -->
+  <div class="spec-status-strip" aria-hidden="true">
+    <span class="spec-status-label">{{ .Site.Params.specStatus | upper | default "DRAFT" }}</span>
+  </div>
   <header class="site">
     <a class="home" href="/">cispec</a>
     <nav>

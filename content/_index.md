@@ -233,6 +233,31 @@ The current specification version is **{{< param "specVersion" >}}**.
 A label set SHOULD record the specification version it was authored
 against using [`org.cispec.specversion`](/specversion/).
 
+## Specification status
+
+The coloured strip on the left edge of every page signals this
+specification's current position in the adoption lifecycle. Status
+and version are independent — a version number tracks content changes
+to the spec; status tracks where the spec sits in real-world adoption.
+A spec at `3.2.1` can still be Draft; a spec at `0.9.4` can be Adopted.
+
+| Status | Colour | Meaning |
+|---|---|---|
+| **Draft** | amber | Terms are not guaranteed stable between releases. Do not cite in compliance documentation or customer deliverables. |
+| **Stable** | neon green | At least one reference implementation exists (cimatrix). Terms are frozen for this version. Safe to build against and cite. |
+| **Adopted** | pale green | Two or more independent implementations confirmed in production outside the spec author's own tooling. Real-world deployment pressure has been survived. |
+
+Gate conditions for advancement — based on implementation evidence,
+not version numbers, following the same principle as
+[RFC 6410](https://www.rfc-editor.org/rfc/rfc6410):
+
+- **Draft → Stable:** spec published with at least one reference
+  implementation. cimatrix is that implementation for `org.cispec`.
+- **Stable → Adopted:** two independent implementations confirmed in
+  production use outside Da Planet Security's own tooling.
+
+Current status: **Stable** (v{{ .Site.Params.specVersion }}).
+
 ## Licence
 
 BSD-2-Clause. SPDX-License-Identifier: `BSD-2-Clause`.
