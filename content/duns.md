@@ -4,8 +4,8 @@ term: "duns"
 core: true
 optionalFor: ["any CI"]
 related: ["organization", "oid", "costcenter"]
-docOid: "1.3.6.1.4.1.42387.2.1"
-docGuid: "8ef717a5-d8c0-512d-8cc5-9d62cea811ca"
+docOid: "1.3.6.1.4.1.42387.2.2.1"
+docGuid: "706730f3-ac1d-573b-94ae-b717305e4a35"
 date: 2026-06-30
 draft: false
 ---

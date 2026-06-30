@@ -4,8 +4,8 @@ term: "purdue-level"
 core: false
 requiredFor: ["industrial control system Change Items"]
 related: ["owner", "environment", "safety-criticality"]
-docOid: "1.3.6.1.4.1.42387.6.3.1"
-docGuid: "678fc553-e182-53b6-acf5-4048bb4075f5"
+docOid: "1.3.6.1.4.1.42387.2.6.3.1"
+docGuid: "17f9418a-4289-5dfe-9736-aad5b769b48b"
 date: 2026-06-30
 draft: false
 ---

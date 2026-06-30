@@ -145,37 +145,73 @@ against or depends on.
 ## Document identifiers
 
 Each term page on this site carries its own sub-arc OID under
-`iso.org.dod.internet.42387` and a UUIDv5 deterministically derived from
-that OID's dotted-decimal form (namespace `6ba7b810-9dad-11d1-80b4-
-00c04fd430c8`, the standard DNS namespace per
+`iso.org.dod.internet.42387.2` and a UUIDv5 deterministically derived
+from that OID's dotted-decimal form (namespace `6ba7b810-9dad-11d1-
+80b4-00c04fd430c8`, the standard DNS namespace per
 [RFC 4122 §4.3](https://www.rfc-editor.org/rfc/rfc4122#section-4.3)).
-These identify the *document defining a term*, not the term's
-own label value — `org.cispec.owner`'s page has a document OID and
-GUID; the string `org.cispec.owner` itself, as a label applied to a
-Change Item, does not.
+These identify the *document defining a term*, not the term's own
+label value — `org.cispec.owner`'s page has a document OID and GUID;
+the string `org.cispec.owner` itself, as a label applied to a Change
+Item, does not.
 
-Sub-arcs are organised by cross-cutting fact category, not by CI type,
-because the term-page graph itself is flat and relations between terms
-are already expressed as ordinary links — encoding the same category
-information twice, once in the OID tree and once in the link graph,
-would let the two drift out of agreement. The OID tree instead serves
-formal, hierarchical consumers (ASN.1, SNMP-adjacent, X.509-adjacent
-tooling) that require a real tree to generate codecs and constraints;
-it carries no meaning beyond providing each document a stable,
-sequential, hierarchically-organised citation handle.
+The document-identifier tree is rooted at `42387.2`, not `42387`
+directly. The `42387.1` arc is Da Planet Security's own internal
+infrastructure (LDAP, documentation, SNMP, ASN.1) and is out of scope
+for this specification; this site neither documents nor allocates
+against it. `org.cispec`'s own document tree occupies `42387.2` so the
+two never collide.
+
+Sub-arcs below `42387.2` are organised by cross-cutting fact category,
+not by CI type, because the term-page graph itself is flat and
+relations between terms are already expressed as ordinary links —
+encoding the same category information twice, once in the OID tree
+and once in the link graph, would let the two drift out of agreement.
+The OID tree instead serves formal, hierarchical consumers (ASN.1,
+SNMP-adjacent, X.509-adjacent tooling) that require a real tree to
+generate codecs and constraints; it carries no meaning beyond
+providing each document a stable, sequential, hierarchically-organised
+citation handle.
 
 | Arc | Category |
 |---|---|
-| `.1` | identity — who or what is accountable |
-| `.2` | registry — external authoritative numbers |
-| `.3` | financial — cost and billing facts |
-| `.4` | lifecycle — state and time facts |
-| `.5` | custody — provenance and evidence facts |
-| `.6` | CI-type extension keys, sub-numbered per type |
+| `42387.2.1` | identity — who or what is accountable |
+| `42387.2.2` | registry — external authoritative numbers |
+| `42387.2.3` | financial — cost and billing facts |
+| `42387.2.4` | lifecycle — state and time facts |
+| `42387.2.5` | custody — provenance and evidence facts |
+| `42387.2.6` | CI-type extension keys, sub-numbered per type |
 
 A new category arc is allocated only when a term genuinely does not fit
 any existing category — the same necessity discipline that governs
 minting a new term at all.
+
+### Index
+
+The canonical, single-page index of every currently assigned document
+identifier:
+
+| Term | Document OID | UUIDv5 |
+|---|---|---|
+| [organization](/organization/) | `1.3.6.1.4.1.42387.2.1` | `8ef717a5-d8c0-512d-8cc5-9d62cea811ca` |
+| [orgunit](/orgunit/) | `1.3.6.1.4.1.42387.2.1.1` | `8da4c483-9e88-5831-8c1d-e3b2d584794e` |
+| [owner](/owner/) | `1.3.6.1.4.1.42387.2.1.2` | `54cfcb4f-03f8-548e-80e7-75aea99c3580` |
+| [oid](/oid/) | `1.3.6.1.4.1.42387.2.2` | `c79d496e-04f0-559c-9e88-63109933cddb` |
+| [duns](/duns/) | `1.3.6.1.4.1.42387.2.2.1` | `706730f3-ac1d-573b-94ae-b717305e4a35` |
+| [customer](/customer/) | `1.3.6.1.4.1.42387.2.3` | `748000b4-ea01-58ab-9613-a73aa5658fda` |
+| [costcenter](/costcenter/) | `1.3.6.1.4.1.42387.2.3.1` | `c7fe2951-e8c2-5ce0-adb9-3e941db9ac8b` |
+| [version](/version/) | `1.3.6.1.4.1.42387.2.4` | `abc91671-732c-5697-b1bb-98113d9313e2` |
+| [specversion](/specversion/) | `1.3.6.1.4.1.42387.2.4.1` | `41319691-4383-59de-944f-28dc072ea408` |
+| [environment](/environment/) | `1.3.6.1.4.1.42387.2.4.2` | `fb2fecdf-cbaf-5f0c-bd16-cffe882b9eb0` |
+| [custody-chain](/custody-chain/) | `1.3.6.1.4.1.42387.2.5` | `af7616e3-6c41-59af-947e-cd4af86b6d69` |
+| [hash-at-collection](/hash-at-collection/) | `1.3.6.1.4.1.42387.2.5.1` | `85cbd708-dcd0-5e36-8070-95f46ce00006` |
+| [application](/application/) | `1.3.6.1.4.1.42387.2.6.1.1` | `3d021461-8d8b-5428-959a-eef4e7a3cd4d` |
+| [role](/role/) | `1.3.6.1.4.1.42387.2.6.1.2` | `5bedd70b-5466-578d-a7b9-0e25d5017287` |
+| [purdue-level](/purdue-level/) | `1.3.6.1.4.1.42387.2.6.3.1` | `17f9418a-4289-5dfe-9736-aad5b769b48b` |
+
+Reserved arcs with no term minted yet: `.2.6.2` (hardware), `.2.6.4`
+(network), `.2.6.5` (evidence), `.2.6.6` (access), `.2.6.7` (facility),
+`.2.6.8` (contract), `.2.6.9` (crypto). New terms in these categories
+take the next unused position within their reserved arc.
 
 ## Versioning
 

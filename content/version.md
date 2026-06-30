@@ -4,8 +4,8 @@ term: "version"
 core: true
 requiredFor: ["any CI"]
 related: ["organization", "specversion", "environment"]
-docOid: "1.3.6.1.4.1.42387.4"
-docGuid: "f23f2c63-1792-5f99-b728-a9d11e8292db"
+docOid: "1.3.6.1.4.1.42387.2.4"
+docGuid: "abc91671-732c-5697-b1bb-98113d9313e2"
 date: 2026-06-30
 draft: false
 ---

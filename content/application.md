@@ -4,8 +4,8 @@ term: "application"
 core: false
 requiredFor: ["software Change Items"]
 related: ["version", "role", "owner", "organization"]
-docOid: "1.3.6.1.4.1.42387.6.1.1"
-docGuid: "b7289218-6197-5e56-b5f4-4273ceab6f8d"
+docOid: "1.3.6.1.4.1.42387.2.6.1.1"
+docGuid: "3d021461-8d8b-5428-959a-eef4e7a3cd4d"
 date: 2026-06-30
 draft: false
 ---

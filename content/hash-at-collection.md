@@ -4,8 +4,8 @@ term: "hash-at-collection"
 core: false
 requiredFor: ["evidence Change Items"]
 related: ["custody-chain", "owner"]
-docOid: "1.3.6.1.4.1.42387.5.1"
-docGuid: "4d5c75e6-697d-5f7e-9c93-4781a7792483"
+docOid: "1.3.6.1.4.1.42387.2.5.1"
+docGuid: "85cbd708-dcd0-5e36-8070-95f46ce00006"
 date: 2026-06-30
 draft: false
 ---

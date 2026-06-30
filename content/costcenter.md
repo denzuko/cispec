@@ -4,8 +4,8 @@ term: "costcenter"
 core: true
 optionalFor: ["any CI"]
 related: ["organization", "orgunit", "customer", "owner"]
-docOid: "1.3.6.1.4.1.42387.3.1"
-docGuid: "29e0e3c3-012a-5170-ad0b-877243508b36"
+docOid: "1.3.6.1.4.1.42387.2.3.1"
+docGuid: "c7fe2951-e8c2-5ce0-adb9-3e941db9ac8b"
 date: 2026-06-30
 draft: false
 ---

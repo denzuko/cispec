@@ -4,8 +4,8 @@ term: "organization"
 core: true
 requiredFor: ["any CI"]
 related: ["orgunit", "owner", "oid", "duns"]
-docOid: "1.3.6.1.4.1.42387.1"
-docGuid: "7535ebf6-a75f-5435-90d6-0a6ac2251c1c"
+docOid: "1.3.6.1.4.1.42387.2.1"
+docGuid: "8ef717a5-d8c0-512d-8cc5-9d62cea811ca"
 date: 2026-06-30
 draft: false
 ---

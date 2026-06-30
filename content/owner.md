@@ -4,8 +4,8 @@ term: "owner"
 core: true
 requiredFor: ["any CI"]
 related: ["organization", "orgunit", "oid", "customer", "costcenter", "custody-chain", "purdue-level"]
-docOid: "1.3.6.1.4.1.42387.1.2"
-docGuid: "831f6dea-8726-55af-a732-ae977a90b55f"
+docOid: "1.3.6.1.4.1.42387.2.1.2"
+docGuid: "54cfcb4f-03f8-548e-80e7-75aea99c3580"
 date: 2026-06-30
 draft: false
 ---
@@ -32,7 +32,7 @@ identified vouches for the named domain, not for an email mailbox at
 that domain:
 
 ```sh
-org.cispec.owner=FC13F74B@cispec.org
+org.cispec.owner=FC13F74B@dapla.net
 ```
 
 A single GPG key MAY attest to more than one domain — historically a
