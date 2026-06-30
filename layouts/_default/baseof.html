@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ if .IsHome }}{{ .Site.Title }} — org.cispec{{ else }}org.cispec.{{ .Title }} — {{ .Site.Title }}{{ end }}</title>
+  <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}">
+  <link rel="canonical" href="{{ .Permalink }}">
+  <style>
+    :root {
+      --fg: #1a1a1a;
+      --bg: #fefefe;
+      --muted: #6b7280;
+      --link: #1d4ed8;
+      --border: #e5e7eb;
+      --code-bg: #f3f4f6;
+      --mono: "Roboto Mono", "JetBrains Mono", ui-monospace, Consolas, monospace;
+      --sans: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body {
+      font-family: var(--sans);
+      color: var(--fg);
+      background: var(--bg);
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 2rem 1.25rem 4rem;
+      line-height: 1.6;
+    }
+    header.site {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 1rem;
+      margin-bottom: 2rem;
+    }
+    header.site a.home {
+      font-family: var(--mono);
+      font-weight: 600;
+      font-size: 1.1rem;
+      color: var(--fg);
+      text-decoration: none;
+    }
+    header.site nav a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      margin-left: 1rem;
+    }
+    header.site nav a:hover { color: var(--link); }
+    h1 { font-size: 1.6rem; margin-bottom: 0.3rem; }
+    h1 .prefix { color: var(--muted); font-weight: 400; }
+    h2 { font-size: 1.15rem; margin-top: 2rem; border-top: 1px solid var(--border); padding-top: 1.25rem; }
+    h3 { font-size: 1rem; }
+    code, pre {
+      font-family: var(--mono);
+      font-size: 0.88rem;
+    }
+    code {
+      background: var(--code-bg);
+      padding: 0.1em 0.35em;
+      border-radius: 3px;
+    }
+    pre {
+      background: var(--code-bg);
+      padding: 1rem;
+      overflow-x: auto;
+      border-radius: 4px;
+    }
+    pre code { background: none; padding: 0; }
+    a { color: var(--link); }
+    table { border-collapse: collapse; width: 100%; font-size: 0.92rem; margin: 1rem 0; }
+    th, td { text-align: left; padding: 0.45rem 0.6rem; border-bottom: 1px solid var(--border); }
+    th { color: var(--muted); font-weight: 600; font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.02em; }
+    .badge {
+      display: inline-block;
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 0.15em 0.5em;
+      border-radius: 3px;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+    .badge-required    { background: #fee2e2; color: #991b1b; }
+    .badge-recommended { background: #fef3c7; color: #92400e; }
+    .badge-optional    { background: #e0e7ff; color: #3730a3; }
+    .badge-core        { background: #d1fae5; color: #065f46; }
+    .related { list-style: none; padding: 0; margin: 0.5rem 0; }
+    .related li { display: inline-block; margin: 0 0.5rem 0.5rem 0; }
+    .related a {
+      display: inline-block;
+      font-family: var(--mono);
+      font-size: 0.85rem;
+      padding: 0.25em 0.6em;
+      background: var(--code-bg);
+      border-radius: 4px;
+      text-decoration: none;
+      color: var(--fg);
+    }
+    .related a:hover { background: #e5e7eb; }
+    footer.site {
+      margin-top: 4rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+    footer.site a { color: var(--muted); }
+  </style>
+</head>
+<body>
+  <header class="site">
+    <a class="home" href="/">cispec</a>
+    <nav>
+      <a href="https://github.com/denzuko/cispec">source</a>
+      <a href="https://cimatrix.org">cimatrix</a>
+    </nav>
+  </header>
+  <main>
+    {{ block "main" . }}{{ end }}
+  </main>
+  <footer class="site">
+    <p>
+      BSD-2-Clause &middot; IANA PEN 42387 &middot; D&amp;B DUNS 039-271-257 &middot;
+      spec v{{ .Site.Params.specVersion }} &middot;
+      <a href="https://github.com/denzuko/cispec">denzuko/cispec</a>
+    </p>
+  </footer>
+</body>
+</html>

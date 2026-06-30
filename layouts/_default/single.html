@@ -1,0 +1,34 @@
+{{ define "main" }}
+<article>
+  <h1><span class="prefix">org.cispec.</span>{{ .Params.term | default .Title }}</h1>
+
+  {{ if .Params.core }}
+    <span class="badge badge-core">core key</span>
+  {{ end }}
+  {{ if .Params.requiredFor }}
+    <span class="badge badge-required">required: {{ delimit .Params.requiredFor ", " }}</span>
+  {{ end }}
+  {{ if .Params.recommendedFor }}
+    <span class="badge badge-recommended">recommended: {{ delimit .Params.recommendedFor ", " }}</span>
+  {{ end }}
+  {{ if .Params.optionalFor }}
+    <span class="badge badge-optional">optional: {{ delimit .Params.optionalFor ", " }}</span>
+  {{ end }}
+
+  {{ .Content }}
+
+  {{ if .Params.oidArc }}
+  <h2>OID arc</h2>
+  <p><code>{{ .Params.oidArc }}</code></p>
+  {{ end }}
+
+  {{ if .Params.related }}
+  <h2>Related terms</h2>
+  <ul class="related">
+    {{ range .Params.related }}
+    <li><a href="/{{ . }}/">{{ . }}</a></li>
+    {{ end }}
+  </ul>
+  {{ end }}
+</article>
+{{ end }}

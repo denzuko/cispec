@@ -1,13 +1,12 @@
 baseURL = "https://cispec.org/"
 languageCode = "en-GB"
 title = "cispec"
-theme = "hugo-book"
 
 enableGitInfo = true
-disableKinds  = ["taxonomy", "term"]
+disableKinds  = ["taxonomy", "term", "rss"]
 
 [params]
-  description   = "The org.cispec namespace: a public Change Item attribution standard for software supply chains."
+  description   = "org.cispec — a domain-scoped identifier namespace for attesting Change Items across IT, OT, and service delivery."
   organisation  = "Da Planet Security"
   pen           = "42387"
   duns          = "039-271-257"
@@ -16,14 +15,6 @@ disableKinds  = ["taxonomy", "term"]
   repoCanonical = "https://github.com/denzuko/cispec"
   predecessor   = "net.matrix"
 
-  # hugo-book
-  BookRepo     = "https://github.com/denzuko/cispec"
-  BookEditPath = "edit/main/content"
-  BookSection  = "*"
-  BookToC      = true
-  BookSearch   = true
-  BookTheme    = "auto"
-
 [markup]
   [markup.goldmark]
     [markup.goldmark.renderer]
@@ -31,6 +22,3 @@ disableKinds  = ["taxonomy", "term"]
   [markup.highlight]
     style     = "monokai"
     noClasses = false
-  [markup.tableOfContents]
-    startLevel = 1
-    endLevel   = 4
