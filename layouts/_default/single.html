@@ -22,6 +22,14 @@
   <p><code>{{ .Params.oidArc }}</code></p>
   {{ end }}
 
+  {{ if .Params.docOid }}
+  <h2>Document identifier</h2>
+  <p>
+    OID: <code>{{ .Params.docOid }}</code><br>
+    GUID: <code>{{ .Params.docGuid }}</code>
+  </p>
+  {{ end }}
+
   {{ if .Params.related }}
   <h2>Related terms</h2>
   <ul class="related">

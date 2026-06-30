@@ -4,6 +4,8 @@ term: "environment"
 core: true
 recommendedFor: ["any CI"]
 related: ["version", "role", "owner"]
+docOid: "1.3.6.1.4.1.42387.4.2"
+docGuid: "f498286a-4c99-5c1a-a278-bb83f930a2a0"
 date: 2026-06-30
 draft: false
 ---

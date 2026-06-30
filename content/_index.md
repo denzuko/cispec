@@ -142,6 +142,41 @@ is **implementation**. It is out of scope for this specification, out
 of scope for cimatrix, and not something either project correlates
 against or depends on.
 
+## Document identifiers
+
+Each term page on this site carries its own sub-arc OID under
+`iso.org.dod.internet.42387` and a UUIDv5 deterministically derived from
+that OID's dotted-decimal form (namespace `6ba7b810-9dad-11d1-80b4-
+00c04fd430c8`, the standard DNS namespace per
+[RFC 4122 §4.3](https://www.rfc-editor.org/rfc/rfc4122#section-4.3)).
+These identify the *document defining a term*, not the term's
+own label value — `org.cispec.owner`'s page has a document OID and
+GUID; the string `org.cispec.owner` itself, as a label applied to a
+Change Item, does not.
+
+Sub-arcs are organised by cross-cutting fact category, not by CI type,
+because the term-page graph itself is flat and relations between terms
+are already expressed as ordinary links — encoding the same category
+information twice, once in the OID tree and once in the link graph,
+would let the two drift out of agreement. The OID tree instead serves
+formal, hierarchical consumers (ASN.1, SNMP-adjacent, X.509-adjacent
+tooling) that require a real tree to generate codecs and constraints;
+it carries no meaning beyond providing each document a stable,
+sequential, hierarchically-organised citation handle.
+
+| Arc | Category |
+|---|---|
+| `.1` | identity — who or what is accountable |
+| `.2` | registry — external authoritative numbers |
+| `.3` | financial — cost and billing facts |
+| `.4` | lifecycle — state and time facts |
+| `.5` | custody — provenance and evidence facts |
+| `.6` | CI-type extension keys, sub-numbered per type |
+
+A new category arc is allocated only when a term genuinely does not fit
+any existing category — the same necessity discipline that governs
+minting a new term at all.
+
 ## Versioning
 
 This specification follows semver 2.0.

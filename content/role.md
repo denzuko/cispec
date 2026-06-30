@@ -4,6 +4,8 @@ term: "role"
 core: false
 recommendedFor: ["software Change Items"]
 related: ["application", "owner", "environment"]
+docOid: "1.3.6.1.4.1.42387.6.1.2"
+docGuid: "a62cdbbf-15c2-53bb-8c8b-3a2227ca13c6"
 date: 2026-06-30
 draft: false
 ---

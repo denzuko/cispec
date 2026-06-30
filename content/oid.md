@@ -5,6 +5,8 @@ core: true
 recommendedFor: ["any CI"]
 oidArc: "iso.org.dod.internet.42387"
 related: ["organization", "duns", "specversion"]
+docOid: "1.3.6.1.4.1.42387.2"
+docGuid: "406fe072-ee1d-57ca-9047-522a456f3a2f"
 date: 2026-06-30
 draft: false
 ---

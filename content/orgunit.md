@@ -4,6 +4,8 @@ term: "orgunit"
 core: true
 requiredFor: ["any CI"]
 related: ["organization", "owner", "costcenter"]
+docOid: "1.3.6.1.4.1.42387.1.1"
+docGuid: "16c23eea-86dd-5065-bf86-d3ab8d82d262"
 date: 2026-06-30
 draft: false
 ---

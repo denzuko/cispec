@@ -4,6 +4,8 @@ term: "specversion"
 core: true
 recommendedFor: ["any CI"]
 related: ["version", "oid"]
+docOid: "1.3.6.1.4.1.42387.4.1"
+docGuid: "00e1bab1-1b3f-5386-a324-7aa0473def91"
 date: 2026-06-30
 draft: false
 ---
