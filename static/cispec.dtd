@@ -1,0 +1,146 @@
+<!-- SPDX-License-Identifier: BSD-2-Clause
+
+     cispec.dtd - Document Type Definition for the org.cispec
+     Change Item attribution namespace.
+     Canonical governance: https://cispec.org/
+     Validation toolkit:   https://cimatrix.org/
+     IANA PEN:             42387
+     Spec version:         1.0
+
+     Usage:
+       <!DOCTYPE CISpecLabelSet SYSTEM "https://cispec.org/cispec.dtd">
+
+     Note: DTDs do not support the fine-grained pattern constraints
+     available in XSD or JSON Schema. Use cispec.xsd for strict
+     value-format validation. This DTD exists for toolchains that
+     predate or do not support XSD.
+-->
+
+<!-- ============================================================
+     Root element
+     ============================================================ -->
+
+<!ELEMENT CISpecLabelSet (core, oid?, duns?, customer?, costcenter?,
+                          specversion?, environment?,
+                          custodyChain?, checksum?,
+                          application?, role?,
+                          extensions?)>
+<!ATTLIST CISpecLabelSet
+  specVersion CDATA #IMPLIED>
+
+<!-- ============================================================
+     Core label set — required for Declared conformance
+     All four child elements are required.
+     ============================================================ -->
+
+<!-- org.cispec core labels — all required for Declared conformance -->
+<!ELEMENT core (organization, orgunit, owner, version)>
+
+<!-- org.cispec.organization
+     Owning organisation slug. X.500/X.520 O (organizationName).
+     docOid: 1.3.6.1.4.1.42387.2.1 -->
+<!ELEMENT organization (#PCDATA)>
+
+<!-- org.cispec.orgunit
+     Organisational unit slug. X.500/X.520 OU (organizationalUnitName).
+     docOid: 1.3.6.1.4.1.42387.2.1.1 -->
+<!ELEMENT orgunit (#PCDATA)>
+
+<!-- org.cispec.owner
+     Accountable individual or role.
+     docOid: 1.3.6.1.4.1.42387.2.1.2 -->
+<!ELEMENT owner (#PCDATA)>
+
+<!-- org.cispec.version
+     Semver 2.0 version of the Change Item.
+     docOid: 1.3.6.1.4.1.42387.2.4 -->
+<!ELEMENT version (#PCDATA)>
+
+<!-- ============================================================
+     Registry terms
+     ============================================================ -->
+
+<!-- org.cispec.oid
+     Relational pointer to the client's own OID arc.
+     Not DPS's 42387 arc — the customer or owning party's registered PEN.
+     docOid: 1.3.6.1.4.1.42387.2.2 -->
+<!ELEMENT oid (#PCDATA)>
+
+<!-- org.cispec.duns
+     D&B DUNS in OID notation: iso.org.duns.<9-digit-number>
+     Externally verifiable against the D&B registry.
+     docOid: 1.3.6.1.4.1.42387.2.2.1 -->
+<!ELEMENT duns (#PCDATA)>
+
+<!-- ============================================================
+     Financial terms
+     ============================================================ -->
+
+<!-- org.cispec.customer
+     Customer identifier in the owning organisation's billing scheme.
+     docOid: 1.3.6.1.4.1.42387.2.3 -->
+<!ELEMENT customer (#PCDATA)>
+
+<!-- org.cispec.costcenter
+     Cost centre identifier in the owning organisation's accounting scheme.
+     docOid: 1.3.6.1.4.1.42387.2.3.1 -->
+<!ELEMENT costcenter (#PCDATA)>
+
+<!-- ============================================================
+     Lifecycle terms
+     ============================================================ -->
+
+<!-- org.cispec.specversion
+     Spec version labels were authored against.
+     docOid: 1.3.6.1.4.1.42387.2.4.1 -->
+<!ELEMENT specversion (#PCDATA)>
+
+<!-- org.cispec.environment
+     Deployment or operational environment.
+     Bare slug or purdue-level:<n> qualified form for ICS.
+     docOid: 1.3.6.1.4.1.42387.2.4.2 -->
+<!ELEMENT environment (#PCDATA)>
+
+<!-- ============================================================
+     Custody terms — evidence CI type
+     ============================================================ -->
+
+<!-- org.cispec.custody-chain
+     Bare reference pointer to the chronological custody record.
+     Not the record itself — a case ID, hash, or URI an external
+     evidence system resolves.
+     docOid: 1.3.6.1.4.1.42387.2.5 -->
+<!ELEMENT custodyChain (#PCDATA)>
+
+<!-- org.cispec.checksum
+     Cryptographic hash: algorithm:hexdigest colon-separated.
+     REQUIRED for evidence CIs (ISO/IEC 27037:2012); recommended for
+     software, hardware, and ICS CIs.
+     docOid: 1.3.6.1.4.1.42387.2.5.1 -->
+<!ELEMENT checksum (#PCDATA)>
+
+<!-- ============================================================
+     Software CI type terms
+     ============================================================ -->
+
+<!-- org.cispec.application
+     Application or service name.
+     docOid: 1.3.6.1.4.1.42387.2.6.1.1 -->
+<!ELEMENT application (#PCDATA)>
+
+<!-- org.cispec.role
+     Functional role slug.
+     docOid: 1.3.6.1.4.1.42387.2.6.1.2 -->
+<!ELEMENT role (#PCDATA)>
+
+<!-- ============================================================
+     Extension terms
+     ============================================================ -->
+
+<!-- Container for implementor-minted org.cispec.* extension terms.
+     Each extension MUST resolve at a public TLS-verified domain
+     per https://cispec.org/#minting-new-terms -->
+<!ELEMENT extensions (extension*)>
+<!ELEMENT extension (termName, termValue)>
+<!ELEMENT termName  (#PCDATA)>
+<!ELEMENT termValue (#PCDATA)>

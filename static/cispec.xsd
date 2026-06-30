@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  SPDX-License-Identifier: BSD-2-Clause
+
+  cispec.xsd — XML Schema for the org.cispec Change Item attribution namespace
+  Canonical governance: https://cispec.org/
+  Validation toolkit:   https://cimatrix.org/
+  IANA PEN:             42387
+  Spec version:         1.0
+
+  Namespace: https://cispec.org/ns/1.0
+  Target use: any XML document or message carrying org.cispec label sets,
+  including CycloneDX-XML extensions, SPDX-XML, and custom XML payloads.
+
+  Document OID for this schema file:
+    iso.org.dod.internet.42387.2 (the org.cispec namespace arc)
+-->
+<xs:schema
+  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  xmlns:cispec="https://cispec.org/ns/1.0"
+  targetNamespace="https://cispec.org/ns/1.0"
+  elementFormDefault="qualified"
+  attributeFormDefault="unqualified"
+  version="1.0">
+
+  <xs:annotation>
+    <xs:documentation>
+      org.cispec XML Schema v1.0
+      Defines the CISpecLabelSet element and all org.cispec.* attribute types.
+      See https://cispec.org/ for normative governance text.
+    </xs:documentation>
+  </xs:annotation>
+
+  <!-- ============================================================
+       Simple type definitions
+       ============================================================ -->
+
+  <!-- Lower-case alphanumeric slug with hyphens.
+       Corresponds to: organization, orgunit, role -->
+  <xs:simpleType name="SlugType">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[a-z0-9][a-z0-9\-]*[a-z0-9]|[a-z0-9]"/>
+      <xs:minLength value="1"/>
+      <xs:maxLength value="253"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- Identity-contact value: email, GPG-key-ID@domain, or role:identity -->
+  <xs:simpleType name="IdentityType">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1"/>
+      <xs:maxLength value="512"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- Semver 2.0 version string -->
+  <xs:simpleType name="VersionType">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(\+([0-9a-zA-Z-]+(\.[0-9a-zA-Z-]+)*))?"/>
+      <xs:minLength value="1"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- OID in dotted-decimal or iso.* human-readable form.
+       Points at the CLIENT's own arc — not DPS's 42387 arc. -->
+  <xs:simpleType name="OIDStringType">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1"/>
+      <xs:maxLength value="512"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- D&B DUNS in OID notation: iso.org.duns.<9-digit-number> -->
+  <xs:simpleType name="DUNSStringType">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="iso\.org\.duns\.[0-9]{9}"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- Cryptographic digest: algorithm:hexdigest -->
+  <xs:simpleType name="DigestStringType">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[a-z0-9]+:[a-fA-F0-9]+"/>
+      <xs:minLength value="8"/>
+      <xs:maxLength value="256"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- Bare reference pointer: case ID, URI, or hash -->
+  <xs:simpleType name="ReferencePointerType">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1"/>
+      <xs:maxLength value="1024"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- ============================================================
+       Extension term — open namespace for implementor-minted terms
+       ============================================================ -->
+
+  <xs:complexType name="ExtensionType">
+    <xs:annotation>
+      <xs:documentation>
+        An implementor-minted org.cispec.* extension term.
+        The termName MUST be a fully-qualified term name that resolves
+        at a public TLS-verified domain per https://cispec.org/#minting-new-terms
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="termName"  type="xs:string"/>
+      <xs:element name="termValue" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- ============================================================
+       Core label set — required for Declared conformance
+       ============================================================ -->
+
+  <xs:complexType name="CoreLabelsType">
+    <xs:sequence>
+      <!-- Required: org.cispec.organization
+           docOid: 1.3.6.1.4.1.42387.2.1 -->
+      <xs:element name="organization" type="cispec:SlugType"/>
+
+      <!-- Required: org.cispec.orgunit
+           X.500/X.520 organizationalUnitName (OU) lineage — RFC 4514
+           docOid: 1.3.6.1.4.1.42387.2.1.1 -->
+      <xs:element name="orgunit"      type="cispec:SlugType"/>
+
+      <!-- Required: org.cispec.owner
+           Bare email, GPG-key-ID@domain, or role:identity
+           docOid: 1.3.6.1.4.1.42387.2.1.2 -->
+      <xs:element name="owner"        type="cispec:IdentityType"/>
+
+      <!-- Required: org.cispec.version
+           Universal — software, firmware, document, policy
+           docOid: 1.3.6.1.4.1.42387.2.4 -->
+      <xs:element name="version"      type="cispec:VersionType"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- ============================================================
+       Full label set element — root element for a CI's label set
+       ============================================================ -->
+
+  <xs:element name="CISpecLabelSet">
+    <xs:annotation>
+      <xs:documentation>
+        Root element for a complete org.cispec label set applied to one
+        Change Item. The core child is required; all other children are
+        optional unless specified by a CI-type-specific conformance rule.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+
+        <!-- Required core -->
+        <xs:element name="core" type="cispec:CoreLabelsType"/>
+
+        <!-- Registry terms -->
+
+        <!-- org.cispec.oid — client's own OID arc (not DPS's 42387)
+             docOid: 1.3.6.1.4.1.42387.2.2 -->
+        <xs:element name="oid"          type="cispec:OIDStringType"      minOccurs="0"/>
+
+        <!-- org.cispec.duns — D&B DUNS, externally verifiable
+             docOid: 1.3.6.1.4.1.42387.2.2.1 -->
+        <xs:element name="duns"         type="cispec:DUNSStringType"     minOccurs="0"/>
+
+        <!-- Financial terms -->
+
+        <!-- org.cispec.customer
+             docOid: 1.3.6.1.4.1.42387.2.3 -->
+        <xs:element name="customer"     type="xs:string"                 minOccurs="0"/>
+
+        <!-- org.cispec.costcenter
+             docOid: 1.3.6.1.4.1.42387.2.3.1 -->
+        <xs:element name="costcenter"   type="xs:string"                 minOccurs="0"/>
+
+        <!-- Lifecycle terms -->
+
+        <!-- org.cispec.specversion
+             docOid: 1.3.6.1.4.1.42387.2.4.1 -->
+        <xs:element name="specversion"  type="xs:string"                 minOccurs="0"/>
+
+        <!-- org.cispec.environment — bare slug or purdue-level:<n> for ICS
+             docOid: 1.3.6.1.4.1.42387.2.4.2 -->
+        <xs:element name="environment"  type="xs:string"                 minOccurs="0"/>
+
+        <!-- Custody terms — evidence CI type -->
+
+        <!-- org.cispec.custody-chain — bare pointer to external record
+             docOid: 1.3.6.1.4.1.42387.2.5 -->
+        <xs:element name="custodyChain" type="cispec:ReferencePointerType" minOccurs="0"/>
+
+        <!-- org.cispec.checksum — algorithm:hexdigest
+             REQUIRED for evidence CIs per ISO/IEC 27037:2012
+             docOid: 1.3.6.1.4.1.42387.2.5.1 -->
+        <xs:element name="checksum"     type="cispec:DigestStringType"   minOccurs="0"/>
+
+        <!-- Software CI type terms -->
+
+        <!-- org.cispec.application
+             docOid: 1.3.6.1.4.1.42387.2.6.1.1 -->
+        <xs:element name="application"  type="xs:string"                 minOccurs="0"/>
+
+        <!-- org.cispec.role
+             docOid: 1.3.6.1.4.1.42387.2.6.1.2 -->
+        <xs:element name="role"         type="cispec:SlugType"           minOccurs="0"/>
+
+        <!-- Extension terms — implementor-minted org.cispec.* terms
+             Must resolve at a public TLS-verified domain -->
+        <xs:element name="extensions"   minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="extension" type="cispec:ExtensionType"
+                          minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+
+      </xs:sequence>
+
+      <!-- Schema version attribute -->
+      <xs:attribute name="specVersion" type="xs:string" use="optional"/>
+    </xs:complexType>
+  </xs:element>
+
+</xs:schema>

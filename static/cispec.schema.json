@@ -1,0 +1,166 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cispec.org/cispec.schema.json",
+  "title": "org.cispec label set",
+  "description": "JSON Schema for the org.cispec Change Item attribution namespace. Validates a flat key-value map of org.cispec.* labels applied to any Change Item. Canonical governance: https://cispec.org/ Validation toolkit: https://cimatrix.org/",
+  "type": "object",
+  "properties": {
+    "labels": {
+      "type": "object",
+      "description": "Flat map of org.cispec.* label keys to string values.",
+      "properties": {
+        "org.cispec.organization": {
+          "$ref": "#/$defs/slug",
+          "description": "Owning organisation slug. X.500/X.520 organizationName (O). Required for Declared conformance.",
+          "$comment": "docOid: 1.3.6.1.4.1.42387.2.1 docGuid: 8ef717a5-d8c0-512d-8cc5-9d62cea811ca"
+        },
+        "org.cispec.orgunit": {
+          "$ref": "#/$defs/slug",
+          "description": "Organisational unit slug. X.500/X.520 organizationalUnitName (OU). Required for Declared conformance.",
+          "$comment": "docOid: 1.3.6.1.4.1.42387.2.1.1 docGuid: 8da4c483-9e88-5831-8c1d-e3b2d584794e"
+        },
+        "org.cispec.owner": {
+          "$ref": "#/$defs/identity",
+          "description": "Accountable individual or role. Bare email, GPG-key-ID@domain, or role-qualified colon-prefixed form. Required for Declared conformance.",
+          "$comment": "docOid: 1.3.6.1.4.1.42387.2.1.2 docGuid: 54cfcb4f-03f8-548e-80e7-75aea99c3580"
+        },
+        "org.cispec.oid": {
+          "$ref": "#/$defs/oid-string",
+          "description": "Relational pointer to the client's own IANA OID arc. Not DPS's own arc — the customer or owning party's registered PEN.",
+          "$comment": "docOid: 1.3.6.1.4.1.42387.2.2 docGuid: c79d496e-04f0-559c-9e88-63109933cddb"
+        },
+        "org.cispec.duns": {
+          "$ref": "#/$defs/duns-string",
+          "description": "D&B DUNS number in OID notation. Externally verifiable against the D&B registry.",
+          "$comment": "docOid: 1.3.6.1.4.1.42387.2.2.1 docGuid: 706730f3-ac1d-573b-94ae-b717305e4a35"
+        },
+        "org.cispec.customer": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Customer identifier in the owning organisation's own billing or contract-reference scheme.",
+          "$comment": "docOid: 1.3.6.1.4.1.42387.2.3 docGuid: 748000b4-ea01-58ab-9613-a73aa5658fda"
+        },
+        "org.cispec.costcenter": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Cost centre identifier in the owning organisation's internal accounting scheme.",
+          "$comment": "docOid: 1.3.6.1.4.1.42387.2.3.1 docGuid: c7fe2951-e8c2-5ce0-adb9-3e941db9ac8b"
+        },
+        "org.cispec.version": {
+          "$ref": "#/$defs/version-string",
+          "description": "Semver 2.0 version of the Change Item. Applies universally — software release, firmware build, document revision, policy amendment. Required for Declared conformance.",
+          "$comment": "docOid: 1.3.6.1.4.1.42387.2.4 docGuid: abc91671-732c-5697-b1bb-98113d9313e2"
+        },
+        "org.cispec.specversion": {
+          "type": "string",
+          "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(\\.0|[1-9]\\d*)?$",
+          "description": "org.cispec specification version this label set was authored against.",
+          "$comment": "docOid: 1.3.6.1.4.1.42387.2.4.1 docGuid: 41319691-4383-59de-944f-28dc072ea408"
+        },
+        "org.cispec.environment": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Deployment or operational environment. Bare slug (production, staging) or qualified form for domain-specific context (purdue-level:1 for ICS Purdue Model levels 0-5).",
+          "examples": [
+            "production",
+            "staging",
+            "development",
+            "purdue-level:0",
+            "purdue-level:1",
+            "purdue-level:2",
+            "purdue-level:3"
+          ],
+          "$comment": "docOid: 1.3.6.1.4.1.42387.2.4.2 docGuid: fb2fecdf-cbaf-5f0c-bd16-cffe882b9eb0"
+        },
+        "org.cispec.application": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Application or service name. Software CI type — not a universal core key.",
+          "$comment": "docOid: 1.3.6.1.4.1.42387.2.6.1.1 docGuid: 3d021461-8d8b-5428-959a-eef4e7a3cd4d"
+        },
+        "org.cispec.role": {
+          "$ref": "#/$defs/slug",
+          "description": "Functional role of this Change Item in its deployment context. Software CI type.",
+          "$comment": "docOid: 1.3.6.1.4.1.42387.2.6.1.2 docGuid: 5bedd70b-5466-578d-a7b9-0e25d5017287"
+        },
+        "org.cispec.custody-chain": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Bare reference pointer to the chronological custody record — a case ID, hash, or URI the organisation's evidence system resolves. Not the record itself. Evidence CI type.",
+          "$comment": "docOid: 1.3.6.1.4.1.42387.2.5 docGuid: af7616e3-6c41-59af-947e-cd4af86b6d69"
+        },
+        "org.cispec.checksum": {
+          "$ref": "#/$defs/digest-string",
+          "description": "Cryptographic hash of the Change Item. Algorithm and digest colon-separated. Required for evidence CIs (MUST be calculated at collection time per ISO/IEC 27037:2012); recommended for software, hardware, and ICS CIs.",
+          "$comment": "docOid: 1.3.6.1.4.1.42387.2.5.1 docGuid: 85cbd708-dcd0-5e36-8070-95f46ce00006"
+        }
+      },
+      "additionalProperties": {
+        "type": "string",
+        "description": "Extension terms under org.cispec.* minted by implementors. Must resolve at a public TLS-verified domain per the minting rules at https://cispec.org/#minting-new-terms"
+      }
+    }
+  },
+  "required": ["labels"],
+
+  "$defs": {
+    "slug": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9-]*[a-z0-9]$|^[a-z0-9]$",
+      "description": "Lower-case alphanumeric slug with hyphens; no leading or trailing hyphen."
+    },
+    "identity": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Identity-contact value: bare email, GPG-key-ID@domain, or role:identity colon-qualified form.",
+      "examples": [
+        "denzuko@dapla.net",
+        "FC13F74B@dapla.net",
+        "shift-supervisor:j.martinez@example.org"
+      ]
+    },
+    "oid-string": {
+      "type": "string",
+      "pattern": "^[0-9]+(?:\\.[0-9]+)+$|^iso\\..*",
+      "description": "OID in dotted-decimal or iso.* human-readable form."
+    },
+    "duns-string": {
+      "type": "string",
+      "pattern": "^iso\\.org\\.duns\\.[0-9]{9}$",
+      "description": "D&B DUNS in OID notation: iso.org.duns.<9-digit-number> with no hyphens."
+    },
+    "version-string": {
+      "type": "string",
+      "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$",
+      "description": "Semver 2.0 version string."
+    },
+    "digest-string": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+:[a-fA-F0-9]+$",
+      "description": "Cryptographic digest: algorithm-name:hex-digest, colon-separated.",
+      "examples": [
+        "sha256:9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08",
+        "sha512:cf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce47d0d13c5d85f2b0ff8318d2877eec2f63b931bd47417a81a538327af927da3e"
+      ]
+    }
+  },
+
+  "allOf": [
+    {
+      "description": "Declared conformance: required core keys must be present and non-empty.",
+      "if": { "properties": { "labels": { "type": "object" } } },
+      "then": {
+        "properties": {
+          "labels": {
+            "required": [
+              "org.cispec.organization",
+              "org.cispec.orgunit",
+              "org.cispec.owner",
+              "org.cispec.version"
+            ]
+          }
+        }
+      }
+    }
+  ]
+}
