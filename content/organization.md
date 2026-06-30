@@ -17,6 +17,16 @@ governance structure applies. This is distinct from
 or role; `organization` identifies the entity that individual or role
 sits inside.
 
+`organization` and [`orgunit`](/orgunit/) follow the same O/OU split
+defined in [X.500/X.520](https://www.itu.int/rec/T-REC-X.520) and
+carried into LDAP and X.509 Distinguished Names (RFC 4514:
+`organizationName` and `organizationalUnitName` as separate, sibling
+attributes). `net.matrix`'s original CMDB design adopted this
+distinction directly — the two terms are not redundant with each
+other despite both being organisational-identity facts, the same way
+O and OU are deliberately kept separate in a certificate's Subject DN
+rather than collapsed into one field.
+
 ## Value format
 
 A lower-case slug: alphanumeric characters and hyphens only, no leading

@@ -3,32 +3,42 @@ title: "custody-chain"
 term: "custody-chain"
 core: false
 requiredFor: ["evidence Change Items"]
-related: ["owner", "hash-at-collection", "organization"]
+related: ["owner", "checksum", "organization"]
 docOid: "1.3.6.1.4.1.42387.2.5"
 docGuid: "af7616e3-6c41-59af-947e-cd4af86b6d69"
 date: 2026-06-30
 draft: false
 ---
 
-`org.cispec.custody-chain` records the chronological custody record for
-a Change Item handled as digital evidence — who collected it, who has
-held it, and any transfers, consistent with the identification,
-collection, acquisition, and preservation processes described in
-[ISO/IEC 27037:2012](https://www.iso.org/standard/44381.html).
+`org.cispec.custody-chain` is a bare reference pointing at the
+chronological custody record for a Change Item handled as digital
+evidence — it does not carry the record itself. The actual
+chronological log (who collected it, who has held it, every transfer)
+is a time-series record, not a single fact, and does not fit the
+`key=value` shape this namespace uses for every other term; it lives
+in the organisation's own evidence-management system, the same way
+[`oid`](/oid/) points at a client's registry tree without this
+specification hosting that tree. `custody-chain` is the citation, not
+the citation's content.
 
-This term attests preservation integrity — that custody has been
-tracked and the record is unbroken. It does not attest findings or
-interpretation; that remains a human, certified function outside this
-specification's scope.
+The processes the referenced record is expected to satisfy —
+identification, collection, acquisition, preservation — are described
+in [ISO/IEC 27037:2012](https://www.iso.org/standard/44381.html).
+This term attests that a custody record *exists and is unbroken*. It
+does not attest findings or interpretation; that remains a human,
+certified function outside this specification's scope.
 
 ## Value format
 
-A structured value referencing the custody record (a hash chain, a log
-reference, or a pointer to the organisation's own evidence-management
-system). This specification does not mandate a specific encoding.
+A bare reference string: a hash, a URI, or a case identifier the
+organisation's own evidence system resolves. This specification does
+not mandate a specific encoding, the same way `oid` does not mandate
+how a client's own registry tree is structured beyond the OID grammar
+itself.
 
 ```sh
-org.cispec.custody-chain=sha256:9f86d0...:case-2026-0142
+org.cispec.custody-chain=case-2026-0142
+org.cispec.custody-chain=sha256:9f86d081884c7d659a2feaa0c55ad015a3bf4f1
 ```
 
 ## Conformance

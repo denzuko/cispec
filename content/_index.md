@@ -203,7 +203,7 @@ identifier:
 | [specversion](/specversion/) | `1.3.6.1.4.1.42387.2.4.1` | `41319691-4383-59de-944f-28dc072ea408` |
 | [environment](/environment/) | `1.3.6.1.4.1.42387.2.4.2` | `fb2fecdf-cbaf-5f0c-bd16-cffe882b9eb0` |
 | [custody-chain](/custody-chain/) | `1.3.6.1.4.1.42387.2.5` | `af7616e3-6c41-59af-947e-cd4af86b6d69` |
-| [hash-at-collection](/hash-at-collection/) | `1.3.6.1.4.1.42387.2.5.1` | `85cbd708-dcd0-5e36-8070-95f46ce00006` |
+| [checksum](/checksum/) | `1.3.6.1.4.1.42387.2.5.1` | `85cbd708-dcd0-5e36-8070-95f46ce00006` |
 | [application](/application/) | `1.3.6.1.4.1.42387.2.6.1.1` | `3d021461-8d8b-5428-959a-eef4e7a3cd4d` |
 | [role](/role/) | `1.3.6.1.4.1.42387.2.6.1.2` | `5bedd70b-5466-578d-a7b9-0e25d5017287` |
 
