@@ -22,7 +22,7 @@
       font-family: var(--sans);
       color: var(--fg);
       background: var(--bg);
-      max-width: 760px;
+      max-width: 920px;
       margin: 0 auto;
       padding: 2rem 1.25rem 4rem;
       line-height: 1.6;
@@ -139,6 +139,72 @@
       color: var(--muted);
     }
     footer.site a { color: var(--muted); }
+
+    /* Status block — same mechanism as W3C's TR page corner status:
+       position: sticky, pure CSS, no JavaScript. Holds page identity
+       metadata (term, conformance, spec version, document OID) and
+       stays in view while scrolling the term's content. Not a TOC —
+       term pages are short and single-topic, so there is nothing to
+       navigate within the page; this is identity, not navigation. */
+    .page-with-status {
+      display: flex;
+      gap: 2rem;
+      align-items: flex-start;
+    }
+    .status-block {
+      flex: 0 0 140px;
+      position: sticky;
+      top: 1.5rem;
+      align-self: flex-start;
+    }
+    .status-block__inner {
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 0.75rem;
+      background: var(--code-bg);
+      font-size: 0.78rem;
+      line-height: 1.5;
+    }
+    .status-block__home {
+      display: block;
+      font-family: var(--mono);
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: var(--fg);
+      text-decoration: none;
+      margin-bottom: 0.5rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .status-block__home:hover { color: var(--link); }
+    .status-block__term {
+      font-family: var(--mono);
+      font-weight: 600;
+      word-break: break-word;
+      margin-bottom: 0.5rem;
+    }
+    .status-block__row { margin-bottom: 0.4rem; }
+    .status-block__row .badge { font-size: 0.62rem; }
+    .status-block__meta {
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      margin-top: 0.3rem;
+    }
+    .status-block__oid {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    /* Below this width the sticky sidebar no longer has room; let it
+       fall back into normal document flow above the article. */
+    @media (max-width: 640px) {
+      .page-with-status { flex-direction: column; }
+      .status-block { position: static; flex-basis: auto; width: 100%; }
+      .status-block__inner { display: flex; flex-wrap: wrap; gap: 0.5rem 1rem; align-items: center; }
+      .status-block__home { border: none; padding: 0; margin: 0; }
+      .status-block__term { margin: 0; }
+    }
   </style>
 </head>
 <body>
