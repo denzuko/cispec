@@ -256,7 +256,7 @@ not version numbers, following the same principle as
 - **Stable → Adopted:** two independent implementations confirmed in
   production use outside Da Planet Security's own tooling.
 
-Current status: **Stable** (v{{ .Site.Params.specVersion }}).
+Current status: **Draft** (v{{ .Site.Params.specVersion }}).
 
 ## Licence
 
