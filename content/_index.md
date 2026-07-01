@@ -48,7 +48,7 @@ not a reference architecture this specification describes or endorses.
 
 `org.cispec` supersedes `net.matrix.*`, retired following the Dynatrace
 acquisition of matrix.net. The label keys, value semantics, and design
-intent carry forward unchanged from `net.matrix.*`'s original 2014
+intent carry forward unchanged from `net.matrix.*`'s original 2016
 development; only the namespace prefix and the resolution mechanism
 (public HTTP/TLS, in place of the original DNS RR / Hesiod lookup
 pattern) have changed. Projects migrating from `net.matrix.*` should
