@@ -118,7 +118,11 @@
 /1.3.6.1.4.1.42387.2.6.1.1  /application/  302
 /3d021461-8d8b-5428-959a-eef4e7a3cd4d  /application/  302
 
-# role
+# role (moved from 2.6.1.2 to 2.1.3 — role is core, not software-type-specific)
+/2/1/3  /role/  302
+/1.3.6.1.4.1.42387.2.1.3  /role/  302
+/325eee00-01e1-58c8-bb0b-982ab775e039  /role/  302
+# role — retired arc redirects (old software-type placement)
 /2/6/1/2  /role/  302
 /1.3.6.1.4.1.42387.2.6.1.2  /role/  302
 /5bedd70b-5466-578d-a7b9-0e25d5017287  /role/  302
