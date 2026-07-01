@@ -82,27 +82,36 @@ present and well-formed.
 
 ## Minting new terms
 
-`org.cispec` is an open namespace. A term does not need to appear on
-this site, or be registered with any authority, to be minted and used.
-Anyone may mint `org.cispec.<term>` for their own attestable thing. Two
-rules govern whether a minted term is legitimate:
+`org.cispec` is a domain-scoped namespace. The prefix `org.cispec.*`
+is governed exclusively by Da Planet Security — the DNS zone for
+`cispec.org` is DPS-controlled, and no third party can make a term
+resolve under `org.cispec.*` by pointing their own domain, because
+they do not control the authoritative DNS for `cispec.org`. This is
+not a policy restriction; it is a structural fact of how DNS works.
 
-**A term MUST resolve.** `org.cispec.<term>` MUST be reachable via
-GET or HEAD over public, TLS-verified, non-split-horizon DNS at a
-stable address (this site, or any domain the minting party controls and
-is willing to stand behind as authoritative for that term) before it is
-used in any artefact intended for external verification — a SLSA
-attestation, a customer-facing SBOM, evidence intended for an auditor
-or court. A term that only resolves inside a private or split-horizon
-DNS view is not a legitimate member of the public namespace; it is
-private-use labelling that happens to share a prefix, and validation
-tooling checking for Verified or Attested conformance MUST resolve the
-term from a neutral, public resolver at validation time, not trust
-whatever resolution context the artefact's producer used at minting
-time.
+**Third parties implementing `org.cispec`** use the terms defined on
+this site as-is. Where a needed fact is not covered by any existing
+term, the correct approach is to mint a term under the implementor's
+own reverse-DNS namespace — `net.example.shift-supervisor`, not
+`org.cispec.shift-supervisor` — the same way Java packages and D-Bus
+service names work. The implementor's own domain provides the
+uniqueness and authority guarantee; `org.cispec.*` is not the right
+prefix for terms an external party authors.
 
-**A term MUST be necessary.** Before minting `org.cispec.<term>`,
-the minting party MUST confirm both of the following:
+**New terms under `org.cispec.*`** are minted by DPS through the
+governance process this site documents. Two rules govern whether a
+proposed term belongs in this namespace:
+
+**A term MUST resolve.** Every `org.cispec.<term>` MUST be reachable
+via GET or HEAD over public, TLS-verified, non-split-horizon DNS at
+`<term>.cispec.org` or `cispec.org/<term>/`. Validation tooling
+(cimatrix) verifies resolution using mTLS and domain key verification
+at validation time, not at minting time. A term that only resolves
+inside a private or split-horizon DNS view is not a legitimate member
+of the public namespace.
+
+**A term MUST be necessary.** Before proposing `org.cispec.<term>`,
+confirm both of the following:
 
 1. The term identifies, attests, or relates to a tracked Change Item
    affecting IT/OT service delivery, asset management, cost accounting,
@@ -116,11 +125,10 @@ the minting party MUST confirm both of the following:
    `shift-supervisor:j.martinez@example.org`) is reuse of an existing
    term, not grounds for a new one.
 
-These two rules are deliberately not enforced by any central registry.
-Resolution can be checked mechanically by any validator. Necessity is a
-judgement call the minting party makes honestly, the same way an
-engineer applying RFC 2119 keywords correctly is a matter of judgement
-applied in good faith, not a gate any tool can fully automate.
+These two rules apply to DPS's own term development and to any
+proposal submitted for inclusion. Necessity is a judgement call made
+honestly — the same way an engineer applies RFC 2119 keywords in good
+faith — not a gate any tool can fully automate.
 
 ## Governance, validation, and implementation are separate layers
 
