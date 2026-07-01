@@ -180,6 +180,9 @@ citation handle.
 | `42387.2.4` | lifecycle — state and time facts |
 | `42387.2.5` | custody — provenance and evidence facts |
 | `42387.2.6` | CI-type extension keys, sub-numbered per type |
+| `42387.2.7` | physical — location and physical presence facts |
+| `42387.2.8` | governance/compliance — classification, retention, boundary |
+| `42387.2.9` | service management — SLA, common name |
 
 A new category arc is allocated only when a term genuinely does not fit
 any existing category — the same necessity discipline that governs
@@ -213,11 +216,22 @@ identifier:
 against an existing core key. Its document OID
 (`1.3.6.1.4.1.42387.2.6.3.1`) is retired, not reassigned.
 
-Reserved arcs with no term minted yet: `.2.6.2` (hardware), `.2.6.3`
-(retired — formerly purdue-level), `.2.6.4` (network), `.2.6.5`
-(evidence), `.2.6.6` (access), `.2.6.7` (facility), `.2.6.8`
-(contract), `.2.6.9` (crypto). New terms in unreserved categories take
-the next unused position within their reserved arc.
+| [location](/location/) | `1.3.6.1.4.1.42387.2.7` | `1192ce5e-1a38-5939-b4c8-be1263cb37fc` |
+| [classification](/classification/) | `1.3.6.1.4.1.42387.2.8` | `ff8c27e8-562e-5b8d-a887-ebb1daeeb039` |
+| [retention](/retention/) | `1.3.6.1.4.1.42387.2.8.1` | `b87b96e5-f583-5c4e-8cfc-49b0bb9739a7` |
+| [boundary](/boundary/) | `1.3.6.1.4.1.42387.2.8.2` | `1eaea5b2-5b84-5829-ae8b-850ec19d0ff0` |
+| [sla](/sla/) | `1.3.6.1.4.1.42387.2.9` | `78ee1d87-4cab-5636-a51d-60b9c45ee3f5` |
+| [commonname](/commonname/) | `1.3.6.1.4.1.42387.2.9.1` | `4b7c32ea-11f0-5afa-bac9-08ee71694c37` |
+| [asset-tag](/asset-tag/) | `1.3.6.1.4.1.42387.2.6.2.1` | `f5bc9f9b-9561-5f8d-811c-33e5ce0ade50` |
+| [manufacturer](/manufacturer/) | `1.3.6.1.4.1.42387.2.6.2.2` | `d957a085-ddfe-55e3-a34f-6e886194e470` |
+| [make](/make/) | `1.3.6.1.4.1.42387.2.6.2.3` | `8a7106c6-dcca-5f76-b59d-7bd2f391bb75` |
+| [model](/model/) | `1.3.6.1.4.1.42387.2.6.2.4` | `6ddca6e5-bb57-505c-b995-70a5b05ff783` |
+
+Reserved arcs: `.2.6.3` (retired — formerly purdue-level), `.2.6.4`
+(network), `.2.6.5` (evidence extended), `.2.6.6` (access), `.2.6.7`
+(facility extended), `.2.6.8` (contract), `.2.6.9` (crypto). Physical
+category terms extend `.2.7.*`; governance/compliance extend `.2.8.*`;
+service management extend `.2.9.*`.
 
 ## Versioning
 
@@ -256,7 +270,7 @@ not version numbers, following the same principle as
 - **Stable → Adopted:** two independent implementations confirmed in
   production use outside Da Planet Security's own tooling.
 
-Current status: **Draft** (v{{ .Site.Params.specVersion }}).
+Current status: **Draft** (v{{< param "specVersion" >}}).
 
 ## Licence
 
