@@ -207,7 +207,7 @@ identifier:
 | [environment](/environment/) | `1.3.6.1.4.1.42387.2.4.2` | `fb2fecdf-cbaf-5f0c-bd16-cffe882b9eb0` |
 | [custody-chain](/custody-chain/) | `1.3.6.1.4.1.42387.2.5` | `af7616e3-6c41-59af-947e-cd4af86b6d69` |
 | [checksum](/checksum/) | `1.3.6.1.4.1.42387.2.5.1` | `85cbd708-dcd0-5e36-8070-95f46ce00006` |
-| [application](/application/) | `1.3.6.1.4.1.42387.2.6.1.1` | `3d021461-8d8b-5428-959a-eef4e7a3cd4d` |
+| [application](/application/) | `1.3.6.1.4.1.42387.2.1.4` | `84784cd0-297e-5aec-962d-3e552cd55965` |
 | [role](/role/) | `1.3.6.1.4.1.42387.2.1.3` | `325eee00-01e1-58c8-bb0b-982ab775e039` |
 
 `purdue-level` was minted, then retired and folded into
@@ -237,7 +237,7 @@ against an existing core key. Its document OID
 | [expiry](/expiry/) | `1.3.6.1.4.1.42387.2.4.3` | `9714b5bf-3536-5fc9-a53a-b8f0cf1a65db` |
 | [acquired](/acquired/) | `1.3.6.1.4.1.42387.2.4.4` | `b07863b7-ed3e-5f79-9160-67efc0ebfe86` |
 
-Reserved arcs: `.2.6.1.2` (retired — formerly role, now at `.2.1.3`), `.2.6.3` (retired — formerly purdue-level), `.2.6.4`
+Reserved arcs: `.2.6.1.1` (retired — formerly application, now at `.2.1.4`), `.2.6.1.2` (retired — formerly role, now at `.2.1.3`), `.2.6.3` (retired — formerly purdue-level), `.2.6.4`
 (network), `.2.6.5` (evidence extended), `.2.6.6` (access), `.2.6.7`
 (facility extended), `.2.6.8` (contract), `.2.6.9` (crypto). Physical
 category terms extend `.2.7.*`; governance/compliance extend `.2.8.*`;

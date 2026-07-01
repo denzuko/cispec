@@ -113,7 +113,11 @@
 /1.3.6.1.4.1.42387.2.5.1  /checksum/  302
 /85cbd708-dcd0-5e36-8070-95f46ce00006  /checksum/  302
 
-# application
+# application (moved from 2.6.1.1 to 2.1.4 — application is core, not software-type-specific)
+/2/1/4  /application/  302
+/1.3.6.1.4.1.42387.2.1.4  /application/  302
+/84784cd0-297e-5aec-962d-3e552cd55965  /application/  302
+# application — retired arc redirects (old software-type placement)
 /2/6/1/1  /application/  302
 /1.3.6.1.4.1.42387.2.6.1.1  /application/  302
 /3d021461-8d8b-5428-959a-eef4e7a3cd4d  /application/  302
