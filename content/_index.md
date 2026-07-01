@@ -130,25 +130,27 @@ proposal submitted for inclusion. Necessity is a judgement call made
 honestly — the same way an engineer applies RFC 2119 keywords in good
 faith — not a gate any tool can fully automate.
 
-## Governance, validation, and implementation are separate layers
+## What this site does, and what it doesn't
 
-This site (`cispec.org`) is **governance**. It defines what terms mean
-and what conformance requires. It hosts no code, no policy-gate source,
-and no tooling.
+This site defines what terms mean and what conformance requires.
+It is not a validator, not a policy-gate, and not a CMDB. If a label
+set passes validation but the values are wrong — the wrong owner,
+a stale version number, a fabricated serial — that is an
+organisational problem, not a cispec problem. This specification
+says nothing about whether a given value is *true*, only whether the
+labels as written are well-formed and the required terms are present.
 
-[`cimatrix.org`](https://cimatrix.org) is **validation**. It checks
-that a given artefact's `org.cispec.*` labels are syntactically and
-semantically conformant to this specification — required terms present,
-values well-formed, resolution verified. It does not perform reverse
-lookups against any organisation's CMDB, ERP, or system of record, and
-it asserts nothing about whether a given relation is *true* in the real
-world — only whether the labels as written are well-formed.
+[`cimatrix.org`](https://cimatrix.org) is where mechanical checking
+happens. It verifies that a given artefact's `org.cispec.*` labels
+are syntactically correct, required terms are present, and term
+identifiers resolve over public TLS. It does not reach into any
+organisation's CMDB, ERP, or directory. It does not know whether
+`org.cispec.owner=nobody@example.org` is the real owner of the
+asset. That is the organisation's responsibility to assert honestly.
 
-Everything else — how an organisation's own CMDB, ERP, or directory
-answers "what does this label's value actually point to, right now" —
-is **implementation**. It is out of scope for this specification, out
-of scope for cimatrix, and not something either project correlates
-against or depends on.
+Everything downstream — how an organisation's own systems answer
+"what does this label's value actually point to right now" — is
+out of scope for both this site and cimatrix.
 
 ## Document identifiers
 
@@ -218,11 +220,16 @@ identifier:
 | [application](/application/) | `1.3.6.1.4.1.42387.2.1.4` | `84784cd0-297e-5aec-962d-3e552cd55965` |
 | [role](/role/) | `1.3.6.1.4.1.42387.2.1.3` | `325eee00-01e1-58c8-bb0b-982ab775e039` |
 
-`purdue-level` was minted, then retired and folded into
-[`environment`](/environment/) as a qualified value
-(`environment=purdue-level:<n>`) — it failed the redundancy test
-against an existing core key. Its document OID
-(`1.3.6.1.4.1.42387.2.6.3.1`) is retired, not reassigned.
+**Migrating from `purdue-level`:** An earlier draft of this
+specification defined `org.cispec.purdue-level` as a standalone term.
+It was removed before reaching Stable because
+[`org.cispec.environment`](/environment/) already covers the same
+fact using a qualified value — `environment=purdue-level:1` through
+`environment=purdue-level:5`. If your label set uses
+`org.cispec.purdue-level`, replace it with
+`org.cispec.environment=purdue-level:<n>` and remove the old key.
+The document OID `1.3.6.1.4.1.42387.2.6.3.1` is retired and will
+not be reused.
 
 | [location](/location/) | `1.3.6.1.4.1.42387.2.7` | `1192ce5e-1a38-5939-b4c8-be1263cb37fc` |
 | [classification](/classification/) | `1.3.6.1.4.1.42387.2.8` | `ff8c27e8-562e-5b8d-a887-ebb1daeeb039` |
