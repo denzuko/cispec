@@ -5,6 +5,9 @@
   {{ if .Params.core }}
     <span class="badge badge-core">core key</span>
   {{ end }}
+  {{ if .Params.experimental }}
+    <span class="badge badge-experimental">experimental</span>
+  {{ end }}
   {{ if .Params.requiredFor }}
     <span class="badge badge-required">required: {{ delimit .Params.requiredFor ", " }}</span>
   {{ end }}

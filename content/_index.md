@@ -252,6 +252,11 @@ against an existing core key. Its document OID
 | [algorithm](/algorithm/) | `1.3.6.1.4.1.42387.2.6.9.1` | `d7fc8fc7-41b8-5365-b370-983eb3ca6cd4` |
 | [key-length](/key-length/) | `1.3.6.1.4.1.42387.2.6.9.2` | `cb348b85-ab41-5808-bf2e-6b3dd60a2706` |
 
+| [fqdn](/fqdn/) | `1.3.6.1.4.1.42387.2.6.4.4` | `e39b64b6-6144-5939-9cc1-aa8a91fd796b` |
+| [exposure](/exposure/) | `1.3.6.1.4.1.42387.2.8.3` | `9aeb523a-c902-5fef-9398-709b424208ff` |
+| [scan-policy](/scan-policy/) *(experimental)* | `1.3.6.1.4.1.42387.2.8.4` | `14e4a997-48d2-5319-8308-7ab97eadf2d4` |
+| [config-baseline](/config-baseline/) *(experimental)* | `1.3.6.1.4.1.42387.2.8.5` | `fe80be18-0f77-57cd-b57d-29cc26688589` |
+
 Retired arcs: `.2.6.1.1` (application, now core at `.2.1.4`),
 `.2.6.1.2` (role, now core at `.2.1.3`),
 `.2.6.3` (purdue-level, folded into `environment` as qualified value).
@@ -277,7 +282,37 @@ The current specification version is **{{< param "specVersion" >}}**.
 A label set SHOULD record the specification version it was authored
 against using [`org.cispec.specversion`](/specversion/).
 
+## OSCAL interoperability
+
+FedRAMP RFC-0024 (January 2026) mandates machine-readable
+authorization packages in OSCAL format for all FedRAMP providers,
+with an initial deadline of September 30, 2026. `org.cispec` terms
+map directly onto OSCAL's component inventory model:
+
+| OSCAL property | org.cispec term |
+|---|---|
+| `asset-type` | [`application`](/application/) or [`net-type`](/net-type/) |
+| `physical-location` | [`location`](/location/) |
+| `ipv4-address`, `ipv6-address` | [`ip-address`](/ip-address/) |
+| `mac-address` | [`mac-address`](/mac-address/) |
+| `fqdn` | [`fqdn`](/fqdn/) |
+| `serial-number` | [`serial-number`](/serial-number/) |
+| `hardware-model` | [`make`](/make/) + [`model`](/model/) |
+| `os-name`, `software-name` | [`application`](/application/) |
+| `os-version`, `software-version` | [`version`](/version/) |
+| `responsible-party` | [`owner`](/owner/) |
+| `release-date` | [`acquired`](/acquired/) |
+| `public` | [`exposure`](/exposure/) |
+| `is-scanned`, `allows-authenticated-scan` | [`scan-policy`](/scan-policy/) *(experimental)* |
+| `baseline-template` | [`config-baseline`](/config-baseline/) *(experimental)* |
+
+This mapping is non-normative — neither this specification nor OSCAL
+requires the other. It is provided to assist FedRAMP implementors
+generating OSCAL-based System Security Plans and component inventory
+from `org.cispec`-labelled assets.
+
 ## Specification status
+
 
 The coloured strip on the left edge of every page signals this
 specification's current position in the adoption lifecycle. Status

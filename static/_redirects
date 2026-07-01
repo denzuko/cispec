@@ -250,3 +250,23 @@
 /2/6/9/2  /key-length/  302
 /1.3.6.1.4.1.42387.2.6.9.2  /key-length/  302
 /cb348b85-ab41-5808-bf2e-6b3dd60a2706  /key-length/  302
+
+# fqdn
+/2/6/4/4  /fqdn/  302
+/1.3.6.1.4.1.42387.2.6.4.4  /fqdn/  302
+/e39b64b6-6144-5939-9cc1-aa8a91fd796b  /fqdn/  302
+
+# exposure
+/2/8/3  /exposure/  302
+/1.3.6.1.4.1.42387.2.8.3  /exposure/  302
+/9aeb523a-c902-5fef-9398-709b424208ff  /exposure/  302
+
+# scan-policy
+/2/8/4  /scan-policy/  302
+/1.3.6.1.4.1.42387.2.8.4  /scan-policy/  302
+/14e4a997-48d2-5319-8308-7ab97eadf2d4  /scan-policy/  302
+
+# config-baseline
+/2/8/5  /config-baseline/  302
+/1.3.6.1.4.1.42387.2.8.5  /config-baseline/  302
+/fe80be18-0f77-57cd-b57d-29cc26688589  /config-baseline/  302
