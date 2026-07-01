@@ -170,34 +170,31 @@
       width: 6px;
       height: 100vh;
       z-index: 100;
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
-    .spec-status-label {
-      writing-mode: vertical-rl;
-      transform: rotate(180deg);
+    /* Okabe-Ito palette — distinguishable under deuteranopia and protanopia.
+       Colour is never the only signal; header badge provides redundant
+       readable text per WCAG 1.4.1 Use of Color. */
+    body[data-status="draft"]   .spec-status-strip { background: #E69F00; }
+    body[data-status="stable"]  .spec-status-strip { background: #0072B2; }
+    body[data-status="adopted"] .spec-status-strip { background: #009E73; }
+    /* Status badge in header — horizontal readable text, always visible,
+       non-colour redundancy for WCAG 1.4.1 compliance */
+    .spec-status-badge {
+      display: inline-block;
       font-family: var(--mono);
-      font-size: 0.55rem;
+      font-size: 0.68rem;
       font-weight: 700;
-      letter-spacing: 0.12em;
-      color: #0a0a0a;
-      user-select: none;
-      pointer-events: none;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.2em 0.55em;
+      border-radius: 3px;
+      margin-left: 1rem;
+      vertical-align: middle;
     }
-    /* draft — amber: 0.x.y, terms may change */
-    body[data-status="draft"] .spec-status-strip {
-      background: #ffab00;
-    }
-    /* stable — neon green: N.0.0 published, terms frozen, safe to cite */
-    body[data-status="stable"] .spec-status-strip {
-      background: #39ff14;
-    }
-    /* adopted — pale green: independently implemented in production */
-    body[data-status="adopted"] .spec-status-strip {
-      background: #d1fae5;
-    }
-    /* Offset body so the strip doesn't overlap the left margin */
+    body[data-status="draft"]   .spec-status-badge { background: #E69F00; color: #1c1917; }
+    body[data-status="stable"]  .spec-status-badge { background: #0072B2; color: #fff; }
+    body[data-status="adopted"] .spec-status-badge { background: #009E73; color: #fff; }
+    /* Offset body so the strip doesn't overlap left margin */
     body {
       padding-left: calc(1.25rem + 6px);
     }
@@ -272,15 +269,14 @@
        as W3C TR pages. Colour driven by data-status on <body>.
        draft=grey, candidate=blue, stable=green.
        One-line change in hugo.toml params.specStatus to advance. -->
-  <div class="spec-status-strip" aria-hidden="true">
-    <span class="spec-status-label">{{ .Site.Params.specStatus | upper | default "DRAFT" }}</span>
-  </div>
+  <div class="spec-status-strip" aria-hidden="true"></div>
   <header class="site">
     <a class="home" href="/">cispec</a>
     <nav>
       <button id="searchToggle" type="button" aria-label="Search">&#x2315;</button>
       <a href="https://github.com/denzuko/cispec">source</a>
       <a href="https://cimatrix.org">cimatrix</a>
+      <span class="spec-status-badge" title="Specification status: {{ .Site.Params.specStatus | default "draft" }}. See cispec.org/#specification-status for advancement criteria.">{{ .Site.Params.specStatus | default "draft" }}</span>
     </nav>
   </header>
   {{ partial "search.html" . }}
