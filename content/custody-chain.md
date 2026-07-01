@@ -3,6 +3,7 @@ title: "custody-chain"
 term: "custody-chain"
 core: false
 requiredFor: ["evidence Change Items"]
+recommendedFor: ["any CI under regulatory traceability requirements — pharmaceutical supply chain, medical devices, weapon system components, classified documents, ITAR-controlled items"]
 related: ["owner", "checksum", "organization"]
 docOid: "1.3.6.1.4.1.42387.2.5"
 docGuid: "af7616e3-6c41-59af-947e-cd4af86b6d69"
@@ -11,15 +12,19 @@ draft: false
 ---
 
 `org.cispec.custody-chain` is a bare reference pointing at the
-chronological custody record for a Change Item handled as digital
-evidence — it does not carry the record itself. The actual
-chronological log (who collected it, who has held it, every transfer)
-is a time-series record, not a single fact, and does not fit the
-`key=value` shape this namespace uses for every other term; it lives
-in the organisation's own evidence-management system, the same way
-[`oid`](/oid/) points at a client's registry tree without this
-specification hosting that tree. `custody-chain` is the citation, not
-the citation's content.
+chronological custody record for a Change Item — it does not carry
+the record itself. The actual chronological log is a time-series
+record, not a single fact, and does not fit the `key=value` shape
+this namespace uses for every other term; it lives in the
+organisation's own evidence-management, supply-chain, or traceability
+system. `custody-chain` is the citation, not the citation's content.
+
+Custody tracking applies wherever regulatory or legal frameworks
+require unbroken provenance: digital forensic evidence (ISO/IEC
+27037:2012), pharmaceutical supply chain (GDP, cold chain), medical
+device traceability (FDA UDI, MDR), weapon system components
+(ITAR/EAR), classified documents, and any physical asset under
+chain-of-custody requirements for audit or litigation.
 
 The processes the referenced record is expected to satisfy —
 identification, collection, acquisition, preservation — are described

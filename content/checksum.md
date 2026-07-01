@@ -3,7 +3,7 @@ title: "checksum"
 term: "checksum"
 core: false
 requiredFor: ["evidence Change Items"]
-recommendedFor: ["software, hardware, and ICS Change Items where integrity verification matters"]
+recommendedFor: ["any CI where integrity verification matters — software, firmware, hardware, pharmaceutical lots, classified documents, physical assets under regulatory traceability"]
 related: ["custody-chain", "owner", "version"]
 docOid: "1.3.6.1.4.1.42387.2.5.1"
 docGuid: "85cbd708-dcd0-5e36-8070-95f46ce00006"
