@@ -1,0 +1,174 @@
+# cispec.org redirect rules
+# Canonical form: /term-name/
+# Short sub-arc:  /2/1  -> /organization/
+# Full OID:       /1.3.6.1.4.1.42387.2.1 -> /organization/
+# UUID:           /8ef717a5-... -> /organization/
+# All 302 (temporary) — allows future canonical path changes
+#
+# Generated from the document-identifier index.
+# Add new terms here when minted.
+
+# organization
+/2/1  /organization/  302
+/1.3.6.1.4.1.42387.2.1  /organization/  302
+/8ef717a5-d8c0-512d-8cc5-9d62cea811ca  /organization/  302
+
+# orgunit
+/2/1/1  /orgunit/  302
+/1.3.6.1.4.1.42387.2.1.1  /orgunit/  302
+/8da4c483-9e88-5831-8c1d-e3b2d584794e  /orgunit/  302
+
+# owner
+/2/1/2  /owner/  302
+/1.3.6.1.4.1.42387.2.1.2  /owner/  302
+/54cfcb4f-03f8-548e-80e7-75aea99c3580  /owner/  302
+
+# oid
+/2/2  /oid/  302
+/1.3.6.1.4.1.42387.2.2  /oid/  302
+/c79d496e-04f0-559c-9e88-63109933cddb  /oid/  302
+
+# duns
+/2/2/1  /duns/  302
+/1.3.6.1.4.1.42387.2.2.1  /duns/  302
+/706730f3-ac1d-573b-94ae-b717305e4a35  /duns/  302
+
+# customer
+/2/3  /customer/  302
+/1.3.6.1.4.1.42387.2.3  /customer/  302
+/748000b4-ea01-58ab-9613-a73aa5658fda  /customer/  302
+
+# costcenter
+/2/3/1  /costcenter/  302
+/1.3.6.1.4.1.42387.2.3.1  /costcenter/  302
+/c7fe2951-e8c2-5ce0-adb9-3e941db9ac8b  /costcenter/  302
+
+# cost
+/2/3/2  /cost/  302
+/1.3.6.1.4.1.42387.2.3.2  /cost/  302
+/9d633303-4b6e-5c01-bbc0-2554769f3aa5  /cost/  302
+
+# unit-cost
+/2/3/3  /unit-cost/  302
+/1.3.6.1.4.1.42387.2.3.3  /unit-cost/  302
+/13b2c028-55ec-59a4-b274-c01ddddc33cf  /unit-cost/  302
+
+# billing-model
+/2/3/4  /billing-model/  302
+/1.3.6.1.4.1.42387.2.3.4  /billing-model/  302
+/dbee024f-8cc0-52d6-b300-d1aac6b07372  /billing-model/  302
+
+# depreciation
+/2/3/5  /depreciation/  302
+/1.3.6.1.4.1.42387.2.3.5  /depreciation/  302
+/0e456549-e677-5ad3-8c7f-49210439cb48  /depreciation/  302
+
+# contract-ref
+/2/3/6  /contract-ref/  302
+/1.3.6.1.4.1.42387.2.3.6  /contract-ref/  302
+/bc197921-a7a6-5d33-90f2-763de7e0eaa3  /contract-ref/  302
+
+# usage
+/2/3/7  /usage/  302
+/1.3.6.1.4.1.42387.2.3.7  /usage/  302
+/c8c1a366-27f8-56fc-991c-0a4f2c9b383d  /usage/  302
+
+# vendor
+/2/3/8  /vendor/  302
+/1.3.6.1.4.1.42387.2.3.8  /vendor/  302
+/b57413eb-ea61-5ce2-a9a9-274832e2eea0  /vendor/  302
+
+# version
+/2/4  /version/  302
+/1.3.6.1.4.1.42387.2.4  /version/  302
+/abc91671-732c-5697-b1bb-98113d9313e2  /version/  302
+
+# specversion
+/2/4/1  /specversion/  302
+/1.3.6.1.4.1.42387.2.4.1  /specversion/  302
+/41319691-4383-59de-944f-28dc072ea408  /specversion/  302
+
+# environment
+/2/4/2  /environment/  302
+/1.3.6.1.4.1.42387.2.4.2  /environment/  302
+/fb2fecdf-cbaf-5f0c-bd16-cffe882b9eb0  /environment/  302
+
+# expiry
+/2/4/3  /expiry/  302
+/1.3.6.1.4.1.42387.2.4.3  /expiry/  302
+/9714b5bf-3536-5fc9-a53a-b8f0cf1a65db  /expiry/  302
+
+# acquired
+/2/4/4  /acquired/  302
+/1.3.6.1.4.1.42387.2.4.4  /acquired/  302
+/b07863b7-ed3e-5f79-9160-67efc0ebfe86  /acquired/  302
+
+# custody-chain
+/2/5  /custody-chain/  302
+/1.3.6.1.4.1.42387.2.5  /custody-chain/  302
+/af7616e3-6c41-59af-947e-cd4af86b6d69  /custody-chain/  302
+
+# checksum
+/2/5/1  /checksum/  302
+/1.3.6.1.4.1.42387.2.5.1  /checksum/  302
+/85cbd708-dcd0-5e36-8070-95f46ce00006  /checksum/  302
+
+# application
+/2/6/1/1  /application/  302
+/1.3.6.1.4.1.42387.2.6.1.1  /application/  302
+/3d021461-8d8b-5428-959a-eef4e7a3cd4d  /application/  302
+
+# role
+/2/6/1/2  /role/  302
+/1.3.6.1.4.1.42387.2.6.1.2  /role/  302
+/5bedd70b-5466-578d-a7b9-0e25d5017287  /role/  302
+
+# asset-tag
+/2/6/2/1  /asset-tag/  302
+/1.3.6.1.4.1.42387.2.6.2.1  /asset-tag/  302
+/f5bc9f9b-9561-5f8d-811c-33e5ce0ade50  /asset-tag/  302
+
+# manufacturer
+/2/6/2/2  /manufacturer/  302
+/1.3.6.1.4.1.42387.2.6.2.2  /manufacturer/  302
+/d957a085-ddfe-55e3-a34f-6e886194e470  /manufacturer/  302
+
+# make
+/2/6/2/3  /make/  302
+/1.3.6.1.4.1.42387.2.6.2.3  /make/  302
+/8a7106c6-dcca-5f76-b59d-7bd2f391bb75  /make/  302
+
+# model
+/2/6/2/4  /model/  302
+/1.3.6.1.4.1.42387.2.6.2.4  /model/  302
+/6ddca6e5-bb57-505c-b995-70a5b05ff783  /model/  302
+
+# location
+/2/7  /location/  302
+/1.3.6.1.4.1.42387.2.7  /location/  302
+/1192ce5e-1a38-5939-b4c8-be1263cb37fc  /location/  302
+
+# classification
+/2/8  /classification/  302
+/1.3.6.1.4.1.42387.2.8  /classification/  302
+/ff8c27e8-562e-5b8d-a887-ebb1daeeb039  /classification/  302
+
+# retention
+/2/8/1  /retention/  302
+/1.3.6.1.4.1.42387.2.8.1  /retention/  302
+/b87b96e5-f583-5c4e-8cfc-49b0bb9739a7  /retention/  302
+
+# boundary
+/2/8/2  /boundary/  302
+/1.3.6.1.4.1.42387.2.8.2  /boundary/  302
+/1eaea5b2-5b84-5829-ae8b-850ec19d0ff0  /boundary/  302
+
+# sla
+/2/9  /sla/  302
+/1.3.6.1.4.1.42387.2.9  /sla/  302
+/78ee1d87-4cab-5636-a51d-60b9c45ee3f5  /sla/  302
+
+# commonname
+/2/9/1  /commonname/  302
+/1.3.6.1.4.1.42387.2.9.1  /commonname/  302
+/4b7c32ea-11f0-5afa-bac9-08ee71694c37  /commonname/  302

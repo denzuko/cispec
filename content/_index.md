@@ -227,6 +227,16 @@ against an existing core key. Its document OID
 | [make](/make/) | `1.3.6.1.4.1.42387.2.6.2.3` | `8a7106c6-dcca-5f76-b59d-7bd2f391bb75` |
 | [model](/model/) | `1.3.6.1.4.1.42387.2.6.2.4` | `6ddca6e5-bb57-505c-b995-70a5b05ff783` |
 
+| [cost](/cost/) | `1.3.6.1.4.1.42387.2.3.2` | `9d633303-4b6e-5c01-bbc0-2554769f3aa5` |
+| [unit-cost](/unit-cost/) | `1.3.6.1.4.1.42387.2.3.3` | `13b2c028-55ec-59a4-b274-c01ddddc33cf` |
+| [billing-model](/billing-model/) | `1.3.6.1.4.1.42387.2.3.4` | `dbee024f-8cc0-52d6-b300-d1aac6b07372` |
+| [depreciation](/depreciation/) | `1.3.6.1.4.1.42387.2.3.5` | `0e456549-e677-5ad3-8c7f-49210439cb48` |
+| [contract-ref](/contract-ref/) | `1.3.6.1.4.1.42387.2.3.6` | `bc197921-a7a6-5d33-90f2-763de7e0eaa3` |
+| [usage](/usage/) | `1.3.6.1.4.1.42387.2.3.7` | `c8c1a366-27f8-56fc-991c-0a4f2c9b383d` |
+| [vendor](/vendor/) | `1.3.6.1.4.1.42387.2.3.8` | `b57413eb-ea61-5ce2-a9a9-274832e2eea0` |
+| [expiry](/expiry/) | `1.3.6.1.4.1.42387.2.4.3` | `9714b5bf-3536-5fc9-a53a-b8f0cf1a65db` |
+| [acquired](/acquired/) | `1.3.6.1.4.1.42387.2.4.4` | `b07863b7-ed3e-5f79-9160-67efc0ebfe86` |
+
 Reserved arcs: `.2.6.3` (retired — formerly purdue-level), `.2.6.4`
 (network), `.2.6.5` (evidence extended), `.2.6.6` (access), `.2.6.7`
 (facility extended), `.2.6.8` (contract), `.2.6.9` (crypto). Physical

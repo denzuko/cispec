@@ -30,7 +30,21 @@ applicability.
 
 ## Value format
 
-The model designation as the manufacturer uses it.
+The model designation as the manufacturer uses it. For AI/LLM models,
+`model` carries the model variant (the specific trained version within
+a model family), with `make` carrying the model family name and
+`manufacturer` carrying the producing organisation:
+
+```sh
+org.cispec.manufacturer=Anthropic
+org.cispec.make=claude
+org.cispec.model=sonnet
+org.cispec.version=4.6
+org.cispec.application=llm-model
+org.cispec.role=chatbot
+```
+
+For physical hardware:
 
 ```sh
 org.cispec.model=F-35B

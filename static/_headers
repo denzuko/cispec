@@ -1,0 +1,12 @@
+# cispec.org response headers
+# Canonical term pages — allow caching but revalidate
+/*/
+  Cache-Control: public, max-age=3600, must-revalidate
+
+# Schema artefacts — longer cache, content-addressed
+/cispec.*
+  Cache-Control: public, max-age=86400, must-revalidate
+
+# Redirect targets — short cache so renames propagate quickly
+/2/*
+  Cache-Control: public, max-age=300, must-revalidate

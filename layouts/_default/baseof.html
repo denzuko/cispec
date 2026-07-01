@@ -25,8 +25,16 @@
       background: var(--bg);
       max-width: 920px;
       margin: 0 auto;
-      padding: 2rem 1.25rem 4rem;
+      padding: 0;
       line-height: 1.6;
+      display: flex;
+      flex-direction: row;
+      min-height: 100vh;
+    }
+    .page-content {
+      flex: 1 1 auto;
+      padding: 2rem 1.25rem 4rem;
+      min-width: 0;
     }
     header.site {
       display: flex;
@@ -166,12 +174,12 @@
        Colours from the Da Planet design system.
        ---------------------------------------------------------------- */
     .spec-status-strip {
-      position: fixed;
+      flex: 0 0 6px;
+      position: sticky;
       top: 0;
-      left: 0;
-      width: 6px;
+      align-self: flex-start;
       height: 100vh;
-      z-index: 100;
+      z-index: 10;
     }
     /* Okabe-Ito palette — distinguishable under deuteranopia and protanopia.
        Colour is never the only signal; header badge provides redundant
@@ -196,9 +204,15 @@
     body[data-status="draft"]   .spec-status-badge { background: #E69F00; color: #1c1917; }
     body[data-status="stable"]  .spec-status-badge { background: #0072B2; color: #fff; }
     body[data-status="adopted"] .spec-status-badge { background: #009E73; color: #fff; }
-    /* Offset body so the strip doesn't overlap left margin */
-    body {
-      padding-left: calc(1.25rem + 6px);
+    /* Mobile: strip collapses to a top bar */
+    @media (max-width: 640px) {
+      body { flex-direction: column; }
+      .spec-status-strip {
+        flex: none;
+        width: 100%;
+        height: 4px;
+        position: relative;
+      }
     }
        position: sticky, pure CSS, no JavaScript. Holds page identity
        metadata (term, conformance, spec version, document OID) and
@@ -272,6 +286,7 @@
        draft=grey, candidate=blue, stable=green.
        One-line change in hugo.toml params.specStatus to advance. -->
   <div class="spec-status-strip" aria-hidden="true"></div>
+  <div class="page-content">
   <header class="site">
     <a class="home" href="/">cispec</a>
     <nav>
@@ -330,5 +345,6 @@
       }
     });
   </script>
+  </div><!-- /.page-content -->
 </body>
 </html>
