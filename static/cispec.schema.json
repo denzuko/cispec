@@ -2,102 +2,297 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://cispec.org/cispec.schema.json",
   "title": "org.cispec label set",
-  "description": "JSON Schema for the org.cispec Change Item attribution namespace. Validates a flat key-value map of org.cispec.* labels applied to any Change Item. Canonical governance: https://cispec.org/ Validation toolkit: https://cimatrix.org/",
+  "description": "JSON Schema for the org.cispec Change Item attribution namespace v1.0. Validates a flat key-value map of org.cispec.* labels applied to any Change Item. 51 terms across identity, registry, financial, lifecycle, custody, and CI-type-specific categories. Canonical governance: https://cispec.org/ Validation toolkit: https://cimatrix.org/",
   "type": "object",
   "properties": {
     "labels": {
       "type": "object",
       "description": "Flat map of org.cispec.* label keys to string values.",
       "properties": {
+
         "org.cispec.organization": {
           "$ref": "#/$defs/slug",
-          "description": "Owning organisation slug. X.500/X.520 organizationName (O). Required for Declared conformance.",
-          "$comment": "docOid: 1.3.6.1.4.1.42387.2.1 docGuid: 8ef717a5-d8c0-512d-8cc5-9d62cea811ca"
+          "description": "Owning organisation slug. X.500/X.520 organizationName (O). REQUIRED.",
+          "$comment": "docOid:1.3.6.1.4.1.42387.2.1 core:true"
         },
         "org.cispec.orgunit": {
           "$ref": "#/$defs/slug",
-          "description": "Organisational unit slug. X.500/X.520 organizationalUnitName (OU). Required for Declared conformance.",
-          "$comment": "docOid: 1.3.6.1.4.1.42387.2.1.1 docGuid: 8da4c483-9e88-5831-8c1d-e3b2d584794e"
+          "description": "Organisational unit slug. X.500/X.520 organizationalUnitName (OU). REQUIRED.",
+          "$comment": "docOid:1.3.6.1.4.1.42387.2.1.1 core:true"
         },
         "org.cispec.owner": {
           "$ref": "#/$defs/identity",
-          "description": "Accountable individual or role. Bare email, GPG-key-ID@domain, or role-qualified colon-prefixed form. Required for Declared conformance.",
-          "$comment": "docOid: 1.3.6.1.4.1.42387.2.1.2 docGuid: 54cfcb4f-03f8-548e-80e7-75aea99c3580"
-        },
-        "org.cispec.oid": {
-          "$ref": "#/$defs/oid-string",
-          "description": "Relational pointer to the client's own IANA OID arc. Not DPS's own arc — the customer or owning party's registered PEN.",
-          "$comment": "docOid: 1.3.6.1.4.1.42387.2.2 docGuid: c79d496e-04f0-559c-9e88-63109933cddb"
-        },
-        "org.cispec.duns": {
-          "$ref": "#/$defs/duns-string",
-          "description": "D&B DUNS number in OID notation. Externally verifiable against the D&B registry.",
-          "$comment": "docOid: 1.3.6.1.4.1.42387.2.2.1 docGuid: 706730f3-ac1d-573b-94ae-b717305e4a35"
-        },
-        "org.cispec.customer": {
-          "type": "string",
-          "minLength": 1,
-          "description": "Customer identifier in the owning organisation's own billing or contract-reference scheme.",
-          "$comment": "docOid: 1.3.6.1.4.1.42387.2.3 docGuid: 748000b4-ea01-58ab-9613-a73aa5658fda"
-        },
-        "org.cispec.costcenter": {
-          "type": "string",
-          "minLength": 1,
-          "description": "Cost centre identifier in the owning organisation's internal accounting scheme.",
-          "$comment": "docOid: 1.3.6.1.4.1.42387.2.3.1 docGuid: c7fe2951-e8c2-5ce0-adb9-3e941db9ac8b"
-        },
-        "org.cispec.version": {
-          "$ref": "#/$defs/version-string",
-          "description": "Semver 2.0 version of the Change Item. Applies universally — software release, firmware build, document revision, policy amendment. Required for Declared conformance.",
-          "$comment": "docOid: 1.3.6.1.4.1.42387.2.4 docGuid: abc91671-732c-5697-b1bb-98113d9313e2"
-        },
-        "org.cispec.specversion": {
-          "type": "string",
-          "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(\\.0|[1-9]\\d*)?$",
-          "description": "org.cispec specification version this label set was authored against.",
-          "$comment": "docOid: 1.3.6.1.4.1.42387.2.4.1 docGuid: 41319691-4383-59de-944f-28dc072ea408"
-        },
-        "org.cispec.environment": {
-          "type": "string",
-          "minLength": 1,
-          "description": "Deployment or operational environment. Bare slug (production, staging) or qualified form for domain-specific context (purdue-level:1 for ICS Purdue Model levels 0-5).",
-          "examples": [
-            "production",
-            "staging",
-            "development",
-            "purdue-level:0",
-            "purdue-level:1",
-            "purdue-level:2",
-            "purdue-level:3"
-          ],
-          "$comment": "docOid: 1.3.6.1.4.1.42387.2.4.2 docGuid: fb2fecdf-cbaf-5f0c-bd16-cffe882b9eb0"
-        },
-        "org.cispec.application": {
-          "type": "string",
-          "minLength": 1,
-          "description": "Application or service name. Software CI type — not a universal core key.",
-          "$comment": "docOid: 1.3.6.1.4.1.42387.2.6.1.1 docGuid: 3d021461-8d8b-5428-959a-eef4e7a3cd4d"
+          "description": "Accountable individual or role. Email, GPG-key-ID@domain, or role:identity. REQUIRED.",
+          "$comment": "docOid:1.3.6.1.4.1.42387.2.1.2 core:true"
         },
         "org.cispec.role": {
           "$ref": "#/$defs/slug",
-          "description": "Functional role of this Change Item in its deployment context. Software CI type.",
-          "$comment": "docOid: 1.3.6.1.4.1.42387.2.6.1.2 docGuid: 5bedd70b-5466-578d-a7b9-0e25d5017287"
+          "description": "Operational role this CI instance is fulfilling. Universal — any CI type. REQUIRED.",
+          "$comment": "docOid:1.3.6.1.4.1.42387.2.1.3 core:true"
+        },
+        "org.cispec.application": {
+          "type": "string", "minLength": 1,
+          "description": "Designed purpose or applied function. Universal — software, hardware, pharmaceutical, weapon system, etc. REQUIRED.",
+          "$comment": "docOid:1.3.6.1.4.1.42387.2.1.4 core:true"
+        },
+        "org.cispec.oid": {
+          "$ref": "#/$defs/oid-string",
+          "description": "Relational pointer to the CLIENT's own OID arc. Not DPS's 42387 arc.",
+          "$comment": "docOid:1.3.6.1.4.1.42387.2.2"
+        },
+        "org.cispec.duns": {
+          "$ref": "#/$defs/duns-string",
+          "description": "D&B DUNS in OID notation: iso.org.duns.<9-digit-number>. Externally verifiable.",
+          "$comment": "docOid:1.3.6.1.4.1.42387.2.2.1"
+        },
+        "org.cispec.customer": {
+          "type": "string", "minLength": 1,
+          "description": "Customer identifier in the owning organisation's billing scheme.",
+          "$comment": "docOid:1.3.6.1.4.1.42387.2.3"
+        },
+        "org.cispec.costcenter": {
+          "type": "string", "minLength": 1,
+          "description": "Cost centre identifier in the owning organisation's accounting scheme.",
+          "$comment": "docOid:1.3.6.1.4.1.42387.2.3.1"
+        },
+        "org.cispec.cost": {
+          "type": "string", "minLength": 1,
+          "description": "Acquisition cost or last known price. Format: amount:currency[:type].",
+          "examples": ["150000:USD", "2500:USD:annual-licence"],
+          "$comment": "docOid:1.3.6.1.4.1.42387.2.3.2"
+        },
+        "org.cispec.unit-cost": {
+          "type": "string", "minLength": 1,
+          "description": "Ongoing cost rate. Format: rate:currency:per-unit.",
+          "examples": ["0.096:USD:per-hour", "0.003:USD:per-token"],
+          "$comment": "docOid:1.3.6.1.4.1.42387.2.3.3"
+        },
+        "org.cispec.billing-model": {
+          "type": "string", "minLength": 1,
+          "description": "Commercial billing structure.",
+          "examples": ["on-demand", "reserved-1yr", "subscription", "per-token", "capex", "opex"],
+          "$comment": "docOid:1.3.6.1.4.1.42387.2.3.4"
+        },
+        "org.cispec.depreciation": {
+          "type": "string", "minLength": 1,
+          "description": "Depreciation method and useful life. Format: method:period.",
+          "examples": ["straight-line:5Y", "MACRS:7Y"],
+          "$comment": "docOid:1.3.6.1.4.1.42387.2.3.5"
+        },
+        "org.cispec.contract-ref": {
+          "type": "string", "minLength": 1,
+          "description": "Procurement vehicle pointer: contract number, GSA schedule ref, PO number.",
+          "$comment": "docOid:1.3.6.1.4.1.42387.2.3.6"
+        },
+        "org.cispec.usage": {
+          "type": "string", "minLength": 1,
+          "description": "Quantity consumed in billing period. Format: quantity:unit.",
+          "examples": ["10000000:tokens", "720:CPU-hours", "500:GB-month"],
+          "$comment": "docOid:1.3.6.1.4.1.42387.2.3.7"
+        },
+        "org.cispec.vendor": {
+          "type": "string", "minLength": 1,
+          "description": "Who sells or services the CI to the org. Distinct from manufacturer (producer).",
+          "$comment": "docOid:1.3.6.1.4.1.42387.2.3.8"
+        },
+        "org.cispec.version": {
+          "$ref": "#/$defs/version-string",
+          "description": "Semver 2.0 version. Universal — software, firmware, document, policy. REQUIRED.",
+          "$comment": "docOid:1.3.6.1.4.1.42387.2.4 core:true"
+        },
+        "org.cispec.specversion": {
+          "type": "string", "minLength": 1,
+          "description": "Spec version labels were authored against.",
+          "$comment": "docOid:1.3.6.1.4.1.42387.2.4.1"
+        },
+        "org.cispec.environment": {
+          "type": "string", "minLength": 1,
+          "description": "Operational programme, zone, or tier the CI is assigned to. Bare slug or purdue-level:<n> for ICS.",
+          "examples": ["production", "staging", "blackops", "purdue-level:1"],
+          "$comment": "docOid:1.3.6.1.4.1.42387.2.4.2"
+        },
+        "org.cispec.expiry": {
+          "type": "string",
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}(T[0-9]{2}:[0-9]{2}:[0-9]{2}Z)?$",
+          "description": "When the CI expires, EOLs, or requires renewal. ISO 8601 date.",
+          "$comment": "docOid:1.3.6.1.4.1.42387.2.4.3"
+        },
+        "org.cispec.acquired": {
+          "type": "string",
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}(T[0-9]{2}:[0-9]{2}:[0-9]{2}Z)?$",
+          "description": "When the CI entered the org's inventory. ISO 8601 date.",
+          "$comment": "docOid:1.3.6.1.4.1.42387.2.4.4"
         },
         "org.cispec.custody-chain": {
-          "type": "string",
-          "minLength": 1,
-          "description": "Bare reference pointer to the chronological custody record — a case ID, hash, or URI the organisation's evidence system resolves. Not the record itself. Evidence CI type.",
-          "$comment": "docOid: 1.3.6.1.4.1.42387.2.5 docGuid: af7616e3-6c41-59af-947e-cd4af86b6d69"
+          "type": "string", "minLength": 1,
+          "description": "Bare pointer to the chronological custody record — case ID, hash, or URI.",
+          "$comment": "docOid:1.3.6.1.4.1.42387.2.5"
         },
         "org.cispec.checksum": {
           "$ref": "#/$defs/digest-string",
-          "description": "Cryptographic hash of the Change Item. Algorithm and digest colon-separated. Required for evidence CIs (MUST be calculated at collection time per ISO/IEC 27037:2012); recommended for software, hardware, and ICS CIs.",
-          "$comment": "docOid: 1.3.6.1.4.1.42387.2.5.1 docGuid: 85cbd708-dcd0-5e36-8070-95f46ce00006"
+          "description": "Cryptographic hash. Format: algorithm:hexdigest. REQUIRED for evidence CIs at collection time.",
+          "$comment": "docOid:1.3.6.1.4.1.42387.2.5.1"
+        },
+        "org.cispec.asset-tag": {
+          "type": "string", "minLength": 1,
+          "description": "Inventory control number assigned by the owning org. Distinct from serial-number (OEM-assigned).",
+          "$comment": "docOid:1.3.6.1.4.1.42387.2.6.2.1"
+        },
+        "org.cispec.serial-number": {
+          "type": "string", "minLength": 1,
+          "description": "OEM-assigned serial number. Globally unique within a manufacturer.",
+          "$comment": "docOid:1.3.6.1.4.1.42387.2.6.2.2"
+        },
+        "org.cispec.manufacturer": {
+          "type": "string", "minLength": 1,
+          "description": "Who produces the CI. Distinct from vendor (who sells/services it) and owner (who owns it).",
+          "$comment": "docOid:1.3.6.1.4.1.42387.2.6.2.3"
+        },
+        "org.cispec.make": {
+          "type": "string", "minLength": 1,
+          "description": "Product line or brand within a manufacturer's catalogue.",
+          "$comment": "docOid:1.3.6.1.4.1.42387.2.6.2.4"
+        },
+        "org.cispec.model": {
+          "type": "string", "minLength": 1,
+          "description": "Specific variant or SKU. Applies to hardware and AI/LLM models alike.",
+          "$comment": "docOid:1.3.6.1.4.1.42387.2.6.2.5"
+        },
+        "org.cispec.net-type": {
+          "$ref": "#/$defs/slug",
+          "description": "Network element type classification.",
+          "examples": ["edge-router", "core-switch", "msc", "enb", "fieldbus-gateway", "iot-gateway"],
+          "$comment": "docOid:1.3.6.1.4.1.42387.2.6.4.1"
+        },
+        "org.cispec.ip-address": {
+          "type": "string", "minLength": 1,
+          "description": "Primary management or operational IP address. IPv4, IPv6, or CIDR.",
+          "$comment": "docOid:1.3.6.1.4.1.42387.2.6.4.2"
+        },
+        "org.cispec.mac-address": {
+          "type": "string",
+          "pattern": "^([0-9a-f]{2}:){5}[0-9a-f]{2}$",
+          "description": "Hardware MAC address. IEEE 802 colon-separated lower-case hex.",
+          "$comment": "docOid:1.3.6.1.4.1.42387.2.6.4.3"
+        },
+        "org.cispec.fqdn": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(\\.[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$",
+          "description": "Fully-qualified domain name. DNS-resolvable; distinct from commonname and ip-address.",
+          "$comment": "docOid:1.3.6.1.4.1.42387.2.6.4.4"
+        },
+        "org.cispec.case-id": {
+          "type": "string", "minLength": 1,
+          "description": "Investigation or legal matter identifier.",
+          "$comment": "docOid:1.3.6.1.4.1.42387.2.6.5.1"
+        },
+        "org.cispec.collection-method": {
+          "$ref": "#/$defs/slug",
+          "description": "How the CI was acquired or collected.",
+          "examples": ["forensic-imaging", "live-acquisition", "physical-seizure", "gdp-sampling"],
+          "$comment": "docOid:1.3.6.1.4.1.42387.2.6.5.2"
+        },
+        "org.cispec.assurance-level": {
+          "type": "string", "minLength": 1,
+          "description": "Identity or authentication assurance level. Format: framework:level.",
+          "examples": ["nist-aal:3", "nist-ial:2", "eidas:high", "piv:piv-auth"],
+          "$comment": "docOid:1.3.6.1.4.1.42387.2.6.6.1"
+        },
+        "org.cispec.key-type": {
+          "$ref": "#/$defs/slug",
+          "description": "Cryptographic key or credential type.",
+          "examples": ["x509-tls", "x509-code-signing", "gpg", "ssh-ed25519", "fido2", "hsm-slot"],
+          "$comment": "docOid:1.3.6.1.4.1.42387.2.6.6.2"
+        },
+        "org.cispec.facility-class": {
+          "type": "string", "minLength": 1,
+          "description": "Facility tier or class. Format: framework:class.",
+          "examples": ["uptime:tier-3", "iso-14644:class-7", "eu-gmp:grade-b", "bsl:3"],
+          "$comment": "docOid:1.3.6.1.4.1.42387.2.6.7.1"
+        },
+        "org.cispec.capacity": {
+          "type": "string", "minLength": 1,
+          "description": "Rated capacity. Format: quantity:unit[:resource-type].",
+          "examples": ["500:rack-units", "10:MW:power", "250000:sq-ft", "100:Gbps"],
+          "$comment": "docOid:1.3.6.1.4.1.42387.2.6.7.2"
+        },
+        "org.cispec.contract-type": {
+          "$ref": "#/$defs/slug",
+          "description": "Contract category when the contract is itself the CI being tracked.",
+          "examples": ["nda", "msa", "sow", "far-cost-plus", "dpa", "mou"],
+          "$comment": "docOid:1.3.6.1.4.1.42387.2.6.8.1"
+        },
+        "org.cispec.counterparty": {
+          "type": "string", "minLength": 1,
+          "description": "Other party to the agreement when a contract is the CI.",
+          "$comment": "docOid:1.3.6.1.4.1.42387.2.6.8.2"
+        },
+        "org.cispec.algorithm": {
+          "type": "string", "minLength": 1,
+          "description": "Cryptographic algorithm.",
+          "examples": ["RSA-4096", "ECDSA-P384", "AES-256-GCM", "Ed25519", "ML-KEM-768"],
+          "$comment": "docOid:1.3.6.1.4.1.42387.2.6.9.1"
+        },
+        "org.cispec.key-length": {
+          "type": "integer", "minimum": 1,
+          "description": "Cryptographic key bit length.",
+          "$comment": "docOid:1.3.6.1.4.1.42387.2.6.9.2"
+        },
+        "org.cispec.location": {
+          "type": "string", "minLength": 1,
+          "description": "Where the CI physically is. Distinct from environment (programme assignment).",
+          "examples": ["warehouse-13", "dallas-dc1-rack-b12-u24", "scif-a-safe-3"],
+          "$comment": "docOid:1.3.6.1.4.1.42387.2.7"
+        },
+        "org.cispec.classification": {
+          "type": "string", "minLength": 1,
+          "description": "What the CI is certified, cleared, or regulated as. Cross-domain: ts/sci, phi, pci-cde, dal:a, cui.",
+          "$comment": "docOid:1.3.6.1.4.1.42387.2.8"
+        },
+        "org.cispec.retention": {
+          "type": "string", "minLength": 1,
+          "description": "Retention schedule reference pointer.",
+          "examples": ["NARA-GRS-3.1", "HIPAA-6Y", "SEC-17a-4-7Y"],
+          "$comment": "docOid:1.3.6.1.4.1.42387.2.8.1"
+        },
+        "org.cispec.boundary": {
+          "type": "string", "minLength": 1,
+          "description": "Named authorization or control boundary.",
+          "examples": ["fedramp-ato-2026-prod", "scif-a", "pci-zone-1", "nerc-cip-esp-west"],
+          "$comment": "docOid:1.3.6.1.4.1.42387.2.8.2"
+        },
+        "org.cispec.exposure": {
+          "type": "string",
+          "enum": ["public", "restricted", "private"],
+          "description": "Public accessibility posture. public=internet-reachable, restricted=authenticated external, private=internal only.",
+          "$comment": "docOid:1.3.6.1.4.1.42387.2.8.3"
+        },
+        "org.cispec.scan-policy": {
+          "type": "string", "minLength": 1,
+          "description": "EXPERIMENTAL. Scanning policy: included:authenticated, included:unauthenticated, excluded:air-gapped, excluded:exempt.",
+          "$comment": "docOid:1.3.6.1.4.1.42387.2.8.4 experimental:true"
+        },
+        "org.cispec.config-baseline": {
+          "type": "string", "minLength": 1,
+          "description": "EXPERIMENTAL. Configuration baseline reference pointer: DISA-STIG-RHEL9-v1r1, CIS-Ubuntu22-L2-v1.0.0, URI.",
+          "$comment": "docOid:1.3.6.1.4.1.42387.2.8.5 experimental:true"
+        },
+        "org.cispec.sla": {
+          "type": "string", "minLength": 1,
+          "description": "Service level agreement or maintenance commitment pointer.",
+          "examples": ["gold", "carrier-grade-99.999", "CONTRACT-2026-MAINT-0042"],
+          "$comment": "docOid:1.3.6.1.4.1.42387.2.9"
+        },
+        "org.cispec.commonname": {
+          "type": "string", "minLength": 1,
+          "description": "Human-recognizable name. X.509 CN lineage. Distinct from asset-tag (inventory number).",
+          "examples": ["groom.lake", "PDX-CORE-SW-01", "Ward 3B Infusion Pump 4"],
+          "$comment": "docOid:1.3.6.1.4.1.42387.2.9.1"
         }
       },
       "additionalProperties": {
         "type": "string",
-        "description": "Extension terms under org.cispec.* minted by implementors. Must resolve at a public TLS-verified domain per the minting rules at https://cispec.org/#minting-new-terms"
+        "description": "Extension terms under org.cispec.*. Must resolve at a public TLS-verified domain per https://cispec.org/#minting-new-terms"
       }
     }
   },
@@ -110,14 +305,9 @@
       "description": "Lower-case alphanumeric slug with hyphens; no leading or trailing hyphen."
     },
     "identity": {
-      "type": "string",
-      "minLength": 1,
-      "description": "Identity-contact value: bare email, GPG-key-ID@domain, or role:identity colon-qualified form.",
-      "examples": [
-        "denzuko@dapla.net",
-        "FC13F74B@dapla.net",
-        "shift-supervisor:j.martinez@example.org"
-      ]
+      "type": "string", "minLength": 1,
+      "description": "Email, GPG-key-ID@domain, or role:identity colon-qualified form.",
+      "examples": ["denzuko@dapla.net", "FC13F74B@dapla.net", "shift-supervisor:j.martinez@example.org"]
     },
     "oid-string": {
       "type": "string",
@@ -127,7 +317,7 @@
     "duns-string": {
       "type": "string",
       "pattern": "^iso\\.org\\.duns\\.[0-9]{9}$",
-      "description": "D&B DUNS in OID notation: iso.org.duns.<9-digit-number> with no hyphens."
+      "description": "D&B DUNS in OID notation: iso.org.duns.<9-digit-number>."
     },
     "version-string": {
       "type": "string",
@@ -137,28 +327,24 @@
     "digest-string": {
       "type": "string",
       "pattern": "^[a-z0-9]+:[a-fA-F0-9]+$",
-      "description": "Cryptographic digest: algorithm-name:hex-digest, colon-separated.",
-      "examples": [
-        "sha256:9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08",
-        "sha512:cf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce47d0d13c5d85f2b0ff8318d2877eec2f63b931bd47417a81a538327af927da3e"
-      ]
+      "description": "Cryptographic digest: algorithm-name:hex-digest.",
+      "examples": ["sha256:9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08"]
     }
   },
 
   "allOf": [
     {
-      "description": "Declared conformance: required core keys must be present and non-empty.",
-      "if": { "properties": { "labels": { "type": "object" } } },
-      "then": {
-        "properties": {
-          "labels": {
-            "required": [
-              "org.cispec.organization",
-              "org.cispec.orgunit",
-              "org.cispec.owner",
-              "org.cispec.version"
-            ]
-          }
+      "description": "Declared conformance: required core keys must be present.",
+      "properties": {
+        "labels": {
+          "required": [
+            "org.cispec.organization",
+            "org.cispec.orgunit",
+            "org.cispec.owner",
+            "org.cispec.role",
+            "org.cispec.application",
+            "org.cispec.version"
+          ]
         }
       }
     }

@@ -1,145 +1,112 @@
 <!-- SPDX-License-Identifier: BSD-2-Clause
-
-     cispec.dtd - Document Type Definition for the org.cispec
-     Change Item attribution namespace.
+     cispec.dtd — org.cispec v1.0 — 51 terms
      Canonical governance: https://cispec.org/
-     Validation toolkit:   https://cimatrix.org/
-     IANA PEN:             42387
-     Spec version:         1.0
+     Note: Use cispec.xsd for strict value-format validation. -->
 
-     Usage:
-       <!DOCTYPE CISpecLabelSet SYSTEM "https://cispec.org/cispec.dtd">
+<!ELEMENT CISpecLabelSet (core,
+  oid?, duns?,
+  customer?, costcenter?, cost?, unitCost?, billingModel?,
+  depreciation?, contractRef?, usage?, vendor?,
+  specversion?, environment?, expiry?, acquired?,
+  custodyChain?, checksum?,
+  assetTag?, serialNumber?, manufacturer?, make?, model?,
+  netType?, ipAddress?, macAddress?, fqdn?,
+  caseId?, collectionMethod?,
+  assuranceLevel?, keyType?,
+  facilityClass?, capacity?,
+  contractType?, counterparty?,
+  algorithm?, keyLength?,
+  location?,
+  classification?, retention?, boundary?, exposure?,
+  scanPolicy?, configBaseline?,
+  sla?, commonname?,
+  extensions?)>
+<!ATTLIST CISpecLabelSet specVersion CDATA #IMPLIED>
 
-     Note: DTDs do not support the fine-grained pattern constraints
-     available in XSD or JSON Schema. Use cispec.xsd for strict
-     value-format validation. This DTD exists for toolchains that
-     predate or do not support XSD.
--->
+<!-- Core — all 6 REQUIRED for Declared conformance -->
+<!ELEMENT core (organization, orgunit, owner, role, application, version)>
+<!ELEMENT organization   (#PCDATA)>  <!-- 42387.2.1   Owning org slug. X.500 O -->
+<!ELEMENT orgunit        (#PCDATA)>  <!-- 42387.2.1.1 Org unit slug. X.500 OU -->
+<!ELEMENT owner          (#PCDATA)>  <!-- 42387.2.1.2 Accountable party -->
+<!ELEMENT role           (#PCDATA)>  <!-- 42387.2.1.3 Operational role — universal -->
+<!ELEMENT application    (#PCDATA)>  <!-- 42387.2.1.4 Designed purpose — universal -->
+<!ELEMENT version        (#PCDATA)>  <!-- 42387.2.4   Semver 2.0 version -->
 
-<!-- ============================================================
-     Root element
-     ============================================================ -->
+<!-- Registry -->
+<!ELEMENT oid            (#PCDATA)>  <!-- 42387.2.2   Client OID arc pointer -->
+<!ELEMENT duns           (#PCDATA)>  <!-- 42387.2.2.1 D&B DUNS in OID notation -->
 
-<!ELEMENT CISpecLabelSet (core, oid?, duns?, customer?, costcenter?,
-                          specversion?, environment?,
-                          custodyChain?, checksum?,
-                          application?, role?,
-                          extensions?)>
-<!ATTLIST CISpecLabelSet
-  specVersion CDATA #IMPLIED>
+<!-- Financial -->
+<!ELEMENT customer       (#PCDATA)>  <!-- 42387.2.3   Customer identifier -->
+<!ELEMENT costcenter     (#PCDATA)>  <!-- 42387.2.3.1 Cost centre identifier -->
+<!ELEMENT cost           (#PCDATA)>  <!-- 42387.2.3.2 Acquisition cost -->
+<!ELEMENT unitCost       (#PCDATA)>  <!-- 42387.2.3.3 Ongoing cost rate -->
+<!ELEMENT billingModel   (#PCDATA)>  <!-- 42387.2.3.4 Billing structure -->
+<!ELEMENT depreciation   (#PCDATA)>  <!-- 42387.2.3.5 Depreciation method:period -->
+<!ELEMENT contractRef    (#PCDATA)>  <!-- 42387.2.3.6 Procurement vehicle pointer -->
+<!ELEMENT usage          (#PCDATA)>  <!-- 42387.2.3.7 Quantity consumed:unit -->
+<!ELEMENT vendor         (#PCDATA)>  <!-- 42387.2.3.8 Seller/servicer -->
 
-<!-- ============================================================
-     Core label set — required for Declared conformance
-     All four child elements are required.
-     ============================================================ -->
+<!-- Lifecycle -->
+<!ELEMENT specversion    (#PCDATA)>  <!-- 42387.2.4.1 Spec version -->
+<!ELEMENT environment    (#PCDATA)>  <!-- 42387.2.4.2 Operational programme/zone -->
+<!ELEMENT expiry         (#PCDATA)>  <!-- 42387.2.4.3 Expiry/EOL date ISO 8601 -->
+<!ELEMENT acquired       (#PCDATA)>  <!-- 42387.2.4.4 Acquisition date ISO 8601 -->
 
-<!-- org.cispec core labels — all required for Declared conformance -->
-<!ELEMENT core (organization, orgunit, owner, version)>
+<!-- Custody -->
+<!ELEMENT custodyChain   (#PCDATA)>  <!-- 42387.2.5   Custody record pointer -->
+<!ELEMENT checksum       (#PCDATA)>  <!-- 42387.2.5.1 algorithm:hexdigest -->
 
-<!-- org.cispec.organization
-     Owning organisation slug. X.500/X.520 O (organizationName).
-     docOid: 1.3.6.1.4.1.42387.2.1 -->
-<!ELEMENT organization (#PCDATA)>
+<!-- Hardware CI-type -->
+<!ELEMENT assetTag       (#PCDATA)>  <!-- 42387.2.6.2.1 Org-assigned inventory number -->
+<!ELEMENT serialNumber   (#PCDATA)>  <!-- 42387.2.6.2.2 OEM-assigned serial -->
+<!ELEMENT manufacturer   (#PCDATA)>  <!-- 42387.2.6.2.3 OEM -->
+<!ELEMENT make           (#PCDATA)>  <!-- 42387.2.6.2.4 Product line -->
+<!ELEMENT model          (#PCDATA)>  <!-- 42387.2.6.2.5 Specific variant/SKU -->
 
-<!-- org.cispec.orgunit
-     Organisational unit slug. X.500/X.520 OU (organizationalUnitName).
-     docOid: 1.3.6.1.4.1.42387.2.1.1 -->
-<!ELEMENT orgunit (#PCDATA)>
+<!-- Network CI-type -->
+<!ELEMENT netType        (#PCDATA)>  <!-- 42387.2.6.4.1 NE type classification -->
+<!ELEMENT ipAddress      (#PCDATA)>  <!-- 42387.2.6.4.2 Primary IP address -->
+<!ELEMENT macAddress     (#PCDATA)>  <!-- 42387.2.6.4.3 Hardware MAC address -->
+<!ELEMENT fqdn           (#PCDATA)>  <!-- 42387.2.6.4.4 Fully-qualified domain name -->
 
-<!-- org.cispec.owner
-     Accountable individual or role.
-     docOid: 1.3.6.1.4.1.42387.2.1.2 -->
-<!ELEMENT owner (#PCDATA)>
+<!-- Evidence extended -->
+<!ELEMENT caseId         (#PCDATA)>  <!-- 42387.2.6.5.1 Case/matter identifier -->
+<!ELEMENT collectionMethod (#PCDATA)><!-- 42387.2.6.5.2 Collection method slug -->
 
-<!-- org.cispec.version
-     Semver 2.0 version of the Change Item.
-     docOid: 1.3.6.1.4.1.42387.2.4 -->
-<!ELEMENT version (#PCDATA)>
+<!-- Access/credential -->
+<!ELEMENT assuranceLevel (#PCDATA)>  <!-- 42387.2.6.6.1 IAL/AAL assurance level -->
+<!ELEMENT keyType        (#PCDATA)>  <!-- 42387.2.6.6.2 Key/credential type -->
 
-<!-- ============================================================
-     Registry terms
-     ============================================================ -->
+<!-- Facility -->
+<!ELEMENT facilityClass  (#PCDATA)>  <!-- 42387.2.6.7.1 Tier/class per framework -->
+<!ELEMENT capacity       (#PCDATA)>  <!-- 42387.2.6.7.2 Rated capacity -->
 
-<!-- org.cispec.oid
-     Relational pointer to the client's own OID arc.
-     Not DPS's 42387 arc — the customer or owning party's registered PEN.
-     docOid: 1.3.6.1.4.1.42387.2.2 -->
-<!ELEMENT oid (#PCDATA)>
+<!-- Contract CI-type -->
+<!ELEMENT contractType   (#PCDATA)>  <!-- 42387.2.6.8.1 Contract category -->
+<!ELEMENT counterparty   (#PCDATA)>  <!-- 42387.2.6.8.2 Other party to agreement -->
 
-<!-- org.cispec.duns
-     D&B DUNS in OID notation: iso.org.duns.<9-digit-number>
-     Externally verifiable against the D&B registry.
-     docOid: 1.3.6.1.4.1.42387.2.2.1 -->
-<!ELEMENT duns (#PCDATA)>
+<!-- Crypto -->
+<!ELEMENT algorithm      (#PCDATA)>  <!-- 42387.2.6.9.1 Cryptographic algorithm -->
+<!ELEMENT keyLength      (#PCDATA)>  <!-- 42387.2.6.9.2 Key bit length -->
 
-<!-- ============================================================
-     Financial terms
-     ============================================================ -->
+<!-- Physical -->
+<!ELEMENT location       (#PCDATA)>  <!-- 42387.2.7   Physical location -->
 
-<!-- org.cispec.customer
-     Customer identifier in the owning organisation's billing scheme.
-     docOid: 1.3.6.1.4.1.42387.2.3 -->
-<!ELEMENT customer (#PCDATA)>
+<!-- Governance/compliance -->
+<!ELEMENT classification (#PCDATA)>  <!-- 42387.2.8   Regulatory/safety category -->
+<!ELEMENT retention      (#PCDATA)>  <!-- 42387.2.8.1 Retention schedule pointer -->
+<!ELEMENT boundary       (#PCDATA)>  <!-- 42387.2.8.2 Authorization boundary -->
+<!ELEMENT exposure       (#PCDATA)>  <!-- 42387.2.8.3 public|restricted|private -->
+<!-- EXPERIMENTAL -->
+<!ELEMENT scanPolicy     (#PCDATA)>  <!-- 42387.2.8.4 Scanning policy -->
+<!ELEMENT configBaseline (#PCDATA)>  <!-- 42387.2.8.5 Config baseline pointer -->
 
-<!-- org.cispec.costcenter
-     Cost centre identifier in the owning organisation's accounting scheme.
-     docOid: 1.3.6.1.4.1.42387.2.3.1 -->
-<!ELEMENT costcenter (#PCDATA)>
+<!-- Service management -->
+<!ELEMENT sla            (#PCDATA)>  <!-- 42387.2.9   SLA/maintenance commitment -->
+<!ELEMENT commonname     (#PCDATA)>  <!-- 42387.2.9.1 Human-readable name -->
 
-<!-- ============================================================
-     Lifecycle terms
-     ============================================================ -->
-
-<!-- org.cispec.specversion
-     Spec version labels were authored against.
-     docOid: 1.3.6.1.4.1.42387.2.4.1 -->
-<!ELEMENT specversion (#PCDATA)>
-
-<!-- org.cispec.environment
-     Deployment or operational environment.
-     Bare slug or purdue-level:<n> qualified form for ICS.
-     docOid: 1.3.6.1.4.1.42387.2.4.2 -->
-<!ELEMENT environment (#PCDATA)>
-
-<!-- ============================================================
-     Custody terms — evidence CI type
-     ============================================================ -->
-
-<!-- org.cispec.custody-chain
-     Bare reference pointer to the chronological custody record.
-     Not the record itself — a case ID, hash, or URI an external
-     evidence system resolves.
-     docOid: 1.3.6.1.4.1.42387.2.5 -->
-<!ELEMENT custodyChain (#PCDATA)>
-
-<!-- org.cispec.checksum
-     Cryptographic hash: algorithm:hexdigest colon-separated.
-     REQUIRED for evidence CIs (ISO/IEC 27037:2012); recommended for
-     software, hardware, and ICS CIs.
-     docOid: 1.3.6.1.4.1.42387.2.5.1 -->
-<!ELEMENT checksum (#PCDATA)>
-
-<!-- ============================================================
-     Software CI type terms
-     ============================================================ -->
-
-<!-- org.cispec.application
-     Application or service name.
-     docOid: 1.3.6.1.4.1.42387.2.6.1.1 -->
-<!ELEMENT application (#PCDATA)>
-
-<!-- org.cispec.role
-     Functional role slug.
-     docOid: 1.3.6.1.4.1.42387.2.6.1.2 -->
-<!ELEMENT role (#PCDATA)>
-
-<!-- ============================================================
-     Extension terms
-     ============================================================ -->
-
-<!-- Container for implementor-minted org.cispec.* extension terms.
-     Each extension MUST resolve at a public TLS-verified domain
-     per https://cispec.org/#minting-new-terms -->
+<!-- Extensions -->
 <!ELEMENT extensions (extension*)>
 <!ELEMENT extension (termName, termValue)>
 <!ELEMENT termName  (#PCDATA)>

@@ -3,172 +3,169 @@
 -- CISpec { iso org(3) dod(6) internet(1) private(4) enterprise(1)
 --          daPlanetSecurity(42387) cispec(2) asn1Module(0) }
 --
--- ASN.1 module defining the org.cispec Change Item attribution label set.
+-- ASN.1 module for the org.cispec Change Item attribution namespace v1.0
+-- 51 terms across identity, registry, financial, lifecycle, custody,
+-- CI-type-specific, physical, governance/compliance, and service management.
 -- Canonical governance: https://cispec.org/
 -- Validation toolkit:   https://cimatrix.org/
 -- IANA PEN:             42387
--- D&B DUNS:             039-271-257
 -- Spec version:         1.0
 --
--- OID tree root for this module:
---   iso.org.dod.internet.private.enterprise.42387.2
---   (42387.1 is Da Planet Security's internal infrastructure arc —
---    LDAP, docs, SNMP, ASN.1 — out of scope for this specification)
---
--- Usage:
---   Compile with asn1c, OSS Nokalva, or any ASN.1/BER/DER toolchain.
---   The CISpecLabelSet SEQUENCE encodes a complete label set for one CI.
---   Individual OPTIONAL fields correspond to org.cispec.* term pages.
+-- OID tree:
+--   42387.1 = Da Planet Security internal infrastructure (out of scope)
+--   42387.2 = org.cispec namespace (this module)
+--     .1  identity     .2  registry    .3  financial  .4  lifecycle
+--     .5  custody      .6  ci-type     .7  physical   .8  governance
+--     .9  service-mgmt
 
 CISpec DEFINITIONS AUTOMATIC TAGS EXTENSIBILITY IMPLIED ::= BEGIN
 
-IMPORTS
-    -- OBJECT IDENTIFIER base from RFC 1065 / ITU-T X.208
-    ;
+-- OID arc assignments
+id-cispec        OBJECT IDENTIFIER ::= { iso org(3) dod(6) internet(1) private(4) enterprise(1) 42387 2 }
+id-identity      OBJECT IDENTIFIER ::= { id-cispec 1 }
+id-registry      OBJECT IDENTIFIER ::= { id-cispec 2 }
+id-financial     OBJECT IDENTIFIER ::= { id-cispec 3 }
+id-lifecycle     OBJECT IDENTIFIER ::= { id-cispec 4 }
+id-custody       OBJECT IDENTIFIER ::= { id-cispec 5 }
+id-ci-type       OBJECT IDENTIFIER ::= { id-cispec 6 }
+id-hardware      OBJECT IDENTIFIER ::= { id-ci-type 2 }
+id-network       OBJECT IDENTIFIER ::= { id-ci-type 4 }
+id-evidence      OBJECT IDENTIFIER ::= { id-ci-type 5 }
+id-access        OBJECT IDENTIFIER ::= { id-ci-type 6 }
+id-facility      OBJECT IDENTIFIER ::= { id-ci-type 7 }
+id-contract      OBJECT IDENTIFIER ::= { id-ci-type 8 }
+id-crypto        OBJECT IDENTIFIER ::= { id-ci-type 9 }
+id-physical      OBJECT IDENTIFIER ::= { id-cispec 7 }
+id-governance    OBJECT IDENTIFIER ::= { id-cispec 8 }
+id-svc-mgmt      OBJECT IDENTIFIER ::= { id-cispec 9 }
 
---
--- OID assignments for this module
---
-
-id-cispec           OBJECT IDENTIFIER ::=
-    { iso org(3) dod(6) internet(1) private(4) enterprise(1) 42387 2 }
-
-id-cispec-identity  OBJECT IDENTIFIER ::= { id-cispec 1 }
-id-cispec-registry  OBJECT IDENTIFIER ::= { id-cispec 2 }
-id-cispec-financial OBJECT IDENTIFIER ::= { id-cispec 3 }
-id-cispec-lifecycle OBJECT IDENTIFIER ::= { id-cispec 4 }
-id-cispec-custody   OBJECT IDENTIFIER ::= { id-cispec 5 }
-id-cispec-types     OBJECT IDENTIFIER ::= { id-cispec 6 }
-id-cispec-software  OBJECT IDENTIFIER ::= { id-cispec-types 1 }
-
---
 -- Primitive types
---
-
--- Lower-case alphanumeric slug with hyphens; no leading or trailing hyphen.
--- Corresponds to the slug value format used by organization, orgunit, role.
-Slug ::= UTF8String (SIZE (1..253))
-
--- Identity-contact value: bare email, GPG-key-ID@domain, or role:identity.
-Identity ::= UTF8String (SIZE (1..512))
-
--- Semver 2.0 version string.
-Version ::= UTF8String (SIZE (1..128))
-
--- OID in dotted-decimal notation (client's own arc — not DPS's 42387).
-OIDString ::= UTF8String (SIZE (1..512))
-
--- D&B DUNS in iso.org.duns.<9-digit> OID notation.
-DUNSString ::= UTF8String (SIZE (17..17))
-    -- Fixed: "iso.org.duns." (13 chars) + 9 digits = 22 chars
-    -- relaxed to SIZE(17..32) if org uses shorter internal DUNS notations
-
--- Cryptographic digest: algorithm:hexdigest, colon-separated.
-DigestString ::= UTF8String (SIZE (8..256))
-
--- Bare reference pointer: case ID, URI, or hash pointing at an external record.
+Slug             ::= UTF8String (SIZE (1..253))
+Identity         ::= UTF8String (SIZE (1..512))
+Version          ::= UTF8String (SIZE (1..128))
+OIDString        ::= UTF8String (SIZE (1..512))
+DUNSString       ::= UTF8String (SIZE (22..22))
+DigestString     ::= UTF8String (SIZE (8..256))
 ReferencePointer ::= UTF8String (SIZE (1..1024))
+ISODate          ::= UTF8String (SIZE (10..25))
+CurrencyValue    ::= UTF8String (SIZE (1..64))
+IPAddress        ::= UTF8String (SIZE (7..45))
+MACAddress       ::= UTF8String (SIZE (17..17))
+FQDN             ::= UTF8String (SIZE (1..253))
 
---
--- Core label set — required fields for Declared conformance
---
-
+-- ============================================================
+-- Core label set (6 fields; all REQUIRED for Declared conformance)
+-- 42387.2.1.* identity + 42387.2.4 version
+-- ============================================================
 CISpecCoreLabels ::= SEQUENCE {
-    -- Required for Declared conformance
-    -- docOid: 1.3.6.1.4.1.42387.2.1
-    organization    [0] Slug,
-
-    -- Required for Declared conformance
-    -- docOid: 1.3.6.1.4.1.42387.2.1.1
-    orgunit         [1] Slug,
-
-    -- Required for Declared conformance
-    -- X.500/X.520 organizationalUnitName lineage (RFC 4514)
-    -- docOid: 1.3.6.1.4.1.42387.2.1.2
-    owner           [2] Identity,
-
-    -- Required for Declared conformance
-    -- docOid: 1.3.6.1.4.1.42387.2.4
-    version         [3] Version
+    organization    [0] Slug,          -- 42387.2.1
+    orgunit         [1] Slug,          -- 42387.2.1.1
+    owner           [2] Identity,      -- 42387.2.1.2
+    role            [3] Slug,          -- 42387.2.1.3
+    application     [4] UTF8String,    -- 42387.2.1.4
+    version         [5] Version        -- 42387.2.4
 }
 
---
--- Extended label set — full set including optional and CI-type-specific terms
---
-
-CISpecLabelSet ::= SEQUENCE {
-    -- Required core (Declared conformance)
-    core            [0] CISpecCoreLabels,
-
-    -- Registry terms
-    -- Relational pointer to client's own OID arc (not DPS's 42387)
-    -- docOid: 1.3.6.1.4.1.42387.2.2
-    oid             [1] OIDString OPTIONAL,
-
-    -- D&B DUNS, externally verifiable against D&B registry
-    -- docOid: 1.3.6.1.4.1.42387.2.2.1
-    duns            [2] DUNSString OPTIONAL,
-
-    -- Financial terms
-    -- docOid: 1.3.6.1.4.1.42387.2.3
-    customer        [3] UTF8String OPTIONAL,
-
-    -- docOid: 1.3.6.1.4.1.42387.2.3.1
-    costcenter      [4] UTF8String OPTIONAL,
-
-    -- Lifecycle terms
-    -- Spec version labels were authored against
-    -- docOid: 1.3.6.1.4.1.42387.2.4.1
-    specversion     [5] Version OPTIONAL,
-
-    -- Deployment/operational environment; purdue-level:<n> for ICS
-    -- docOid: 1.3.6.1.4.1.42387.2.4.2
-    environment     [6] UTF8String OPTIONAL,
-
-    -- Custody terms (evidence CI type)
-    -- Bare pointer to the chronological custody record
-    -- docOid: 1.3.6.1.4.1.42387.2.5
-    custodyChain    [7] ReferencePointer OPTIONAL,
-
-    -- Cryptographic digest; REQUIRED for evidence CIs
-    -- docOid: 1.3.6.1.4.1.42387.2.5.1
-    checksum        [8] DigestString OPTIONAL,
-
-    -- Software CI type terms
-    -- docOid: 1.3.6.1.4.1.42387.2.6.1.1
-    application     [9] UTF8String OPTIONAL,
-
-    -- docOid: 1.3.6.1.4.1.42387.2.6.1.2
-    role            [10] Slug OPTIONAL,
-
-    -- Extension point: implementors MAY add terms under their own arc.
-    -- Terms MUST resolve at a public TLS-verified domain per
-    -- https://cispec.org/#minting-new-terms
-    extensions      [11] SEQUENCE OF CISpecExtension OPTIONAL
-}
-
---
--- Extension term — open namespace for implementor-minted terms
---
-
-CISpecExtension ::= SEQUENCE {
-    -- Fully-qualified term name, e.g. "org.cispec.shift-supervisor"
-    termName        UTF8String,
-    -- Bare string value
-    termValue       UTF8String
-}
-
---
--- Conformance levels (informational — not encoded in the label set itself)
---
-
+-- ============================================================
+-- Conformance level
+-- ============================================================
 CISpecConformanceLevel ::= ENUMERATED {
-    -- All required core keys present and well-formed; self-asserted
-    declared    (0),
-    -- Mechanically verified by cimatrix; terms resolve at public TLS domain
-    verified    (1),
-    -- SLSA provenance attestation exists and has been verified
-    attested    (2)
+    declared  (0),
+    verified  (1),
+    attested  (2)
+}
+
+-- ============================================================
+-- Extension term
+-- ============================================================
+CISpecExtension ::= SEQUENCE {
+    termName  UTF8String,
+    termValue UTF8String
+}
+
+-- ============================================================
+-- Full label set
+-- ============================================================
+CISpecLabelSet ::= SEQUENCE {
+    core            [0]  CISpecCoreLabels,
+
+    -- Registry (42387.2.2.*)
+    oid             [1]  OIDString OPTIONAL,
+    duns            [2]  DUNSString OPTIONAL,
+
+    -- Financial (42387.2.3.*)
+    customer        [3]  UTF8String OPTIONAL,
+    costcenter      [4]  UTF8String OPTIONAL,
+    cost            [5]  CurrencyValue OPTIONAL,
+    unitCost        [6]  CurrencyValue OPTIONAL,
+    billingModel    [7]  UTF8String OPTIONAL,
+    depreciation    [8]  UTF8String OPTIONAL,
+    contractRef     [9]  ReferencePointer OPTIONAL,
+    usage           [10] UTF8String OPTIONAL,
+    vendor          [11] UTF8String OPTIONAL,
+
+    -- Lifecycle (42387.2.4.*)
+    specversion     [12] Version OPTIONAL,
+    environment     [13] UTF8String OPTIONAL,
+    expiry          [14] ISODate OPTIONAL,
+    acquired        [15] ISODate OPTIONAL,
+
+    -- Custody (42387.2.5.*)
+    custodyChain    [16] ReferencePointer OPTIONAL,
+    checksum        [17] DigestString OPTIONAL,
+
+    -- Hardware CI-type (42387.2.6.2.*)
+    assetTag        [18] UTF8String OPTIONAL,
+    serialNumber    [19] UTF8String OPTIONAL,
+    manufacturer    [20] UTF8String OPTIONAL,
+    make            [21] UTF8String OPTIONAL,
+    model           [22] UTF8String OPTIONAL,
+
+    -- Network CI-type (42387.2.6.4.*)
+    netType         [23] Slug OPTIONAL,
+    ipAddress       [24] IPAddress OPTIONAL,
+    macAddress      [25] MACAddress OPTIONAL,
+    fqdn            [26] FQDN OPTIONAL,
+
+    -- Evidence extended CI-type (42387.2.6.5.*)
+    caseId          [27] UTF8String OPTIONAL,
+    collectionMethod [28] Slug OPTIONAL,
+
+    -- Access/credential CI-type (42387.2.6.6.*)
+    assuranceLevel  [29] UTF8String OPTIONAL,
+    keyType         [30] Slug OPTIONAL,
+
+    -- Facility CI-type (42387.2.6.7.*)
+    facilityClass   [31] UTF8String OPTIONAL,
+    capacity        [32] UTF8String OPTIONAL,
+
+    -- Contract CI-type (42387.2.6.8.*)
+    contractType    [33] Slug OPTIONAL,
+    counterparty    [34] UTF8String OPTIONAL,
+
+    -- Crypto CI-type (42387.2.6.9.*)
+    algorithm       [35] UTF8String OPTIONAL,
+    keyLength       [36] INTEGER OPTIONAL,
+
+    -- Physical (42387.2.7.*)
+    location        [37] UTF8String OPTIONAL,
+
+    -- Governance/compliance (42387.2.8.*)
+    classification  [38] UTF8String OPTIONAL,
+    retention       [39] ReferencePointer OPTIONAL,
+    boundary        [40] UTF8String OPTIONAL,
+    exposure        [41] ENUMERATED { public(0), restricted(1), private(2) } OPTIONAL,
+    -- EXPERIMENTAL: scan-policy (42387.2.8.4) and config-baseline (42387.2.8.5)
+    scanPolicy      [42] UTF8String OPTIONAL,
+    configBaseline  [43] ReferencePointer OPTIONAL,
+
+    -- Service management (42387.2.9.*)
+    sla             [44] UTF8String OPTIONAL,
+    commonname      [45] UTF8String OPTIONAL,
+
+    -- Extensions
+    conformanceLevel [46] CISpecConformanceLevel OPTIONAL,
+    extensions       [47] SEQUENCE OF CISpecExtension OPTIONAL
 }
 
 END

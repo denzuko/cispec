@@ -1,157 +1,119 @@
 // SPDX-License-Identifier: BSD-2-Clause
-//
-// cispec.proto — Protocol Buffers schema for the org.cispec
-// Change Item attribution namespace.
+// cispec.proto — Protocol Buffers schema for org.cispec v1.0 — 51 terms
 // Canonical governance: https://cispec.org/
 // Validation toolkit:   https://cimatrix.org/
-// IANA PEN:             42387
-// Spec version:         1.0
-//
-// Generated code usage:
-//   protoc --go_out=. cispec.proto      # Go
-//   protoc --python_out=. cispec.proto  # Python
-//   protoc --java_out=. cispec.proto    # Java
-//   protoc --js_out=. cispec.proto      # JavaScript
-//
-// The CISpecLabelSet message encodes a complete label set for one CI.
-// All fields except core identity fields are optional.
+// IANA PEN: 42387  Spec version: 1.0
 
 syntax = "proto3";
-
 package org.cispec;
-
 option java_package         = "org.cispec";
 option java_outer_classname = "CISpecProto";
 option go_package           = "cispec.org/proto";
 
-// ============================================================
-// Core label set — required for Declared conformance
-// ============================================================
-
-// The four required terms for Declared conformance.
-// Any CISpecLabelSet missing any of these fields is non-conformant.
-message CISpecCoreLabels {
-
-  // org.cispec.organization — owning organisation slug.
-  // X.500/X.520 organizationName (O) lineage — RFC 4514.
-  // docOid: 1.3.6.1.4.1.42387.2.1
-  string organization = 1;
-
-  // org.cispec.orgunit — organisational unit slug.
-  // X.500/X.520 organizationalUnitName (OU) lineage — RFC 4514.
-  // docOid: 1.3.6.1.4.1.42387.2.1.1
-  string orgunit = 2;
-
-  // org.cispec.owner — accountable individual or role.
-  // Bare email, GPG-key-ID@domain, or role:identity colon-qualified form.
-  // docOid: 1.3.6.1.4.1.42387.2.1.2
-  string owner = 3;
-
-  // org.cispec.version — semver 2.0 version of the Change Item.
-  // Universal: software, firmware, document revision, policy amendment.
-  // docOid: 1.3.6.1.4.1.42387.2.4
-  string version = 4;
+// Conformance level
+enum CISpecConformanceLevel {
+  CONFORMANCE_UNSPECIFIED = 0;
+  DECLARED = 1;  // required core keys present, self-asserted
+  VERIFIED = 2;  // mechanically verified by cimatrix
+  ATTESTED = 3;  // SLSA-attested, cited in production artefacts
 }
 
-// ============================================================
-// Extension term — open namespace for implementor-minted terms
-// ============================================================
-
-// An implementor-minted org.cispec.* extension term.
-// The term_name MUST resolve at a public TLS-verified domain
-// per https://cispec.org/#minting-new-terms
+// Extension term
 message CISpecExtension {
-  // Fully-qualified term name, e.g. "org.cispec.shift-supervisor"
   string term_name  = 1;
-  // Bare string value
   string term_value = 2;
 }
 
-// ============================================================
-// Conformance level
-// ============================================================
-
-enum CISpecConformanceLevel {
-  // Unspecified — do not use
-  CONFORMANCE_UNSPECIFIED = 0;
-
-  // All required core keys present and well-formed; self-asserted
-  DECLARED = 1;
-
-  // Mechanically verified by cimatrix; terms resolve at public TLS domain
-  VERIFIED = 2;
-
-  // SLSA provenance attestation exists and has been verified
-  ATTESTED = 3;
+// Core label set — 6 fields, all REQUIRED for Declared conformance
+message CISpecCoreLabels {
+  string organization = 1; // 42387.2.1   X.500 O
+  string orgunit      = 2; // 42387.2.1.1 X.500 OU
+  string owner        = 3; // 42387.2.1.2 email, GPG-key-ID@domain, or role:identity
+  string role         = 4; // 42387.2.1.3 operational role — universal
+  string application  = 5; // 42387.2.1.4 designed purpose — universal
+  string version      = 6; // 42387.2.4   semver 2.0
 }
 
-// ============================================================
-// Full label set message
-// ============================================================
-
+// Full label set
 message CISpecLabelSet {
-
-  // Required core — Declared conformance
   CISpecCoreLabels core = 1;
 
-  // Registry terms
+  // Registry (42387.2.2.*)
+  string oid  = 2;  // client OID arc pointer
+  string duns = 3;  // iso.org.duns.<9-digit>
 
-  // org.cispec.oid — relational pointer to the client's own OID arc.
-  // NOT DPS's 42387 arc — the customer or owning party's registered PEN.
-  // docOid: 1.3.6.1.4.1.42387.2.2
-  string oid = 2;
+  // Financial (42387.2.3.*)
+  string customer      = 4;
+  string costcenter    = 5;
+  string cost          = 6;   // amount:currency[:type]
+  string unit_cost     = 7;   // rate:currency:per-unit
+  string billing_model = 8;
+  string depreciation  = 9;   // method:period
+  string contract_ref  = 10;
+  string usage         = 11;  // quantity:unit
+  string vendor        = 12;
 
-  // org.cispec.duns — D&B DUNS in OID notation: iso.org.duns.<9-digit>
-  // Externally verifiable against the D&B registry.
-  // docOid: 1.3.6.1.4.1.42387.2.2.1
-  string duns = 3;
+  // Lifecycle (42387.2.4.*)
+  string specversion  = 13;
+  string environment  = 14;
+  string expiry       = 15;  // ISO 8601
+  string acquired     = 16;  // ISO 8601
 
-  // Financial terms
+  // Custody (42387.2.5.*)
+  string custody_chain = 17;
+  string checksum      = 18;  // algorithm:hexdigest
 
-  // org.cispec.customer
-  // docOid: 1.3.6.1.4.1.42387.2.3
-  string customer = 4;
+  // Hardware CI-type (42387.2.6.2.*)
+  string asset_tag     = 19;
+  string serial_number = 20;
+  string manufacturer  = 21;
+  string make          = 22;
+  string model         = 23;
 
-  // org.cispec.costcenter
-  // docOid: 1.3.6.1.4.1.42387.2.3.1
-  string costcenter = 5;
+  // Network CI-type (42387.2.6.4.*)
+  string net_type    = 24;
+  string ip_address  = 25;
+  string mac_address = 26;
+  string fqdn        = 27;
 
-  // Lifecycle terms
+  // Evidence extended (42387.2.6.5.*)
+  string case_id           = 28;
+  string collection_method = 29;
 
-  // org.cispec.specversion — spec version labels were authored against
-  // docOid: 1.3.6.1.4.1.42387.2.4.1
-  string specversion = 6;
+  // Access/credential (42387.2.6.6.*)
+  string assurance_level = 30;
+  string key_type        = 31;
 
-  // org.cispec.environment — bare slug or purdue-level:<n> for ICS
-  // docOid: 1.3.6.1.4.1.42387.2.4.2
-  string environment = 7;
+  // Facility (42387.2.6.7.*)
+  string facility_class = 32;
+  string capacity       = 33;
 
-  // Custody terms — evidence CI type
+  // Contract CI-type (42387.2.6.8.*)
+  string contract_type = 34;
+  string counterparty  = 35;
 
-  // org.cispec.custody-chain — bare pointer to external custody record
-  // Not the record itself — a case ID, hash, or URI.
-  // docOid: 1.3.6.1.4.1.42387.2.5
-  string custody_chain = 8;
+  // Crypto (42387.2.6.9.*)
+  string  algorithm  = 36;
+  int32   key_length = 37;
 
-  // org.cispec.checksum — algorithm:hexdigest colon-separated
-  // REQUIRED for evidence CIs (ISO/IEC 27037:2012);
-  // recommended for software, hardware, and ICS CIs.
-  // docOid: 1.3.6.1.4.1.42387.2.5.1
-  string checksum = 9;
+  // Physical (42387.2.7.*)
+  string location = 38;
 
-  // Software CI type terms
+  // Governance/compliance (42387.2.8.*)
+  string classification  = 39;
+  string retention       = 40;
+  string boundary        = 41;
+  enum   ExposureType { EXPOSURE_UNSPECIFIED = 0; PUBLIC = 1; RESTRICTED = 2; PRIVATE = 3; }
+  ExposureType exposure  = 42;
+  // EXPERIMENTAL
+  string scan_policy     = 43;  // 42387.2.8.4
+  string config_baseline = 44;  // 42387.2.8.5
 
-  // org.cispec.application
-  // docOid: 1.3.6.1.4.1.42387.2.6.1.1
-  string application = 10;
+  // Service management (42387.2.9.*)
+  string sla        = 45;
+  string commonname = 46;
 
-  // org.cispec.role — functional role slug
-  // docOid: 1.3.6.1.4.1.42387.2.6.1.2
-  string role = 11;
-
-  // Extension terms — implementor-minted org.cispec.* terms
-  repeated CISpecExtension extensions = 12;
-
-  // Conformance level (informational)
-  CISpecConformanceLevel conformance_level = 13;
+  // Meta
+  CISpecConformanceLevel conformance_level = 47;
+  repeated CISpecExtension extensions      = 48;
 }

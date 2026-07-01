@@ -1,161 +1,158 @@
 *----------------------------------------------------------------------
 * SPDX-License-Identifier: BSD-2-Clause
 *
-* cispec.edi — ANSI X12 / EDIFACT mapping for the org.cispec
-* Change Item attribution namespace.
+* cispec.edi — ANSI X12 / EDIFACT mapping for org.cispec v1.0 — 51 terms
 * Canonical governance: https://cispec.org/
 * Validation toolkit:   https://cimatrix.org/
-* IANA PEN:             42387
-* Spec version:         1.0
+* IANA PEN: 42387  Spec version: 1.0
 *
-* This mapping defines how org.cispec label sets are expressed in
-* ANSI X12 EDI transaction sets, specifically those relevant to
-* federal government contracting:
+* Maps org.cispec.* labels to ANSI X12 REF segments.
+* ZZ (Mutually Defined) used where no standard qualifier maps exactly.
+* ZZ convention: REF*ZZ*KEY=VALUE where KEY is a short mnemonic.
 *
+* Primary transaction sets:
 *   850  Purchase Order (DIBBS / DLA procurement)
 *   810  Invoice (WAWF / DoD invoicing per DFARS 252.232-7003)
 *   856  Advance Ship Notice
 *   860  Purchase Order Change
-*
-* The mapping uses the REF (Reference Identification) segment, which
-* is the standard X12 mechanism for carrying free-form reference
-* strings alongside structured transaction data. Each org.cispec.*
-* label becomes one REF segment with a qualifier and value.
-*
-* ANSI X12 REF segment structure:
-*   REF*<qualifier>*<value>~
-*   Where ~ is the segment terminator.
-*
-* Qualifier conventions:
-*   Standard X12 qualifiers (2-3 char codes) are used where an exact
-*   semantic match exists. Where no standard qualifier maps cleanly,
-*   ZZ (Mutually Defined) is used with the full org.cispec.* key
-*   name embedded in the value field as KEY=VALUE.
 *----------------------------------------------------------------------
 
 *----------------------------------------------------------------------
-* REFERENCE QUALIFIER TABLE
-* Maps each org.cispec.* term to an X12 REF qualifier
+* QUALIFIER TABLE
+* term                      X12 Qualifier  Value format
 *----------------------------------------------------------------------
-
-* Term                   X12 Qualifier  Qualifier Description        Value format
-* ---------------------- -------------- ---------------------------- ----------------
-* org.cispec.organization  ZZ           Mutually Defined             ORG=<slug>
-* org.cispec.orgunit        ZZ           Mutually Defined             OU=<slug>
-* org.cispec.owner          OW           Owner                        <identity>
-* org.cispec.oid             ZZ           Mutually Defined             OID=<oid-string>
-* org.cispec.duns            1D           D-U-N-S+4                    <9-digit-number>
-* org.cispec.customer        CR           Customer Reference Number     <customer-id>
-* org.cispec.costcenter      CO           Cost Center                   <costcenter-id>
-* org.cispec.version         ZZ           Mutually Defined             VER=<semver>
-* org.cispec.specversion     ZZ           Mutually Defined             SPECVER=<ver>
-* org.cispec.environment     ZZ           Mutually Defined             ENV=<slug>
-* org.cispec.application     ZZ           Mutually Defined             APP=<name>
-* org.cispec.role             ZZ           Mutually Defined             ROLE=<slug>
-* org.cispec.custody-chain   ZZ           Mutually Defined             CUST=<pointer>
-* org.cispec.checksum        ZZ           Mutually Defined             CHK=<digest>
-
-* Note on org.cispec.duns:
-*   X12 qualifier 1D is "D-U-N-S+4 (DUNS+4)" per the X12 ref ID qualifier list.
-*   Strip the "iso.org.duns." prefix — X12 carries the raw 9-digit number.
-*   Example: org.cispec.duns=iso.org.duns.039271257 -> REF*1D*039271257~
-
-* Note on ZZ (Mutually Defined) segments:
-*   Industry practice for ZZ segments in federal EDI is to prefix the
-*   value with a short, agreed key name so the receiving system can
-*   parse without ambiguity. The KEY=VALUE format used here follows
-*   that convention.
+* org.cispec.organization   ZZ             ORG=<slug>
+* org.cispec.orgunit        ZZ             OU=<slug>
+* org.cispec.owner          OW             <identity>
+* org.cispec.role           ZZ             ROLE=<slug>
+* org.cispec.application    ZZ             APP=<value>
+* org.cispec.oid            ZZ             OID=<oid-string>
+* org.cispec.duns           1D             <9-digit-number> (strip iso.org.duns. prefix)
+* org.cispec.customer       CR             <customer-id>
+* org.cispec.costcenter     CO             <costcenter-id>
+* org.cispec.cost           ZZ             COST=<amount:currency>
+* org.cispec.unit-cost      ZZ             UCOST=<rate:currency:per-unit>
+* org.cispec.billing-model  ZZ             BMODEL=<model>
+* org.cispec.depreciation   ZZ             DEPR=<method:period>
+* org.cispec.contract-ref   CT             <contract-number>
+* org.cispec.usage          ZZ             USAGE=<quantity:unit>
+* org.cispec.vendor         VN             <vendor-name>
+* org.cispec.version        ZZ             VER=<semver>
+* org.cispec.specversion    ZZ             SPECVER=<ver>
+* org.cispec.environment    ZZ             ENV=<slug>
+* org.cispec.expiry         ZZ             EXPIRY=<iso-date>
+* org.cispec.acquired       ZZ             ACQUIRED=<iso-date>
+* org.cispec.custody-chain  ZZ             CUST=<pointer>
+* org.cispec.checksum       ZZ             CHK=<algorithm:hex>
+* org.cispec.asset-tag      AT             <asset-tag>
+* org.cispec.serial-number  SE             <serial-number>
+* org.cispec.manufacturer   MF             <manufacturer>
+* org.cispec.make           ZZ             MAKE=<make>
+* org.cispec.model          ZZ             MODEL=<model>
+* org.cispec.net-type       ZZ             NTYPE=<slug>
+* org.cispec.ip-address     ZZ             IP=<address>
+* org.cispec.mac-address    ZZ             MAC=<aa:bb:cc:dd:ee:ff>
+* org.cispec.fqdn           ZZ             FQDN=<fqdn>
+* org.cispec.case-id        ZZ             CASE=<case-id>
+* org.cispec.collection-method ZZ          COLMETH=<slug>
+* org.cispec.assurance-level ZZ            AAL=<framework:level>
+* org.cispec.key-type       ZZ             KTYPE=<slug>
+* org.cispec.facility-class ZZ             FCLASS=<framework:class>
+* org.cispec.capacity       ZZ             CAP=<quantity:unit>
+* org.cispec.contract-type  ZZ             CTYPE=<slug>
+* org.cispec.counterparty   ZZ             CPY=<name>
+* org.cispec.algorithm      ZZ             ALGO=<algorithm>
+* org.cispec.key-length     ZZ             KLEN=<bits>
+* org.cispec.location       ZZ             LOC=<location>
+* org.cispec.classification ZZ             CLASS=<classification>
+* org.cispec.retention      ZZ             RET=<pointer>
+* org.cispec.boundary       ZZ             BOUND=<boundary>
+* org.cispec.exposure       ZZ             EXPO=public|restricted|private
+* org.cispec.scan-policy    ZZ             SCAN=<policy>        [EXPERIMENTAL]
+* org.cispec.config-baseline ZZ            CBASE=<pointer>      [EXPERIMENTAL]
+* org.cispec.sla            ZZ             SLA=<pointer>
+* org.cispec.commonname     ZZ             CN=<name>
 
 *----------------------------------------------------------------------
-* EXAMPLE: 850 Purchase Order with org.cispec label set
-* Minimal conformant example for a software CI procurement.
+* EXAMPLE: 850 Purchase Order — software CI (AI model deployment)
 *----------------------------------------------------------------------
 
 ISA*00*          *00*          *ZZ*SENDER         *ZZ*RECEIVER       *260630*1200*^*00501*000000001*0*P*>~
 GS*PO*SENDER*RECEIVER*20260630*1200*1*X*005010~
 ST*850*0001~
 BEG*00*SA*PO-2026-001**20260630~
-
-* org.cispec.organization — ZZ with ORG= prefix
 REF*ZZ*ORG=daplanet~
-
-* org.cispec.orgunit — ZZ with OU= prefix
 REF*ZZ*OU=dps~
-
-* org.cispec.owner — X12 qualifier OW (Owner)
-REF*OW*FC13F74B@dapla.net~
-
-* org.cispec.version — ZZ with VER= prefix
-REF*ZZ*VER=1.3.0~
-
-* org.cispec.duns — X12 qualifier 1D, raw 9-digit number (no OID prefix)
+REF*OW*denzuko@dapla.net~
+REF*ZZ*ROLE=chatbot~
+REF*ZZ*APP=llm-model~
+REF*ZZ*VER=4.6~
 REF*1D*039271257~
-
-* org.cispec.customer
 REF*CR*PVT-01~
-
-* org.cispec.costcenter
 REF*CO*INT-01~
-
-* org.cispec.application (software CI type)
-REF*ZZ*APP=odoo-mcp-server~
-
-* org.cispec.role (software CI type)
-REF*ZZ*ROLE=mcp-server~
-
-* org.cispec.environment
+REF*ZZ*MFR=Anthropic~
+REF*ZZ*MAKE=claude~
+REF*ZZ*MODEL=sonnet~
+REF*ZZ*BMODEL=per-token~
+REF*ZZ*UCOST=0.003:USD:per-token~
 REF*ZZ*ENV=production~
-
-* org.cispec.specversion
 REF*ZZ*SPECVER=1.0~
-
-* ... (line items, amounts, and other transaction-specific segments follow)
-
-SE*13*0001~
+SE*17*0001~
 GE*1*1~
 IEA*1*000000001~
 
 *----------------------------------------------------------------------
-* EXAMPLE: 810 Invoice (WAWF-compatible) with org.cispec label set
-* Per DFARS 252.232-7003, all DoD invoices submitted through WAWF.
-* REF segments carry the CI attribution alongside standard invoice data.
+* EXAMPLE: 850 Purchase Order — hardware CI (network equipment)
 *----------------------------------------------------------------------
 
 ISA*00*          *00*          *ZZ*SENDER         *ZZ*RECEIVER       *260630*1205*^*00501*000000002*0*P*>~
-GS*IN*SENDER*RECEIVER*20260630*1205*2*X*005010~
-ST*810*0001~
-BIG*20260630*INV-2026-001**PO-2026-001~
-
-* org.cispec CI attribution REF segments
+GS*PO*SENDER*RECEIVER*20260630*1205*2*X*005010~
+ST*850*0002~
+BEG*00*SA*PO-2026-002**20260630~
 REF*ZZ*ORG=daplanet~
 REF*ZZ*OU=dps~
-REF*OW*FC13F74B@dapla.net~
-REF*ZZ*VER=1.3.0~
+REF*OW*denzuko@dapla.net~
+REF*ZZ*ROLE=in-rotation~
+REF*ZZ*APP=edge-router~
+REF*ZZ*VER=17.3.1~
 REF*1D*039271257~
-REF*CR*PVT-01~
-REF*ZZ*APP=odoo-mcp-server~
+REF*ZZ*MFR=Cisco~
+REF*ZZ*MAKE=ASR~
+REF*ZZ*MODEL=ASR-1001-X~
+REF*AT*ASSET-001234~
+REF*SE*C8F3A2B1D4E5~
+REF*ZZ*NTYPE=edge-router~
+REF*ZZ*IP=10.0.0.1~
+REF*ZZ*MAC=aa:bb:cc:dd:ee:ff~
+REF*ZZ*LOC=dallas-dc1-rack-b12-u24~
+REF*ZZ*ENV=production~
+REF*ZZ*EXPO=private~
 REF*ZZ*SPECVER=1.0~
-
-* ... (invoice line items, totals, and remittance data follow)
-
-SE*10*0001~
+SE*18*0002~
 GE*1*2~
 IEA*1*000000002~
 
 *----------------------------------------------------------------------
-* EDIFACT mapping notes
-* For trading partners using UN/EDIFACT rather than ANSI X12:
-*
-* Use the RFF (Reference) segment in ORDERS/INVOIC messages.
-* Each org.cispec.* label becomes one RFF+ZZZ:<value> qualifier group
-* where ZZZ is the UN/EDIFACT "Mutually defined" reference qualifier.
-*
-* Example (ORDERS message):
-*   RFF+ZZZ:ORG=daplanet'
-*   RFF+ZZZ:OU=dps'
-*   RFF+ZZZ:OWN:FC13F74B@dapla.net'
-*   RFF+ZZZ:VER:1.3.0'
-*
-* For DUNS in EDIFACT, use the NAD segment with qualifier SU (Supplier)
-* and the DUNS number in the identifier field — standard EDIFACT practice.
+* EXAMPLE: 810 Invoice (WAWF-compatible) — DoD contract
+*----------------------------------------------------------------------
+
+ISA*00*          *00*          *ZZ*SENDER         *ZZ*RECEIVER       *260630*1210*^*00501*000000003*0*P*>~
+GS*IN*SENDER*RECEIVER*20260630*1210*3*X*005010~
+ST*810*0001~
+BIG*20260630*INV-2026-001**PO-2026-001~
+REF*ZZ*ORG=daplanet~
+REF*ZZ*OU=dps~
+REF*OW*denzuko@dapla.net~
+REF*1D*039271257~
+REF*CR*PVT-01~
+REF*CT*W15P7T-20-C-0001~
+REF*ZZ*SPECVER=1.0~
+SE*8*0001~
+GE*1*3~
+IEA*1*000000003~
+
+*----------------------------------------------------------------------
+* EDIFACT notes
+* RFF+ZZZ:<KEY>:<VALUE> for each org.cispec.* label.
+* NAD+SU++<org-name>:<duns> for supplier identity with DUNS.
 *----------------------------------------------------------------------
