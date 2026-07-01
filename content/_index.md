@@ -237,11 +237,31 @@ against an existing core key. Its document OID
 | [expiry](/expiry/) | `1.3.6.1.4.1.42387.2.4.3` | `9714b5bf-3536-5fc9-a53a-b8f0cf1a65db` |
 | [acquired](/acquired/) | `1.3.6.1.4.1.42387.2.4.4` | `b07863b7-ed3e-5f79-9160-67efc0ebfe86` |
 
-Reserved arcs: `.2.6.1.1` (retired — formerly application, now at `.2.1.4`), `.2.6.1.2` (retired — formerly role, now at `.2.1.3`), `.2.6.3` (retired — formerly purdue-level), `.2.6.4`
-(network), `.2.6.5` (evidence extended), `.2.6.6` (access), `.2.6.7`
-(facility extended), `.2.6.8` (contract), `.2.6.9` (crypto). Physical
-category terms extend `.2.7.*`; governance/compliance extend `.2.8.*`;
-service management extend `.2.9.*`.
+| [serial-number](/serial-number/) | `1.3.6.1.4.1.42387.2.6.2.5` | `a7746230-ebc5-5ddf-830d-60250cbb8799` |
+| [net-type](/net-type/) | `1.3.6.1.4.1.42387.2.6.4.1` | `908d6b60-25a3-5e42-b8f6-626a86445abf` |
+| [ip-address](/ip-address/) | `1.3.6.1.4.1.42387.2.6.4.2` | `fd4da795-a1a7-5415-a850-6c4d42ef644e` |
+| [mac-address](/mac-address/) | `1.3.6.1.4.1.42387.2.6.4.3` | `025348b7-866f-57af-9f56-b8dbb4e5a43e` |
+| [case-id](/case-id/) | `1.3.6.1.4.1.42387.2.6.5.1` | `354202bb-76bc-5709-9310-7e54cc05f03e` |
+| [collection-method](/collection-method/) | `1.3.6.1.4.1.42387.2.6.5.2` | `a97c5cfd-a9eb-5811-84b2-607d3e8abc10` |
+| [assurance-level](/assurance-level/) | `1.3.6.1.4.1.42387.2.6.6.1` | `b21848ce-8791-5472-a3c0-2bb4074ac050` |
+| [key-type](/key-type/) | `1.3.6.1.4.1.42387.2.6.6.2` | `936e9ec5-0d4b-5e02-bac2-4e6af6f3ab08` |
+| [facility-class](/facility-class/) | `1.3.6.1.4.1.42387.2.6.7.1` | `62053022-2d93-5d38-ad74-62a22699c40f` |
+| [capacity](/capacity/) | `1.3.6.1.4.1.42387.2.6.7.2` | `d2cfe509-b432-5f4d-844d-ae3c8df8c79c` |
+| [contract-type](/contract-type/) | `1.3.6.1.4.1.42387.2.6.8.1` | `813f67e2-6932-584a-993d-3d64e6a80c78` |
+| [counterparty](/counterparty/) | `1.3.6.1.4.1.42387.2.6.8.2` | `bfb13628-0034-501b-8404-f05df058bfbf` |
+| [algorithm](/algorithm/) | `1.3.6.1.4.1.42387.2.6.9.1` | `d7fc8fc7-41b8-5365-b370-983eb3ca6cd4` |
+| [key-length](/key-length/) | `1.3.6.1.4.1.42387.2.6.9.2` | `cb348b85-ab41-5808-bf2e-6b3dd60a2706` |
+
+Retired arcs: `.2.6.1.1` (application, now core at `.2.1.4`),
+`.2.6.1.2` (role, now core at `.2.1.3`),
+`.2.6.3` (purdue-level, folded into `environment` as qualified value).
+
+All CI-type extension sub-arcs are now populated:
+`.2.6.2.*` hardware, `.2.6.4.*` network, `.2.6.5.*` evidence extended,
+`.2.6.6.*` access/credential, `.2.6.7.*` facility, `.2.6.8.*` contract,
+`.2.6.9.*` crypto.
+Physical category extends `.2.7.*`; governance/compliance `.2.8.*`;
+service management `.2.9.*`.
 
 ## Versioning
 
