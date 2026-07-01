@@ -25,16 +25,8 @@
       background: var(--bg);
       max-width: 920px;
       margin: 0 auto;
-      padding: 0;
-      line-height: 1.6;
-      display: flex;
-      flex-direction: row;
-      min-height: 100vh;
-    }
-    .page-content {
-      flex: 1 1 auto;
       padding: 2rem 1.25rem 4rem;
-      min-width: 0;
+      line-height: 1.6;
     }
     header.site {
       display: flex;
@@ -174,10 +166,10 @@
        Colours from the Da Planet design system.
        ---------------------------------------------------------------- */
     .spec-status-strip {
-      flex: 0 0 6px;
-      position: sticky;
+      position: fixed;
       top: 0;
-      align-self: flex-start;
+      left: 0;
+      width: 6px;
       height: 100vh;
       z-index: 10;
     }
@@ -187,6 +179,8 @@
     body[data-status="draft"]   .spec-status-strip { background: #E69F00; }
     body[data-status="stable"]  .spec-status-strip { background: #0072B2; }
     body[data-status="adopted"] .spec-status-strip { background: #009E73; }
+    /* Offset body content so the 6px fixed strip doesn't overlap text */
+    body { padding-left: calc(1.25rem + 6px); }
     /* Status badge in header — horizontal readable text, always visible,
        non-colour redundancy for WCAG 1.4.1 compliance */
     .spec-status-badge {
@@ -204,80 +198,145 @@
     body[data-status="draft"]   .spec-status-badge { background: #E69F00; color: #1c1917; }
     body[data-status="stable"]  .spec-status-badge { background: #0072B2; color: #fff; }
     body[data-status="adopted"] .spec-status-badge { background: #009E73; color: #fff; }
-    /* Mobile: strip collapses to a top bar */
-    @media (max-width: 640px) {
-      body { flex-direction: column; }
-      .spec-status-strip {
-        flex: none;
-        width: 100%;
-        height: 4px;
-        position: relative;
-      }
-    }
+
        position: sticky, pure CSS, no JavaScript. Holds page identity
        metadata (term, conformance, spec version, document OID) and
        stays in view while scrolling the term's content. Not a TOC —
        term pages are short and single-topic, so there is nothing to
        navigate within the page; this is identity, not navigation. */
-    .page-with-status {
-      display: flex;
-      gap: 2rem;
-      align-items: flex-start;
-    }
-    .status-block {
-      flex: 0 0 140px;
-      position: sticky;
-      top: 1.5rem;
-      align-self: flex-start;
-    }
-    .status-block__inner {
+        #search input[type="text"] {
+      width: 100%;
+      font-family: var(--sans);
+      font-size: 0.95rem;
+      padding: 0.5em 0.7em;
       border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 0.75rem;
+      border-radius: 4px;
+    }
+    #search .pagefind-ui__results-area { margin-top: 0.75rem; }
+    #search .pagefind-ui__result-title a { font-family: var(--mono); }
+    h1 { font-size: 1.6rem; margin-bottom: 0.3rem; }
+    h1 .prefix { color: var(--muted); font-weight: 400; }
+    h2 { font-size: 1.15rem; margin-top: 2rem; border-top: 1px solid var(--border); padding-top: 1.25rem; }
+    h3 { font-size: 1rem; }
+    code, pre {
+      font-family: var(--mono);
+      font-size: 0.88rem;
+    }
+    code {
       background: var(--code-bg);
-      font-size: 0.78rem;
-      line-height: 1.5;
+      padding: 0.1em 0.35em;
+      border-radius: 3px;
     }
-    .status-block__home {
-      display: block;
+    pre {
+      background: var(--code-bg);
+      padding: 0.65rem 0.9rem;
+      overflow-x: auto;
+      border-radius: 4px;
+      line-height: 1.45;
+    }
+    pre code { background: none; padding: 0; }
+    a { color: var(--link); }
+    table { border-collapse: collapse; width: 100%; font-size: 0.92rem; margin: 1rem 0; }
+    th, td { text-align: left; padding: 0.45rem 0.6rem; border-bottom: 1px solid var(--border); }
+    th { color: var(--muted); font-weight: 600; font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.02em; }
+    .badge {
+      display: inline-block;
       font-family: var(--mono);
+      font-size: 0.72rem;
       font-weight: 600;
+      padding: 0.15em 0.5em;
+      border-radius: 3px;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+    .badge-required    { background: #fee2e2; color: #991b1b; }
+    .badge-recommended { background: #fef3c7; color: #92400e; }
+    .badge-optional    { background: #e0e7ff; color: #3730a3; }
+    .badge-core        { background: #d1fae5; color: #065f46; }
+    .related { list-style: none; padding: 0; margin: 0.5rem 0; }
+    .related li { display: inline-block; margin: 0 0.5rem 0.5rem 0; }
+    .related a {
+      display: inline-block;
+      font-family: var(--mono);
       font-size: 0.85rem;
-      color: var(--fg);
+      padding: 0.25em 0.6em;
+      background: var(--code-bg);
+      border-radius: 4px;
       text-decoration: none;
-      margin-bottom: 0.5rem;
-      padding-bottom: 0.5rem;
-      border-bottom: 1px solid var(--border);
+      color: var(--fg);
     }
-    .status-block__home:hover { color: var(--link); }
-    .status-block__term {
-      font-family: var(--mono);
-      font-weight: 600;
-      word-break: break-word;
-      margin-bottom: 0.5rem;
-    }
-    .status-block__row { margin-bottom: 0.4rem; }
-    .status-block__row .badge { font-size: 0.62rem; }
-    .status-block__meta {
+    .related a:hover { background: #e5e7eb; }
+    footer.site {
+      margin-top: 4rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.82rem;
       color: var(--muted);
+    }
+    footer.site a { color: var(--muted); }
+
+    /* ----------------------------------------------------------------
+       Spec status strip — full-height fixed left border.
+       Signals the spec's current position in the adoption lifecycle.
+
+       Status and version are independent facts:
+         version tracks content changes to the spec text.
+         status tracks where the spec sits in real-world adoption.
+       A spec at 3.2.1 can still be Draft. A spec at 0.9.4 can be Adopted.
+
+         Draft   — terms not guaranteed stable; do not cite in deliverables.
+                   amber #ffab00
+         Stable  — reference implementation exists (cimatrix); terms
+                   frozen for this version; safe to build against and cite.
+                   neon green #39ff14
+         Adopted — two independent productions implementations confirmed
+                   outside the spec author's own tooling.
+                   pale green #d1fae5
+
+       Gate conditions based on implementation evidence, not version
+       numbers — same principle as RFC 6410.
+       Current status set in hugo.toml params.specStatus.
+       Colours from the Da Planet design system.
+       ---------------------------------------------------------------- */
+    .spec-status-strip {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 6px;
+      height: 100vh;
+      z-index: 10;
+    }
+    /* Okabe-Ito palette — distinguishable under deuteranopia and protanopia.
+       Colour is never the only signal; header badge provides redundant
+       readable text per WCAG 1.4.1 Use of Color. */
+    body[data-status="draft"]   .spec-status-strip { background: #E69F00; }
+    body[data-status="stable"]  .spec-status-strip { background: #0072B2; }
+    body[data-status="adopted"] .spec-status-strip { background: #009E73; }
+    /* Offset body content so the 6px fixed strip doesn't overlap text */
+    body { padding-left: calc(1.25rem + 6px); }
+    /* Status badge in header — horizontal readable text, always visible,
+       non-colour redundancy for WCAG 1.4.1 compliance */
+    .spec-status-badge {
+      display: inline-block;
       font-family: var(--mono);
       font-size: 0.68rem;
-      margin-top: 0.3rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.2em 0.55em;
+      border-radius: 3px;
+      margin-left: 1rem;
+      vertical-align: middle;
     }
-    .status-block__oid {
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-    /* Below this width the sticky sidebar no longer has room; let it
-       fall back into normal document flow above the article. */
-    @media (max-width: 640px) {
-      .page-with-status { flex-direction: column; }
-      .status-block { position: static; flex-basis: auto; width: 100%; }
-      .status-block__inner { display: flex; flex-wrap: wrap; gap: 0.5rem 1rem; align-items: center; }
-      .status-block__home { border: none; padding: 0; margin: 0; }
-      .status-block__term { margin: 0; }
-    }
+    body[data-status="draft"]   .spec-status-badge { background: #E69F00; color: #1c1917; }
+    body[data-status="stable"]  .spec-status-badge { background: #0072B2; color: #fff; }
+    body[data-status="adopted"] .spec-status-badge { background: #009E73; color: #fff; }
+
+       position: sticky, pure CSS, no JavaScript. Holds page identity
+       metadata (term, conformance, spec version, document OID) and
+       stays in view while scrolling the term's content. Not a TOC —
+       term pages are short and single-topic, so there is nothing to
+       navigate within the page; this is identity, not navigation. */
   </style>
 </head>
 <body data-status="{{ .Site.Params.specStatus | default "draft" }}">
