@@ -8,14 +8,15 @@
   <link rel="canonical" href="{{ .Permalink }}">
   <style>
     :root {
-      --fg: #1a1a1a;
-      --bg: #fefefe;
-      --muted: #6b7280;
-      --link: #1d4ed8;
-      --border: #e5e7eb;
-      --code-bg: #f3f4f6;
+      --fg: #1c1917;
+      --bg: #faf8f4;
+      --muted: #78716c;
+      --link: #5b21b6;
+      --border: #d6d0c8;
+      --code-bg: #f0ede6;
       --mono: "Roboto Mono", "JetBrains Mono", ui-monospace, Consolas, monospace;
-      --sans: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      --sans: Georgia, "Times New Roman", serif;
+      --ui-sans: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     }
     * { box-sizing: border-box; }
     body {
@@ -36,7 +37,7 @@
       margin-bottom: 2rem;
     }
     header.site a.home {
-      font-family: var(--mono);
+      font-family: var(--ui-sans);
       font-weight: 600;
       font-size: 1.1rem;
       color: var(--fg);
@@ -47,6 +48,7 @@
       text-decoration: none;
       font-size: 0.9rem;
       margin-left: 1rem;
+      font-family: var(--ui-sans);
     }
     header.site nav a:hover { color: var(--link); }
     #searchToggle {
