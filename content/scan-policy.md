@@ -11,15 +11,11 @@ date: 2026-06-30
 draft: false
 ---
 
-> **Experimental.** This term passes both minting tests — it identifies
-> a real fact about a tracked CI affecting service delivery and
-> compliance, and no existing term covers it — but its applicability
-> outside vulnerability management and FedRAMP/compliance scanning
-> contexts has not been stress-tested across the full CI scope this
-> specification covers. Implementations using this term should expect
-> the value format and applicability guidance to be refined in future
-> versions. Feedback from real implementations will determine whether
-> this term advances to Stable status.
+> **Experimental.** Use this term in implementations, but treat the
+> value format as advisory — it may be refined before this term reaches
+> Stable status. If you implement `scan-policy` in production, share
+> what value formats you used and what gaps you found. Real-world
+> feedback is what advances experimental terms to Stable.
 
 `org.cispec.scan-policy` records the scanning policy applicable to a
 Change Item — whether it is included in periodic vulnerability

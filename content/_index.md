@@ -7,15 +7,16 @@ draft: false
 
 # org.cispec
 
-`org.cispec` is a domain-scoped identifier namespace for attesting and
-identifying Change Items. A Change Item (CI) is any tracked unit of change
-in a configuration management database — software, hardware, industrial
-control systems, cryptographic assets, evidence and case files, access and
-identity changes, contracts, facilities, or any other thing an organisation
-tracks because its state and relationships affect service delivery, cost,
-risk, or compliance.
+`org.cispec` is a standard set of labels for describing things your
+organisation tracks and manages — software, hardware, industrial control
+systems, cryptographic assets, evidence, access credentials, contracts,
+facilities, or anything else whose state affects service delivery, cost,
+risk, or compliance. Each label is a key-value pair: the key names a
+specific fact (`org.cispec.owner`), and the value records that fact for
+a specific asset.
 
-"CI" denotes Change Item. It does not refer to continuous integration.
+The things you track are called Change Items (CIs). CI is a standard
+ITIL term; it does not refer to continuous integration.
 
 This document is the specification. It is also the index: every term in
 the namespace resolves at its own address under this domain and is
@@ -23,38 +24,33 @@ linked from here and from every other term that relates to it.
 
 ## What this is
 
-`org.cispec` works the way any reverse-DNS namespace works — Java
-packages, Android application IDs, D-Bus service names, IANA OID arcs.
-The prefix is a domain-scoped claim to uniqueness and authority, nothing
-more. A term under `org.cispec.*` does not get imported into a
-context the way a library is imported; it gets cited, the way a UPC
-barcode or a MIME type is cited. Any system, language, or tool can carry
-an `org.cispec.*` string as a label without requiring permission,
-a build dependency, or a runtime relationship with this site.
+`org.cispec.*` labels are plain strings — they work in any system that
+can store key-value metadata: Dockerfile labels, Kubernetes annotations,
+container registries, CMDBs, spreadsheets, JSON documents, EDI messages.
+No library, no SDK, no runtime dependency on this site. Copy the label
+key, apply it, done.
 
-The full set of terms — core and extended — forms a knowledge graph.
-Terms relate to other terms. Most terms are expected to support some
-form of relation or reverse lookup (for example: every Change Item that
-lists a given identity as its `owner`). This specification does not
-mandate a discovery or traversal mechanism for that graph. Resolving
-"what does this term mean" is what this site does. Resolving "what is
-this term's value for a specific asset, right now" — and traversing
-relations between values — is implementation-defined: an organisation's
-CMDB, ERP, LDAP tree, or any other system of record it chooses to run.
-`dps-meta` is one sample implementation among many possible ones and is
-not a reference architecture this specification describes or endorses.
+Each label key names a specific fact. The label's value records that
+fact for a specific asset. `org.cispec.owner=alice@example.org` means
+Alice is accountable for this asset. `org.cispec.version=1.3.0` means
+the asset is at version 1.3.0. Validation — checking that required
+labels are present and values are well-formed — is handled by
+[cimatrix](https://cimatrix.org).
+
+The terms on this site form a connected set: most terms link to related
+terms so you can find adjacent facts quickly. "Every asset where
+`owner=alice@example.org`" is a valid query against any system storing
+these labels. This specification defines what the terms mean; how you
+query them is up to your own tooling.
 
 ## Predecessor namespace
 
-`org.cispec` supersedes `net.matrix.*`, retired following the Dynatrace
-acquisition of matrix.net. The label keys, value semantics, and design
-intent carry forward unchanged from `net.matrix.*`'s original 2016
-development; only the namespace prefix and the resolution mechanism
-(public HTTP/TLS, in place of the original DNS RR / Hesiod lookup
-pattern) have changed. Projects migrating from `net.matrix.*` should
-treat this as a MAJOR semver event for any consumer of the label
-namespace; the substitution is a direct prefix replacement with no
-change to key names or value formats.
+`org.cispec` supersedes `net.matrix.*`, a label namespace developed
+in 2016 for CMDB and container workload labelling that is no longer
+actively maintained. If you have existing `net.matrix.*` labels, the
+migration is a direct prefix replacement — key names and value formats
+are unchanged, only the prefix changes. Treat this as a breaking change
+(MAJOR semver bump) for any system that consumes the label namespace.
 
 | Retired (`net.matrix.*`) | Current (`org.cispec.*`) |
 |---|---|

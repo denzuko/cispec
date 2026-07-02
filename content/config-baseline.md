@@ -11,16 +11,14 @@ date: 2026-06-30
 draft: false
 ---
 
-> **Experimental.** This term passes both minting tests — configuration
-> baseline tracking is a real ITIL/CMDB fact and no existing term covers
-> it — but the range of baseline formats and reference schemes across
-> domains (OSCAL baseline templates, DISA STIGs, CIS Benchmarks, vendor
-> hardening guides, pharmaceutical GxP baseline configs) has not been
-> fully reconciled into a single value format. The pointer-to-external-
-> document shape is correct; the question is what reference schemes
-> should be formally documented as valid values. Implementations using
-> this term should treat the value format as advisory. Feedback from
-> real implementations will determine the final format.
+> **Experimental.** Use this term in implementations, but treat the
+> value format as advisory — the right way to reference baseline
+> documents varies across domains (DISA STIGs, CIS Benchmarks, OSCAL
+> templates, pharmaceutical GxP baselines) and has not yet been settled.
+> The pointer shape is correct: point at the baseline document, not
+> inline its content. If you implement `config-baseline` in production,
+> share what reference scheme you used. Real-world feedback is what
+> settles the format and advances this term to Stable.
 
 `org.cispec.config-baseline` is a bare reference pointer to the
 configuration baseline or hardening profile the Change Item is

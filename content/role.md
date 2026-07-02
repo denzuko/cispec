@@ -11,39 +11,23 @@ draft: false
 ---
 
 `org.cispec.role` records the operational role a Change Item is
-currently fulfilling. It is a core key — present in the original
-`net.matrix` baseline label set alongside `organization`, `orgunit`,
-`owner`, `version`, and `environment` — because every CI, regardless
-of type, fulfills some role within the operational context it is
-assigned to.
+currently fulfilling — what this specific instance is doing right now,
+within the context it is assigned to. This is a required core key that
+applies to every CI regardless of type.
 
-`role` applies universally: a server in active production vs warm
-standby (`role=primary` vs `role=standby`), a surgical instrument in
-active rotation vs stock supply (`role=active-use` vs
-`role=stock-supply`), a network switch in production vs a cold spare
-(`role=in-rotation` vs `role=spare`), a weapon system on active
-deployment vs in depot maintenance (`role=deployed` vs
-`role=depot`), an access credential in daily use vs held in reserve
-(`role=active` vs `role=reserve`), a pharmaceutical lot in active
-dispensing vs quality-hold (`role=dispensing` vs `role=qc-hold`).
-
-This is distinct from [`org.cispec.application`](/application/),
-which identifies what software service or application a CI implements
-— `application` is specific to software and service CIs.
-`role` is the operational state of any CI instance within its
-current deployment or assignment context.
-
-`role` was previously scoped to software Change Items only. That
-scoping was incorrect — the original `net.matrix` Dockerfile label
-examples demonstrated `role` as a baseline label applicable to any
-deployed thing, not a software-specific annotation.
+Role distinguishes instances of the same type from each other: a
+surgical instrument in active rotation versus one in stock supply, a
+network switch in production versus a cold spare, a server running as
+primary versus standby, a weapon system on active deployment versus in
+depot maintenance, a pharmaceutical lot in active dispensing versus on
+quality hold. The `application` key says what the CI was built for;
+`role` says what this instance is doing with it right now.
 
 ## Value format
 
 A lower-case slug: alphanumeric characters and hyphens only, no
-leading or trailing hyphen. Values are organisation-defined and
-context-specific; this specification does not enumerate or restrict
-the set.
+leading or trailing hyphen. Values are defined by the owning
+organisation — this specification does not enumerate or restrict them.
 
 ```sh
 org.cispec.role=primary
@@ -65,15 +49,14 @@ Item, regardless of type.
 
 ## Attestation
 
-`role` is not independently attestable. It is a self-asserted
-operational state assigned by the owning organisation. The truth of
-a role assignment — whether a CI is actually fulfilling the role
-claimed — is a runtime or inspection concern, not a label concern.
+`role` is a self-asserted operational state. Whether a CI is actually
+fulfilling the role it claims is a runtime or inspection concern —
+this specification makes no claim about that, only that the label
+is present and well-formed.
 
 ## Resolution and relation
 
-Every Change Item sharing the same `role` value forms a real,
-expected edge in the namespace's knowledge graph — "every CI in
-`stock-supply`" or "every `standby` instance" are operational
-queries central to capacity planning, incident response, and
-maintenance scheduling.
+Every Change Item sharing the same `role` value forms an edge in the
+namespace's knowledge graph — "every CI in `stock-supply`" or "every
+`standby` instance" are operational queries for capacity planning,
+incident response, and maintenance scheduling.

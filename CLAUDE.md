@@ -73,3 +73,34 @@ the only place it's referenced, as history.
 
 Conventional commits. Scope: `term` (new or edited term page), `site`
 (layout/config), `docs` (README/CLAUDE.md).
+
+## Pre-production register check — mandatory gate
+
+Before any content goes to production, read every paragraph as if you
+are the target audience encountering this document cold, with no
+context from the session that produced it.
+
+**The test:** Could a CMDB engineer at a company that has never heard
+of Da Planet Security read this paragraph and know what to do?
+
+If a sentence requires knowing what happened in the design session to
+make sense — internal process vocabulary, design rationale, session
+history, references to tests or frameworks the reader hasn't been
+introduced to — rewrite it in plain terms that answer the reader's
+actual question.
+
+Specific patterns to remove:
+- "This term passes both minting tests" — the reader doesn't know what
+  the minting tests are. Say what the term does instead.
+- "Failed the redundancy test against an existing key" — say which key
+  and how to migrate.
+- "The same pointer pattern as X" — explain what pointer means in
+  plain language.
+- Design session rationale ("we established X because...") — belongs
+  in commit messages, not spec pages.
+- Etymology or lineage justifications used as the opening of a
+  definition — move to a history section or cut entirely.
+
+This gate applies to all DPS deliverables, not just cispec.org: blog
+posts, RT4 documents, proposals, HOPE materials, cimatrix docs.
+

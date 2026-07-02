@@ -10,30 +10,29 @@ date: 2026-06-30
 draft: false
 ---
 
-`org.cispec.commonname` records the human-recognizable name of a
-Change Item — what people call it, as distinct from its inventory
-control number ([`asset-tag`](/asset-tag/)), its service identity
-([`application`](/application/)), or the identity of its accountable
-owner ([`owner`](/owner/)).
+`org.cispec.commonname` records what people call a Change Item — the
+name that appears on a whiteboard, in an incident report, or in
+conversation. This is distinct from the inventory control number
+([`asset-tag`](/asset-tag/)), the service identity
+([`application`](/application/)), and the accountable party
+([`owner`](/owner/)).
 
-The lineage is X.509 Certificate commonName (CN) and X.500/X.520
-commonName attribute — the human-readable identifier used in
-Distinguished Names, DNS Subject Alternative Names, and directory
-entries. `net.matrix` carried this field from the original LDAP-backed
-CMDB design.
+A server called `PDX-CORE-SW-01`, a facility called `groom.lake`, a
+ward device called `Ward 3B Infusion Pump 4`, a spacecraft called
+`Apollo 11` — these are common names. The same asset will have a
+barcode (`asset-tag`), an IP address (`ip-address`), and an
+accountability record (`owner`); `commonname` is what the people who
+work with it every day call it.
 
-`commonname` applies to any Change Item: a server (`PDX-CORE-SW-01`),
-a facility (`groom.lake`), a vessel (`USS Enterprise`), a spacecraft
-(`Apollo 11`), a programme (`Manhattan Project`), a medical device
-(`Ward 3B Infusion Pump 4`), a weapon system, a person's credential
-identity, or any other tracked thing that humans refer to by a
-consistent name. It is not limited to servers, software, or desktops.
+Common names apply to any tracked thing: physical assets, facilities,
+programmes, vessels, spacecraft, credentials, documents. In DNS and
+certificate contexts, this is the same field as the X.509 Subject CN
+— the human-readable identifier rather than the cryptographic one.
 
 ## Value format
 
-A free-form human-readable name. No slug requirement — spaces, mixed
-case, and special characters are permitted where the naming convention
-of the owning organisation uses them.
+A free-form human-readable name. Spaces, mixed case, and special
+characters are permitted.
 
 ```sh
 org.cispec.commonname=groom.lake
@@ -46,19 +45,16 @@ org.cispec.commonname=Apollo 11
 
 `org.cispec.commonname` is RECOMMENDED for any CI where a
 human-recognizable name exists and is distinct from the asset tag or
-service identity. It is not REQUIRED for Declared conformance.
+service identity. Not REQUIRED for Declared conformance.
 
 ## Attestation
 
-`commonname` is not independently attestable. It is a human-assigned
-label with no external registry to verify against. In X.509 contexts
-the CN is verified by the issuing CA; outside certificate contexts it
-is self-asserted by the owning organisation.
+`commonname` is not independently attestable — it is a human-assigned
+label with no external registry. In X.509 contexts the CN is verified
+by the issuing CA; outside certificate contexts it is self-asserted.
 
 ## Resolution and relation
 
-`commonname` does not form a globally unique reverse-lookup edge —
-the same name may be assigned to different CIs across different
-organisations. Within a single organisation, "every CI called
-`groom.lake`" is a useful query. Across organisations, `commonname`
-values should be interpreted alongside `organization` to disambiguate.
+`commonname` values are not globally unique — two organisations may
+use the same name for different assets. Interpret `commonname`
+alongside `organization` to disambiguate across organisations.
